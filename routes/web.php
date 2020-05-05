@@ -1,0 +1,47 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+// Admin area
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => 'Admin'
+    ], function () {
+        Route::get('/', 'AdminController@index');
+
+        // Lessons
+        Route::get('/pelajaran', 'LessonController@index');
+        Route::get('/pelajaran/create', 'LessonController@create');
+        Route::post('/pelajaran', 'LessonController@store');
+
+        // Questions
+        Route::get('/ujian/{exam}/soal/create', 'QuestionController@create');
+        Route::post('ujian/{exam}/soal', 'QuestionController@store');
+
+        // Exams
+        Route::get('/ujian', 'ExamController@index');
+        Route::get('/ujian/create', 'ExamController@create');
+        Route::post('/ujian', 'ExamController@store');
+        Route::get('/ujian/{exam}', 'ExamController@show');
+
+    });
+
