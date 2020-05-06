@@ -63,7 +63,7 @@ class QuestionController extends Controller
             'soal.tipe' => ''
         ]);
 
-        // Make as instance of Question class
+        // Make as an instance of Question class
         $soal = new Question($dataSoal['soal']);
 
         // Cek urutan

@@ -20,11 +20,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
     <!-- Dashboard Core -->
     <link href="/assets/css/dashboard.css" rel="stylesheet" />
-    <script src="/assets/js/dashboard.js"></script>
-    <!-- Datatables Plugin -->
-    <script src="./assets/plugins/datatables/plugin.js"></script>
-    <!-- TrumboWYG -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.20.0/ui/trumbowyg.min.css">
+    <!-- CKEditor -->
+    <script src="/assets/ckeditor/ckeditor.js"></script>
   </head>
   <body class="">
     <div class="page">
@@ -43,9 +40,9 @@
     <!-- Javascript -->
     <script src="/assets/js/vendors/jquery-3.2.1.min.js"></script>
     <script src="/assets/js/vendors/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.20.0/trumbowyg.min.js"></script>
     <script>
-      $('textarea').trumbowyg();
+      CKEDITOR.replaceAll();
     </script>
+
   </body>
 </html>

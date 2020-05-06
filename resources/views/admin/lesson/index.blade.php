@@ -5,7 +5,7 @@
 <div class="page-header">
   <h3 class="page-title">Mata Pelajaran</h3>
   <div class="page-options d-flex">
-    <a href="#" class="btn btn-square btn-secondary ml-auto"><i class="fa fa-plus-square"></i> Tambah Baru</a>
+    <a href="/admin/pelajaran/create" class="btn btn-square btn-secondary ml-auto"><i class="fa fa-plus-square"></i> Tambah Baru</a>
   </div>
 </div>
 <!-- END Page Title and Stuffs -->

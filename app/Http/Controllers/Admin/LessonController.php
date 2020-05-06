@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Lesson;
 
 class LessonController extends Controller
 {
@@ -46,5 +47,13 @@ class LessonController extends Controller
         $lesson = auth()->user()->lessons()->create($data);
 
         return redirect('/admin/pelajaran/' . $lesson->id);
+    }
+
+    public function show(Lesson $lesson) 
+    {
+        return view('admin.lesson.show', [
+            'title' => $lesson->judul . ' | Area Admin',
+            'lesson' => $lesson
+        ]);
     }
 }

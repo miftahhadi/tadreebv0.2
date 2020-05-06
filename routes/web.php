@@ -28,7 +28,11 @@ Route::group([
     ], function () {
         Route::get('/', 'AdminController@index');
 
+        // Sections
+        Route::get('/pelajaran/{lesson}/bab/create', 'SectionController@create');
+
         // Lessons
+        Route::get('/pelajaran/{lesson}', 'LessonController@show');
         Route::get('/pelajaran', 'LessonController@index');
         Route::get('/pelajaran/create', 'LessonController@create');
         Route::post('/pelajaran', 'LessonController@store');
