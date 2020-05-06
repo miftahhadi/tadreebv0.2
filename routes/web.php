@@ -29,12 +29,14 @@ Route::group([
         Route::get('/', 'AdminController@index');
 
         // Sections
-        Route::get('/pelajaran/{lesson}/bab/create', 'SectionController@create');
+        Route::get('/pelajaran/{lesson}/bab/create', 'SectionController@create')->name('lesson.create_section');
+        Route::get('pelajaran/{lesson}/bab/{section}', 'SectionController@show');
+        Route::post('/pelajaran/{lesson}/bab', 'SectionController@store');
 
         // Lessons
-        Route::get('/pelajaran/{lesson}', 'LessonController@show');
-        Route::get('/pelajaran', 'LessonController@index');
         Route::get('/pelajaran/create', 'LessonController@create');
+        Route::get('/pelajaran/{lesson}', 'LessonController@show'); 
+        Route::get('/pelajaran', 'LessonController@index');
         Route::post('/pelajaran', 'LessonController@store');
 
         // Questions

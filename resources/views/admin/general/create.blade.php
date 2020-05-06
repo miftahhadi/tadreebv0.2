@@ -23,6 +23,7 @@
 
         </div>
 
+        @unless (request()->route()->named('lesson.create_section'))
         <div class="form-group">
           <label class="form-label">URL<span class="form-required">*</span></label>
           <div class="input-group">
@@ -38,6 +39,7 @@
           @enderror  
 
         </div>
+        @endunless
 
         <div class="form-group">
           <label class="form-label">Deskripsi</label>

@@ -15,7 +15,7 @@
         <div class="card-header">
             <span class="card-title">Konten Pelajaran</span>
             <div class="card-options">
-                <a href="/admin/pelajaran/{lesson}/bab/create" class="btn btn-primary btn-xs">Tambah Bab Pelajaran</a>
+                <a href="/admin/pelajaran/{{ $lesson->id }}/bab/create" class="btn btn-primary btn-xs">Tambah Bab Pelajaran</a>
             </div> 
         </div>
         <div class="card-body">

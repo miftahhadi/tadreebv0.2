@@ -17,7 +17,7 @@ class CreateSectionsTable extends Migration
             $table->id();
             $table->foreignId('lesson_id')->constrained();
             $table->string('judul');
-            $table->text('deskripsi');
+            $table->text('deskripsi')->nullable();
             $table->timestamps();
 
             $table->index('lesson_id');
