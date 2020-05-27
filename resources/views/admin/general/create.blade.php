@@ -14,7 +14,7 @@
     <div class="card">
       <div class="card-body">
         <div class="form-group">
-          <label class="form-label">Judul<span class="form-required">*</span></label>
+          <label class="form-label">{{ $judul }}<span class="form-required">*</span></label>
           <input type="text" class="form-control @error('judul') is-invalid @enderror" name="judul" placeholder="Tuliskan judul" value="{{ old('judul') ?? '' }}">
 
           @error('judul')
@@ -23,7 +23,7 @@
 
         </div>
 
-        @unless (request()->route()->named('lesson.create_section'))
+        @if (request()->route()->named('create_lesson') || request()->route()->named('create_exam'))
         <div class="form-group">
           <label class="form-label">URL<span class="form-required">*</span></label>
           <div class="input-group">
@@ -39,11 +39,14 @@
           @enderror  
 
         </div>
-        @endunless
+        @endif
 
         <div class="form-group">
-          <label class="form-label">Deskripsi</label>
-          <textarea class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi" rows="6" placeholder="Deskripsi..." value="{{ old('deskripsi') ?? '' }}"></textarea>
+          <label class="form-label">
+            Deskripsi
+            <span class="form-label-small">Maks: 600 karakter</span>
+          </label>
+          <textarea class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi" rows="6" placeholder="Deskripsi...">{{ old('deskripsi') ?? '' }}</textarea>
         
           @error('deskripsi')
             <div class="invalid-feedback">{{ $message }}</div>

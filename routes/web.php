@@ -34,7 +34,7 @@ Route::group([
         Route::post('/pelajaran/{lesson}/bab', 'SectionController@store');
 
         // Lessons
-        Route::get('/pelajaran/create', 'LessonController@create');
+        Route::get('/pelajaran/create', 'LessonController@create')->name('create_lesson');
         Route::get('/pelajaran/{lesson}', 'LessonController@show'); 
         Route::get('/pelajaran', 'LessonController@index');
         Route::post('/pelajaran', 'LessonController@store');
@@ -45,7 +45,7 @@ Route::group([
 
         // Exams
         Route::get('/ujian', 'ExamController@index');
-        Route::get('/ujian/create', 'ExamController@create');
+        Route::get('/ujian/create', 'ExamController@create')->name('create_exam');
         Route::post('/ujian', 'ExamController@store');
         Route::get('/ujian/{exam}', 'ExamController@show');
 
@@ -53,6 +53,12 @@ Route::group([
         Route::get('/user/create', 'UserController@create');
         Route::get('/user', 'UserController@index');
         Route::post('/user', 'UserController@store');
+
+        // Groups
+        Route::get('/grup', 'GroupController@index');
+        Route::get('/grup/create', 'GroupController@create');
+        Route::get('/grup/{grup}', 'GroupController@show');
+        Route::post('/grup', 'GroupController@store');
 
     });
 

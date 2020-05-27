@@ -32,6 +32,7 @@ class ExamController extends Controller
         return view('admin.general.create', [
             'title' => 'Mata Ujian Baru | Area Admin',
             'item' => 'ujian',
+            'judul' => 'Judul Ujian',
             'action' => '/admin/ujian'
         ]);
     }

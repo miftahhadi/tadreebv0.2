@@ -23,6 +23,7 @@ class LessonController extends Controller
         return view('admin.general.create', [
             'title' => 'Mata Pelajaran Baru | Area Admin',
             'item' => 'pelajaran',
+            'judul' => 'Judul Pelajaran',
             'action' => '/admin/pelajaran'
         ]);
     }

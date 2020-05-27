@@ -15,6 +15,7 @@ class SectionController extends Controller
         return view('admin.general.create', [
             'title' => 'Bab Pelajaran Baru | Admin Area',
             'item' => 'Bab Pelajaran',
+            'judul' => 'Judul Bab',
             'action' => '/admin/pelajaran/' . $lesson->id . '/bab'
         ]);
     }
