@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Question extends Model
 {
@@ -17,4 +18,5 @@ class Question extends Model
     {
         return $this->hasMany(Answer::class);
     }
+
 }

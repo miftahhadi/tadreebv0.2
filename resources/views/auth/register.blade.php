@@ -15,9 +15,9 @@
                     <div class="form-group">
                         <label class="form-label">Nama</label>
                         
-                        <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}" placeholder="Enter name">
+                        <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}" placeholder="Masukkan nama depan Anda">
 
-                        @error('name')
+                        @error('nama')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -69,12 +69,12 @@
                         <label for="password-confirm" class="form-label">{{ __('Confirm Password') }}</label>
 
 
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Ulangi password">
                     
                     </div>
                     
                     <div class="form-footer">
-                        <button type="submit" class="btn btn-primary btn-block">Create new account</button>
+                        <button type="submit" class="btn btn-primary btn-block">Daftar</button>
                     </div>
                 </div>
             </form>

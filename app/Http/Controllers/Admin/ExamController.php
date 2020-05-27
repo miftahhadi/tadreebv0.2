@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use App\Exam;
 
+use App\Exam;
+use App\Http\Requests\StoreExamRequest;
 use Illuminate\Support\Facades\Route;
 
 class ExamController extends Controller
@@ -36,22 +36,10 @@ class ExamController extends Controller
         ]);
     }
 
-    public function store(Request $request)
-    {        
-        if (!empty($request['slug'])) {
-            $findSpace = strrpos($request['slug'], " ");
-        
-            if ($findSpace !== false) {
-                $request['slug'] = str_replace(" ", "-", $request['slug']);
-            }
-        
-        }
+    public function store(StoreExamRequest $request)
+    {     
 
-        $data = $request->validate([
-            'judul' => 'required',
-            'slug' => 'required|unique:exams',
-            'deskripsi' => ''
-        ]);
+        $data = $request->validated();
 
         $exam = auth()->user()->exams()->create($data);
 

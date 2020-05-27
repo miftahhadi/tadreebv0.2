@@ -3,9 +3,9 @@
 @section('page')
 <!-- Page Title and Stuffs -->
 <div class="page-header">
-  <h3 class="page-title">Mata Ujian</h3>
+  <h3 class="page-title">Daftar User</h3>
   <div class="page-options d-flex">
-    <a href="/admin/ujian/create" class="btn btn-square btn-secondary ml-auto"><i class="fa fa-plus-square"></i> Tambah Baru</a>
+    <a href="/admin/user/create" class="btn btn-square btn-secondary ml-auto"><i class="fa fa-plus-square"></i> Tambah Baru</a>
   </div>
 </div>
 <!-- END Page Title and Stuffs -->
@@ -15,20 +15,24 @@
         <thead>
         <tr>
             <th width="5%">ID</th>
-            <th>Mata Ujian</th>
-            <th>Dibuat oleh</th>
+            <th>Nama</th>
+            <th>Username</th>
+            <th>Peran</th>
+            <th>Jenis Kelamin</th>
             <th width="20%"></th>
         </tr>
         </thead>
         <tbody>
 
-        @forelse($exams as $exam)
+        @forelse($users as $user)
             <tr>
-                <td>{{ $exam->id }}</td>
-                <td>{{ $exam->judul }}</td>
-                <td>{{ $exam->user->nama }}</td>
+                <td>{{ $user->id }}</td>
+                <td>{{ $user->nama }}</td>
+                <td>{{ $user->username }}</td>
+                <td>{{ $user->role }}</td>
+                <td>{{ $user->gender }}</td>
                 <td class="text-right"">
-                    <a href="/admin/ujian/{{ $exam->id }}" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Edit"><i class="fe fe-package"></i></a>
+                    <a href="/admin/ujian/{{ $user->id }}" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Edit"><i class="fe fe-package"></i></a>
                     <a href="#" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Edit"><i class="fe fe-edit"></i></a>
                     <!-- Button modal trigger-->
                     <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-id="" data-target="#hapusData"><i class="fe fe-trash-2" data-toggle="tooltip" title="Hapus"></i></button>
@@ -36,7 +40,7 @@
             </tr>
         @empty
             <tr>
-                <td colspan="3" class="text-center">Belum ada mata ujian</td> 
+                <td colspan="3" class="text-center">Belum ada user</td> 
             </tr>
         @endforelse      
 

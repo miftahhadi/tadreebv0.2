@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exam;
 use App\Question;
+use App\Services\QuestionService;
 
 class QuestionController extends Controller
 {
@@ -15,42 +16,18 @@ class QuestionController extends Controller
         $this->middleware('auth');
     }
 
-    public function create(Exam $exam)
+    public function create(Request $request, Exam $exam)
     {
 
-        $choices = request('choices') ?? '';
-        if (request('type') == 'benarsalah' || request('type') == 'benarsalahArabic') {
-            $choices = 2;
-        }
-
-        $value = [];
-
-        if (request('type') == 'benarsalah') {
-            $value = [
-                'benar' => 'Benar', 
-                'salah' => 'Salah'
-            ];
-        }
-
-        if (request('type') == 'benarsalahArabic') {
-            $value = [
-                'benar' => 'صحيح',
-                'salah' => 'خطأ'
-            ];
-        }
-
-        if (request('type') == 'multiple') {
-            $option = 'checkbox';
-        } else {
-            $option = 'radio';
-        }
+        $question = new QuestionService();
+        $questionForm = $question->createQuestionForm($request);
 
         return view('admin.question.create', [
             'title' => 'Soal baru | ' . $exam->judul,
             'exam' => $exam,
-            'choices' => $choices,
-            'value' => $value,
-            'option' => $option
+            'choices' => $questionForm['choices'],
+            'value' => $questionForm['value'] ?? '',
+            'option' => $questionForm['option']
         ]);
     }
 

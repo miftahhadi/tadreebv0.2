@@ -21,7 +21,9 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->enum('role', ['user', 'teacher', 'admin']);
+            $table->enum('role', ['Peserta', 'Teacher', 'Admin']);
+            $table->enum('gender', ['Laki-laki', 'Perempuan'])->nullable();
+            $table->date('tanggal_lahir')->nullable();
             $table->timestamps();
         });
     }
