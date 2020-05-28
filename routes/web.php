@@ -54,6 +54,12 @@ Route::group([
         Route::get('/user', 'UserController@index');
         Route::post('/user', 'UserController@store');
 
+        // Classrooms
+        Route::get('/kelas', 'ClassroomController@index');
+        Route::get('/grup/{grup}/kelas/create', 'ClassroomController@create');
+        Route::get('/grup/{grup}/kelas/{kelas}', 'ClassroomController@show');
+        Route::post('/grup/{grup}/kelas', 'ClassroomController@store');
+
         // Groups
         Route::get('/grup', 'GroupController@index');
         Route::get('/grup/create', 'GroupController@create');

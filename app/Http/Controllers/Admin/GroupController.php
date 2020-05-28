@@ -11,7 +11,12 @@ class GroupController extends Controller
 {
     public function index() 
     {
+        $groups = Group::all();
 
+        return view('admin.group.index', [
+            'title' => 'Grup User | Area Admin',
+            'groups' => $groups
+        ]);
     }
 
     public function create()
@@ -39,6 +44,12 @@ class GroupController extends Controller
 
     public function show(Group $grup)
     {
+        $classrooms = $grup->classrooms;
 
+        return view('admin.group.show',[
+            'title' => $grup->nama . ' | Area Admin',
+            'grup' => $grup,
+            'classrooms' => $classrooms
+        ]);
     }
 }
