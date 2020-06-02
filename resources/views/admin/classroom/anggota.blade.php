@@ -4,48 +4,60 @@
 <!-- Page Title and Stuffs -->
 <div class="page-header">
     <div>
-        <div class="page-description">Grup User</div>
-        <h3 class="page-title">{{ $grup->nama }}</h3>
-    </div>
-    <div class="page-options d-flex">
-        <a href="/admin/grup/{{ $grup->id }}/kelas/create" class="btn btn-square btn-secondary ml-auto"><i class="fa fa-plus-square"></i> Tambah Baru</a>
+        <div class="page-description">{{ $kelas->group->nama }}</div>
+        <h3 class="page-title">Anggota {{ $kelas->nama }}</h3>
     </div>
 </div>
 <!-- END Page Title and Stuffs -->
-<!-- Data table -->
+<!-- Pengampu -->
+<div class="card">
+    <div class="card-header">
+        <span class="class-title">Pengampu Kelas</span>
+        <div class="card-options">
+            <a href="#" class="btn btn-square btn-secondary ml-auto"><i class="fa fa-plus-square"></i> Tambah</a>
+        </div>
+    </div>
+    <div class="card-body">
+        Belum ada pengampu
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-md-8 align-middle">
+        <h4>Anggota Kelas</h4>
+    </div>
+    <div class="col-md-4 text-right">
+        <a href="/admin/kelas/{{ $kelas->id }}/anggota?assign=peserta" class="btn btn-square btn-secondary ml-auto"><i class="fa fa-plus-square"></i> Tambah Anggota</a>
+    </div>
+</div>
+
+
 <div class="card">
     <table class="table card-table table-hover table-vcenter">
         <thead>
         <tr>
             <th width="5%">ID</th>
-            <th>Nama Kelas</th>
-            <th>Pengampu</th>
+            <th>Nama</th>
+            <th>Username</th>
+            <th>Email</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
 
-        @forelse($classrooms as $classroom)
             <tr>
-                <td>{{ $classroom->id }}</td>
-                <td>{{ $classroom->nama }}</td>
-                <td>{{ $classroom->user ?? 'Belum ada pengampu' }}</td>
+                <td>1</td>
+                <td>Ahmad</td>
+                <td>ahmed</td>
+                <td>ahmed@cool.com</td>
                 <td class="text-right"">
-                    <a href="/admin/kelas/{{ $classroom->id }}/anggota" class="btn btn-icon bg-blue-lightest" data-toggle="tooltip" title="Anggota kelas"><i class="fe fe-users"></i></a>
-
-                    <a href="/admin/kelas/{{ $classroom->id }}" class="btn btn-icon bg-blue-lightest" data-toggle="tooltip" title="Pelajaran dan ujian"><i class="fe fe-package"></i></a>
-
-                    <a href="#" class="btn btn-icon bg-blue-lightest" data-toggle="tooltip" title="Edit"><i class="fe fe-edit"></i></a>
+                    
+                    <a href="#" class="btn btn-icon bg-blue-lightest" data-toggle="tooltip" title="Lihat Profil"><i class="fe fe-external-link"></i></a>
                     
                     <!-- Button modal trigger-->
-                    <button type="button" class="btn btn-icon btn-danger" data-toggle="modal" data-id="" data-target="#hapusData"><i class="fe fe-trash-2" data-toggle="tooltip" title="Hapus"></i></button>
+                    <button type="button" class="btn btn-icon btn-danger" data-toggle="modal" data-id="" data-target="#hapusData"><i class="fe fe-user-x" data-toggle="tooltip" title="Keluarkan"></i></button>
                 </td>
-            </tr>
-        @empty
-            <tr>
-                <td colspan="3" class="text-center">Belum ada kelas dalam grup ini</td> 
-            </tr>
-        @endforelse      
+            </tr>     
 
         </tbody>
     </table>

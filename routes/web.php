@@ -55,10 +55,14 @@ Route::group([
         Route::post('/user', 'UserController@store');
 
         // Classrooms
+        Route::get('/kelas/{kelas}/anggota', 'ClassroomController@anggota');
+        Route::get('/kelas/{kelas}/pelajaran', 'ClassroomController@pelajaran');
+        Route::get('/kelas/{kelas}', 'ClassroomController@show');
         Route::get('/kelas', 'ClassroomController@index');
         Route::get('/grup/{grup}/kelas/create', 'ClassroomController@create');
-        Route::get('/grup/{grup}/kelas/{kelas}', 'ClassroomController@show');
         Route::post('/grup/{grup}/kelas', 'ClassroomController@store');
+        Route::post('/kelas/{kelas}/assign-user/{user}', 'AssignUserController@store');
+        Route::post('/kelas/{kelas}/anggota', 'AssignUserController@store');
 
         // Groups
         Route::get('/grup', 'GroupController@index');
