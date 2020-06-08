@@ -21,6 +21,20 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Front area
+Route::group(['namespace' => 'Front'], function () {
+
+    // Kelas
+    Route::get('/kelas/{kelas}/anggota', 'ClassroomController@anggota')->name('kelas.anggota');
+    Route::get('/kelas/{kelas}/tambah-anggota', 'ClassroomController@tambahAnggota')->name('kelas.anggota.tambah');
+    Route::get('/kelas/{kelas}/pelajaran', 'ClassroomController@pelajaran')->name('kelas.pelajaran');
+    Route::get('/kelas/{kelas}/tambah-pelajaran', 'ClassroomController@tambahPelajaran')->name('kelas.pelajaran.tambah');
+    Route::get('/kelas/{kelas}/ujian', 'ClassroomController@ujian')->name('kelas.ujian');
+    Route::get('/kelas/{kelas}', 'ClassroomController@index')->name('kelas.index');
+
+});
+
+
 // Admin area
 Route::group([
     'prefix' => 'admin',
@@ -55,9 +69,6 @@ Route::group([
         Route::post('/user', 'UserController@store');
 
         // Classrooms
-        Route::get('/kelas/{kelas}/anggota', 'ClassroomController@anggota');
-        Route::get('/kelas/{kelas}/pelajaran', 'ClassroomController@pelajaran');
-        Route::get('/kelas/{kelas}', 'ClassroomController@show');
         Route::get('/kelas', 'ClassroomController@index');
         Route::get('/grup/{grup}/kelas/create', 'ClassroomController@create');
         Route::post('/grup/{grup}/kelas', 'ClassroomController@store');

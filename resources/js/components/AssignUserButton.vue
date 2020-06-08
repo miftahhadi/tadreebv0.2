@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button class="btn text-right" :class="buttonColor" @click="assignUser" v-text="buttonText"></button>
+        <a href="javascript:void" role="button" class="btn text-right" :class="[buttonColor, buttonLoading]" @click="assignUser" v-text="buttonText"></a>
     </div>
 </template>
 
@@ -15,15 +15,18 @@
         data: function () {
             return {
                 status: this.assigned,
+                loading: false,
             }
         },
 
         methods: {
             assignUser() {
+                this.loading = true,
                 axios.post('/admin/kelas/' + this.kelasId + '/assign-user/' + this.userId)
                     .then(response => {
 
-                        this.status = ! this.status;
+                        this.status = ! this.status,
+                        this.loading = false;
 
                     });
             }
@@ -36,6 +39,10 @@
 
             buttonColor() {
                 return (this.status) ? 'btn-danger' : 'btn-primary';
+            },
+
+            buttonLoading() {
+                return (this.loading) ? 'btn-loading' : '';
             }
         }
     }

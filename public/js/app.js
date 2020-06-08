@@ -1921,15 +1921,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      status: this.assigned
+      status: this.assigned,
+      loading: false
     };
   },
   methods: {
     assignUser: function assignUser() {
       var _this = this;
 
-      axios.post('/admin/kelas/' + this.kelasId + '/assign-user/' + this.userId).then(function (response) {
-        _this.status = !_this.status;
+      this.loading = true, axios.post('/admin/kelas/' + this.kelasId + '/assign-user/' + this.userId).then(function (response) {
+        _this.status = !_this.status, _this.loading = false;
       });
     }
   },
@@ -1939,6 +1940,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     buttonColor: function buttonColor() {
       return this.status ? 'btn-danger' : 'btn-primary';
+    },
+    buttonLoading: function buttonLoading() {
+      return this.loading ? 'btn-loading' : '';
     }
   }
 });
@@ -37590,9 +37594,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("button", {
+    _c("a", {
       staticClass: "btn text-right",
-      class: _vm.buttonColor,
+      class: [_vm.buttonColor, _vm.buttonLoading],
+      attrs: { href: "javascript:void", role: "button" },
       domProps: { textContent: _vm._s(_vm.buttonText) },
       on: { click: _vm.assignUser }
     })

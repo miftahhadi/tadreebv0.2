@@ -37,35 +37,4 @@ class ClassroomController extends Controller
         return redirect('/admin/kelas/' . $classroom->id);
     }
 
-    public function anggota(Classroom $kelas)
-    {
-        $template = 'admin.classroom.anggota';
-
-        $users = $kelas->users->all();
-
-        if (request('assign') && request('assign') == 'peserta') {
-            $template = 'admin.classroom.tambah-anggota';
-
-            $users = \App\User::all();
-
-            $assigned = [];
-
-            foreach ($users as $user) {
-                $assigned[$user->id] = $kelas->users->contains($user->id);
-            }
-
-        } 
-
-        return view($template, [
-            'title' => 'Anggota | ' . $kelas->nama . ' | Area Admin',
-            'kelas' => $kelas,
-            'users' => $users ?? '',
-            'assigned' => $assigned ?? ''
-        ]);
-    }
-
-    public function pelajaran(Classroom $kelas)
-    {
-        $template = ''
-    }
 }
