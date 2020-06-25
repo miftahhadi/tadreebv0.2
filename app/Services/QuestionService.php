@@ -28,6 +28,7 @@ class QuestionService
         }
 
         $option = '';
+        
         if ($request['type'] == 'multiple') {
             $option = 'checkbox';
         } else {
@@ -36,7 +37,7 @@ class QuestionService
 
         return [
             'choices' => $choices,
-            'values' => $value,
+            'value' => $value,
             'option' => $option
         ];
     }

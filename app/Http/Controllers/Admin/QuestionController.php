@@ -73,4 +73,27 @@ class QuestionController extends Controller
         return redirect('/admin/ujian/' . $exam->id);
     }
 
+    public function show(Exam $exam, Question $soal)
+    {
+        $option = '';
+
+        if ($soal->tipe == 'Jawaban Ganda') {
+            $option = 'checkbox';
+        } elseif ($soal->tipe == 'Pilihan Ganda') {
+            $option = 'radio';
+        }
+
+        return view('admin.question.edit', [
+            'title' => 'Edit Soal | ' . $exam->judul,
+            'exam' => $exam,
+            'soal' => $soal,
+            'option' => $option
+        ]);
+    }
+
+    public function update()
+    {
+
+    }
+
 }

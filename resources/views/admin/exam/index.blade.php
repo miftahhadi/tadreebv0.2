@@ -3,21 +3,30 @@
 @section('page')
 <!-- Page Title and Stuffs -->
 <div class="page-header">
-  <h3 class="page-title">Mata Ujian</h3>
-  <div class="page-options d-flex">
-    <a href="/admin/ujian/create" class="btn btn-square btn-secondary ml-auto"><i class="fa fa-plus-square"></i> Tambah Baru</a>
-  </div>
+
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <h3 class="h1 my-0">Daftar Mata Ujian</h3>
+        </div>   
+        <div class="col-auto ml-auto">
+            <a href="{{ route('exam.create') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> 
+                <span class="ml-2">Tambah Baru</span>
+            </a>
+        </div> 
+    </div>
+
 </div>
 <!-- END Page Title and Stuffs -->
 <!-- Data table -->
 <div class="card">
-    <table class="table card-table table-hover table-vcenter">
+    <table class="table card-table table-vcenter">
         <thead>
         <tr>
             <th width="5%">ID</th>
             <th>Mata Ujian</th>
             <th>Dibuat oleh</th>
-            <th width="20%"></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -28,10 +37,10 @@
                 <td>{{ $exam->judul }}</td>
                 <td>{{ $exam->user->nama }}</td>
                 <td class="text-right"">
-                    <a href="/admin/ujian/{{ $exam->id }}" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Edit"><i class="fe fe-package"></i></a>
-                    <a href="#" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Edit"><i class="fe fe-edit"></i></a>
+                    <a href="/admin/ujian/{{ $exam->id }}" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Susun Ujian"><i class="fe fe-package"></i>Susun</a>
+                    <a href="#" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Edit"><i class="fe fe-edit"></i>Edit</a>
                     <!-- Button modal trigger-->
-                    <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-id="" data-target="#hapusData"><i class="fe fe-trash-2" data-toggle="tooltip" title="Hapus"></i></button>
+                    <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-id="" data-target="#hapusData"><i class="fe fe-trash-2" data-toggle="tooltip" title="Hapus"></i>Hapus</button>
                 </td>
             </tr>
         @empty

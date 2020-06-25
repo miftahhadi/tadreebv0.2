@@ -15,7 +15,7 @@ class AdminController extends Controller
     
     public function index()
     {
-        $message = 'Welcome, My Lord';
+        $message = 'Ahlan, Admin';
         
         return view('admin.dashboard',[
             'title' => 'Area Admin',

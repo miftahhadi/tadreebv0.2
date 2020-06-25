@@ -12,6 +12,31 @@ use Illuminate\Support\Facades\Route;
 class ExamController extends Controller
 {
 
+    private $questionTypes = [
+        [
+            'type' => 'Jawaban Ganda',
+            'value' => 'multiple'
+
+        ],
+        [
+            'type' => 'Pilihan Ganda',
+            'value' => 'single'
+        ],
+        [
+            'type' => 'Benar-Salah',
+            'value' => 'benarsalah'
+        ],
+        [
+            'type' => 'صحيح-خطأ',
+            'value' => 'benarsalahArabic'
+        ]
+    ];
+
+    private $answerIcons = [
+        'benar' => '<i class="fas fa-check-circle"></i>',
+        'salah' => '<i class="fas fa-times-circle"></i>'
+    ];
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -29,10 +54,13 @@ class ExamController extends Controller
 
     public function create()
     {
+
         return view('admin.general.create', [
             'title' => 'Mata Ujian Baru | Area Admin',
             'item' => 'ujian',
             'judul' => 'Judul Ujian',
+            'slug' => 'kode ujian',
+            'url' => 'k/{kode-kelas}/u',
             'action' => '/admin/ujian'
         ]);
     }
@@ -56,6 +84,8 @@ class ExamController extends Controller
         return view('admin.exam.show', [
             'title' => $exam->judul . ' | Area Admin',
             'exam' => $exam,
+            'questionTypes' => $this->questionTypes,
+            'answerIcons' => $this->answerIcons
         ]);
     }
 

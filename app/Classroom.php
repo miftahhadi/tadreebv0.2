@@ -23,7 +23,7 @@ class Classroom extends Model
         return [
             [
                 'title' => 'Beranda',
-                'link' => route('kelas.index', [$this->id])
+                'link' => route('kelas.beranda', [$this->id])
             ],
             [
                 'title' => 'Pelajaran',

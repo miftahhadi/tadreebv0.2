@@ -20,6 +20,8 @@
     <link href="/assets/css/tabler.css" rel="stylesheet"/>
     <!-- CKEditor -->
     <script src="/assets/ckeditor/ckeditor.js"></script>
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/c62b0f450b.js" crossorigin="anonymous"></script>
     <style>
       body {
       	display: none;
@@ -44,6 +46,11 @@
     <script src="/assets/js/tabler.min.js"></script>
     <script>
       document.body.style.display = "block"
+    </script>
+
+    <!-- CKEditor -->
+    <script>
+        CKEDITOR.replaceAll();
     </script>
   </body>
 </html>

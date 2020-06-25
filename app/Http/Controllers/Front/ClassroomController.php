@@ -9,9 +9,12 @@ use App\Group;
 
 class ClassroomController extends Controller
 {
-    public function index()
+    public function index(Classroom $kelas)
     {
-        
+        return view('front.classroom.index', [
+            'title' => 'Beranda | ' . $kelas->nama, 
+            'kelas' => $kelas
+        ]);
     }
 
     public function anggota(Classroom $kelas)
@@ -19,7 +22,7 @@ class ClassroomController extends Controller
         $users = $kelas->users->all();
 
         return view('front.classroom.anggota', [
-            'title' => 'Anggota | ' . $kelas->nama . ' | Area Admin',
+            'title' => 'Anggota | ' . $kelas->nama,
             'kelas' => $kelas,
             'users' => $users,
         ]);
@@ -36,7 +39,7 @@ class ClassroomController extends Controller
         }
 
         return view('front.classroom.tambah-anggota', [
-            'title' => 'Tambah Anggota | ' . $kelas->nama . ' | Area Admin',
+            'title' => 'Tambah Anggota | ' . $kelas->nama,
             'kelas' => $kelas,
             'users' => $users,
             'assigned' => $assigned
@@ -47,7 +50,7 @@ class ClassroomController extends Controller
     public function pelajaran(Classroom $kelas)
     {
         return view('front.classroom.pelajaran',[
-            'title' => 'Pelajaran | ' . $kelas->nama . ' | Area Admin',
+            'title' => 'Pelajaran | ' . $kelas->nama,
             'kelas' => $kelas
         ]);
     }
@@ -57,7 +60,7 @@ class ClassroomController extends Controller
         $lessons = \App\Lesson::all();
 
         return view('front.classroom.tambah-pelajaran',[
-            'title' => 'Tambah Pelajaran | ' . $kelas->nama . ' | Area Admin',
+            'title' => 'Tambah Pelajaran | ' . $kelas->nama,
             'kelas' => $kelas,
             'lessons' => $lessons
         ]);
@@ -66,7 +69,7 @@ class ClassroomController extends Controller
     public function ujian(Classroom $kelas)
     {
         return view('front.classroom.ujian', [
-            'title' => 'Ujian | ' . $kelas->nama . ' | Area Admin',
+            'title' => 'Ujian | ' . $kelas->nama,
             'kelas' => $kelas
         ]);
     }

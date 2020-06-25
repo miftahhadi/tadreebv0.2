@@ -3,44 +3,70 @@
 @section('page')
 <!-- Page Title and Stuffs -->
 <div class="page-header">
-  <h3 class="page-title">Mata Pelajaran</h3>
-  <div class="page-options d-flex">
-    <a href="/admin/pelajaran/create" class="btn btn-square btn-secondary ml-auto"><i class="fa fa-plus-square"></i> Tambah Baru</a>
-  </div>
+
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <h3 class="h1 my-0">Mata Pelajaran</h3>
+        </div>   
+        <div class="col-auto ml-auto">
+            <a href="{{ route('lesson.create') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> 
+                <span class="ml-2">Tambah Baru</span>
+            </a>
+        </div> 
+    </div>
+
 </div>
 <!-- END Page Title and Stuffs -->
 <!-- Data table -->
-<div class="card">
-    <table class="table card-table table-hover table-vcenter">
-        <thead>
-        <tr>
-            <th width="5%">#</th>
-            <th>Mata Pelajaran</th>
-            <th width="20%"></th>
-        </tr>
-        </thead>
-        <tbody>
+<div class="row">
+    <div class="col">
 
-        @forelse($lessons as $lesson)
-            <tr>
-                <td>1</td>
-                <td>{{ $lesson->judul }}</td>
-                <td class="text-right"">
-                    <a href="/admin/ujian/{{ $exam->id }}" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Edit"><i class="fe fe-package"></i></a>
-                    <a href="#" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Edit"><i class="fe fe-edit"></i></a>
-                    <!-- Button modal trigger-->
-                    <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-id="" data-target="#hapusData"><i class="fe fe-trash-2" data-toggle="tooltip" title="Hapus"></i></button>
-                </td>
-            </tr>
-        @empty
-            <tr>
-                <td colspan="3" class="text-center">Belum ada pelajaran</td> 
-            </tr>
-        @endforelse      
+        <div class="card">
+            <table class="table card-table table-hover table-vcenter">
+                <thead>
+                <tr>
+                    <th width="5%">#</th>
+                    <th>Mata Pelajaran</th>
+                    <th width="23%"></th>
+                </tr>
+                </thead>
+                <tbody>
 
-        </tbody>
-    </table>
+                @forelse($lessons as $key => $lesson)
+                    <tr>
+                        <td>{{ ++$key }}</td>
+                        <td>{{ $lesson->judul }}</td>
+                        <td>
+
+                            <div class="btn-list">
+
+                                <a href="#" class="btn btn-link" aria-label="Button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-md" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"></path><path d="M5 4h14a1 1 0 0 1 1 1v5a1 1 0 0 1 -1 1h-7a1 1 0 0 0 -1 1v7a1 1 0 0 1 -1 1h-5a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1"></path><line x1="4" y1="8" x2="6" y2="8"></line><line x1="4" y1="12" x2="7" y2="12"></line><line x1="4" y1="16" x2="6" y2="16"></line><line x1="8" y1="4" x2="8" y2="6"></line><polyline points="12 4 12 7 "></polyline><polyline points="16 4 16 6 "></polyline></svg>
+                                </a>
+                                <a href="#" class="btn btn-link" aria-label="Button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-md" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"></path><path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"></path><path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"></path><line x1="16" y1="5" x2="19" y2="8"></line></svg>
+                                </a>
+                                <a href="#" class="btn btn-link" aria-label="Button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-md" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"></path><line x1="4" y1="7" x2="20" y2="7"></line><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path></svg>
+                                </a>
+  
+                            </div>
+                    
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="3" class="text-center">Belum ada pelajaran</td> 
+                    </tr>
+                @endforelse      
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
 <!-- END Data table -->
 
 <!-- Modal -->

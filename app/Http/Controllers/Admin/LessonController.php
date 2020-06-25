@@ -10,7 +10,7 @@ class LessonController extends Controller
 {
     public function index()
     {
-        $lessons = [];
+        $lessons = Lesson::all();
 
         return view('admin.lesson.index', [
             'title' => 'Mata Pelajaran',
@@ -24,6 +24,8 @@ class LessonController extends Controller
             'title' => 'Mata Pelajaran Baru | Area Admin',
             'item' => 'pelajaran',
             'judul' => 'Judul Pelajaran',
+            'slug' => 'slug pelajaran',
+            'url' => 'k/{kode-kelas}/p',
             'action' => '/admin/pelajaran'
         ]);
     }
