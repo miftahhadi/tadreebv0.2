@@ -3,13 +3,20 @@
 @section('page')
 <!-- Page Title and Stuffs -->
 <div class="page-header">
-    <div>
-        <div class="page-description">Grup User</div>
-        <h3 class="page-title">{{ $grup->nama }}</h3>
+
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <span class="page-description">Grup User</span>
+            <h3 class="h1 my-0">{{ $grup->nama }}</h3>
+        </div>   
+        <div class="col-auto ml-auto">
+            <a href="{{ route('group.classroom.create', ['grup' => $grup->id]) }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> 
+                <span class="ml-2">Tambah Baru</span>
+            </a>
+        </div> 
     </div>
-    <div class="page-options d-flex">
-        <a href="/admin/grup/{{ $grup->id }}/kelas/create" class="btn btn-square btn-secondary ml-auto"><i class="fa fa-plus-square"></i> Tambah Baru</a>
-    </div>
+
 </div>
 <!-- END Page Title and Stuffs -->
 <!-- Data table -->
@@ -30,15 +37,22 @@
                 <td>{{ $classroom->id }}</td>
                 <td>{{ $classroom->nama }}</td>
                 <td>{{ $classroom->user ?? 'Belum ada pengampu' }}</td>
-                <td class="text-right"">
-                    <a href="/admin/kelas/{{ $classroom->id }}/anggota" class="btn btn-icon bg-blue-lightest" data-toggle="tooltip" title="Anggota kelas"><i class="fe fe-users"></i></a>
+                <td>
+                    <div class="text-right">
 
-                    <a href="/admin/kelas/{{ $classroom->id }}" class="btn btn-icon bg-blue-lightest" data-toggle="tooltip" title="Pelajaran dan ujian"><i class="fe fe-package"></i></a>
+                        <a href="" class="btn btn-icon bg-light">Anggota</i></a>
 
-                    <a href="#" class="btn btn-icon bg-blue-lightest" data-toggle="tooltip" title="Edit"><i class="fe fe-edit"></i></a>
+                        <a href="" class="btn btn-icon bg-light">Pelajaran</a>
+
+                        <a href="" class="btn btn-icon bg-light">Ujian</a>
+
+                        <a href="#" class="btn btn-icon bg-light">Edit</a>
+                        
+                        <!-- Button modal trigger-->
+                        <button type="button" class="btn btn-icon btn-danger" data-toggle="modal" data-id="" data-target="#hapusData">Hapus</button>
+
+                    </div>
                     
-                    <!-- Button modal trigger-->
-                    <button type="button" class="btn btn-icon btn-danger" data-toggle="modal" data-id="" data-target="#hapusData"><i class="fe fe-trash-2" data-toggle="tooltip" title="Hapus"></i></button>
                 </td>
             </tr>
         @empty

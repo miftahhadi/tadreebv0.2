@@ -38,7 +38,8 @@ Route::group(['namespace' => 'Front'], function () {
 // Admin area
 Route::group([
     'prefix' => 'admin',
-    'namespace' => 'Admin'
+    'namespace' => 'Admin',
+    'middleware' => 'auth'
     ], function () {
         Route::get('/', 'AdminController@index')->name('admin.index');
 

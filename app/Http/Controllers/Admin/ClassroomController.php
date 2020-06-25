@@ -34,7 +34,7 @@ class ClassroomController extends Controller
 
         $classroom = $grup->classrooms()->create($data);
 
-        return redirect('/admin/kelas/' . $classroom->id);
+        return redirect(route('group.show', ['grup'=> $grup->id]));
     }
 
 }

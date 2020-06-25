@@ -58,8 +58,8 @@
                     </div>
                 </div>
             </div>
-    <a href="#" class="btn btn-secondary mr-1">Batal</a>
-    <input type="submit" name="submit" value="Simpan" class="btn btn-success">
+            <a href="#" class="btn btn-secondary mr-1">Batal</a>
+            <input type="submit" name="submit" value="Simpan" class="btn btn-success">
         </div>
     </div>
 
