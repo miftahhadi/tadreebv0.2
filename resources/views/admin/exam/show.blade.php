@@ -55,7 +55,7 @@
                             <div class="btn-list flex-nowrap">
                                 <show-question-button soal-id="{{ $question->id }}" exam-id="{{ $exam->id }}"></show-question-button>
                                 <a href="{{ route('exam.question.show', ['exam' => $exam->id , 'soal' => $question->id]) }}" class="btn btn-light">Edit</a>
-                                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#unlinkSoal">Buang</a>
+                                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#unlinkSoal" data-soal="{{ $question->id }}">Buang</a>
                             </div>
                         </td>
                     </tr>
@@ -153,21 +153,43 @@ function showChoices(that) {
 
 <!-- Unlink Soal -->
 <div class="modal fade" id="unlinkSoal" tabindex="-1" role="dialog" aria-labelledby="unlinkSoalLabel" aria-hidden="true">
-    
-    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="modal-title">Apakah Anda yakin?</div>
-                <div>Soal akan dihilangkan dari ujian/kuis ini, namun akan tetap ada di Bank Soal.</div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-link link-secondary mr-auto" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Ya, lanjutkan</button>
+    <form action="{{ route('exam.question.unlink', ['exam' => $exam->id]) }}" method="post">
+    @csrf
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-title">Apakah Anda yakin?</div>
+                    <div>Soal akan dihilangkan dari ujian/kuis ini, namun akan tetap ada di Bank Soal.</div>
+
+                    <input type="hidden" name="soalId" id="soalId">
+                </div>
+        
+                <div class="modal-footer">
+                
+                        <button type="button" class="btn btn-link link-secondary mr-auto" data-dismiss="modal">Batal</button>
+                        <input type="submit" class="btn btn-danger" value="Ya, lanjutkan">            
+                    
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 
 </div>
+
+<script>
+$(document).ready(function(){
+    $('#unlinkSoal').on('show.bs.modal', function (event) {
+        const button = $(event.relatedTarget) // Button that triggered the modal
+        const soal = button.data('soal') // Extract info from data-* attributes
+        const modal = $(this)
+        modal.find('#soalId').val(soal)
+        console.log(soalId)
+    });
+});
+    
+</script>
+
+
 <!-- END Unlink Soal -->
 
 <script type="text/javascript" src="/js/app.js"></script>

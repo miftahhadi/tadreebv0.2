@@ -57,6 +57,7 @@ Route::group([
         Route::get('/ujian/{exam}/soal/create', 'QuestionController@create')->name('exam.question.create');
         Route::get('/ujian/{exam}/soal/{soal}', 'QuestionController@show')->name('exam.question.show');
         Route::get('/ujian/{exam}/soal/lihat/{soal}', 'QuestionController@preview');
+        Route::post('/ujian/{exam}/soal/unlink/', 'QuestionController@unlinkSoal')->name('exam.question.unlink');
         Route::post('/ujian/{exam}/soal', 'QuestionController@store')->name('exam.question.store');
         Route::put('/ujian/{exam}/soal', 'QuestionController@update')->name('exam.question.update');
 

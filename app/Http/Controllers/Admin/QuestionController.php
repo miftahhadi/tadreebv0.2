@@ -141,4 +141,12 @@ class QuestionController extends Controller
         return redirect(route('exam.show', ['exam' => $exam->id]));
     }
 
+    public function unlinkSoal(Exam $exam, Request $request)
+    {
+        $exam->questions()->detach($request->soalId);
+
+        return redirect(route('exam.show', ['exam' => $exam->id]));
+
+    }
+
 }

@@ -18,6 +18,8 @@
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
     <!-- CSS files -->
     <link href="/assets/css/tabler.css" rel="stylesheet"/>
+    <!-- jQuery -->
+    <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- CKEditor -->
     <script src="/assets/ckeditor/ckeditor.js"></script>
     <!-- Font Awesome -->
