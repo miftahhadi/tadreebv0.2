@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exam;
 use App\Question;
+use App\Answer;
 use App\Services\QuestionService;
 
 class QuestionController extends Controller
@@ -57,20 +58,33 @@ class QuestionController extends Controller
             // Buat array answers
             $answers = array();
 
+            $jawabanBenar = array();
             foreach ($request['jawaban'] as $jawaban) {
+                
+                $jawaban['nilai'] = $jawaban['nilai'] ?? 0;
 
                 // Masukkan ke array answers
                 $answers[] = $jawaban;
+
+                if (array_key_exists('benar',$jawaban) && $jawaban['benar'] == 1) {
+                    $jawabanBenar[] = 1;
+                }
 
             }
 
             // Save the answers and assign them to the question
             $soal->answers()->createMany($answers);
 
+            // Kalau tipe multiple tapi jawaban benar cuma satu, update tipe soal
+            if ($soal->tipe == 2 && count($jawabanBenar) <= 1) {
+                $soal->tipe = 1;
+                $soal->save();
+            }
+
         }
 
         // Kembali ke halaman ujian
-        return redirect('/admin/ujian/' . $exam->id);
+        return redirect(route('exam.show', ['exam' => $exam->id]));
     }
 
     public function show(Exam $exam, Question $soal)
@@ -91,9 +105,33 @@ class QuestionController extends Controller
         ]);
     }
 
-    public function update()
+    public function update(Request $request, Exam $exam)
     {
+        // Simpan soal
+        $soal = Question::findOrFail($request->soal['id']);
 
+        $soal->redaksi = $request->soal['konten'];
+
+        $soal->save();
+
+        // Simpan jawaban
+        $answers = [];
+
+        foreach ($request->jawaban as $key => $jawaban) {
+            $answer = Answer::findOrFail($key);
+
+            $answer->redaksi = $jawaban['redaksi'];
+
+            $answer->benar = $jawaban['benar'] ?? 0;
+
+            $answer->nilai = $jawaban['nilai'];
+            
+            $answers[] = $answer;
+        }
+
+        $soal->answers()->saveMany($answers);
+
+        return redirect(route('exam.show', ['exam' => $exam->id]));
     }
 
 }

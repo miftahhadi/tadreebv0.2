@@ -62,8 +62,8 @@ Route::group([
         // Exams
         Route::get('/ujian', 'ExamController@index')->name('exam.index');
         Route::get('/ujian/create', 'ExamController@create')->name('exam.create');
-        Route::post('/ujian', 'ExamController@store')->name('exam.store');
         Route::get('/ujian/{exam}', 'ExamController@show')->name('exam.show');
+        Route::post('/ujian', 'ExamController@store')->name('exam.store');
 
         // Users
         Route::get('/user/create', 'UserController@create')->name('user.create');

@@ -8,8 +8,10 @@
     <li class="breadcrumb-item active" aria-current="page"><a href="#">Edit Soal</a></li>
 </ol>
 
-<form action="{{ route('exam.question.update', ['exam' => $exam->id]) }}" method="put">
+<form action="{{ route('exam.question.update', ['exam' => $exam->id]) }}" method="post">
+@csrf
 @method('PUT')
+<input type="hidden" name="soal[id]" value="{{ $soal->id }}">
 
 
     <div class="row mt-3 mb-4">
