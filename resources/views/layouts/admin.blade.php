@@ -16,7 +16,7 @@
                 <span class="avatar">AA</span>
                 <div class="d-none d-xl-block pl-2">
                     <div>{{ auth()->user()->nama }}</div>
-                    <div class="mt-1 small text-muted">Admin</div>
+                    <div class="mt-1 small text-muted">{{ auth()->user()->roles->last()->tipe }}</div>
                 </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">

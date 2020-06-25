@@ -27,10 +27,12 @@ class UserController extends Controller
             'email' => $data['email'],
             'username' => $data['username'],
             'password'=> Hash::make($data['password']),
-            'role' => $data['role'],
             'gender' => $data['gender'],
             'tanggal_lahir' => $data['tanggal_lahir']
         ]);
+
+        // Assign role
+        $user->roles()->toggle($data['role']);
 
         return redirect('/admin/user');
     }

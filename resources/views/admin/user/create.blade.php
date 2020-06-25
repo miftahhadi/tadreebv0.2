@@ -3,21 +3,28 @@
 @section('page')
 <!-- Page Title and Stuffs -->
 <div class="page-header">
-    <h3 class="page-title">{{ ucwords($item) }} Baru</h3>
+    <div class="row">
+        <div class="col-auto">
+            <h3 class="h1 mt-0 mb-3">User Baru</h3>
+        </div>
+    </div>
 </div>
 <!-- END Page Title and Stuffs -->
-<form action="/admin/user" method="post" class="row">
+<form action="{{ route('user.store') }}" method="post" class="row">
 @csrf
-<div class="col-md-10">
+    <div class="col-md-10">
 
-    <div class="card">
-        <div class="card-body">
-        <h3 class="card-title">Masukkan Data User</h3>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="nama" class="form-label">Nama</label>
-                        <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id=nama" placeholder="Masukkan nama depan" value="{{ old('nama') ?? '' }}">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Masukkan Data User</h3>
+            </div>
+            <div class="card-body">
+            
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label required">Nama</label>
+                    <div class="col">
+                        <input type="text" class="form-control @error('nama') is-invalid @enderror" placeholder="Masukkan nama user" name="nama" value="{{ old('nama') ?? '' }}">
+                        <small class="form-hint">Pastikan user belum pernah terdaftar sebelumnya</small>
 
                         @error('nama')
                         <small class="text-danger">{{ $message }}</small>
@@ -26,10 +33,10 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Masukkan email" value="{{ old('email') ?? '' }}">
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label required">Email</label>
+                    <div class="col">
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan email" name="email">
 
                         @error('email')
                         <small class="text-danger">{{ $message }}</small>
@@ -38,10 +45,10 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" placeholder="Masukkan username" value="{{ old('username') ?? '' }}">
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label required">Username</label>
+                    <div class="col">
+                        <input type="text" class="form-control @error('username') is-invalid @enderror" placeholder="Masukkan username" name="username">
 
                         @error('username')
                         <small class="text-danger">{{ $message }}</small>
@@ -49,11 +56,11 @@
 
                     </div>
                 </div>
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Masukkan password">
+                
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label required">Password</label>
+                    <div class="col">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password">
 
                         @error('password')
                         <small class="text-danger">{{ $message }}</small>
@@ -61,42 +68,65 @@
 
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="role" class="form-label">Peran</label>
-                        <select class="form-control custom-select" name="role" id="role">
-                        <option value="1">Peserta</option>
-                        <option value="2">Teacher</option>
-                        <option value="3">Administrator</option>
-                        </select>
+
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label required">Peran</label>
+                    <div class="col">
+                        <div>
+                            <label class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="role" value="1">
+                                <span class="form-check-label">Administrator</span>
+                            </label>
+                            <label class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="role" value="2">
+                                <span class="form-check-label">Teacher</span>
+                            </label>
+                            <label class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="role" value="3" checked>
+                                <span class="form-check-label">Peserta</span>
+                            </label>
+                        </div>
+
+                        @error('role')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror  
+                            
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="gender" class="form-label">Jenis Kelamin</label>
-                        <select class="form-control custom-select" name="gender" id="gender">
-                            <option value="1" selected>Laki-laki</option>
-                            <option value="2">Perempuan</option>
-                        </select>
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label">Jenis Kelamin</label>
+
+                    <div class="col">
+                
+                        <label class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" value="1">
+                            <span class="form-check-label">Laki-laki</span>
+                        </label>
+                        <label class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" value="2">
+                            <span class="form-check-label">Perempuan</span>
+                        </label>
+                          
                     </div>
                 </div>
-
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="tanggal_lahir" class="form-label">Tanggal lahir</label>
+                
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label">Tanggal Lahir</label>
+                    <div class="col">
                         <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" value="{{ old('tanggal_lahir') ?? '' }}">
+
                     </div>
                 </div>
-
-            </div>   
             
+            </div>
         </div>
-    </div>
-    <a href="#" class="btn btn-secondary mr-1">Batal</a>
-    <input type="submit" name="submit" value="Simpan" class="btn btn-primary">
+        <div class="btn-list">
+            <a href="#" class="btn btn-secondary mr-1">Batal</a>
+            <input type="submit" name="submit" value="Simpan" class="btn btn-success">
+        </div>
 
-</div>
+    </div>
 
 </form>
 @endsection

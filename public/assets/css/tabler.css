@@ -8169,7 +8169,7 @@ Navbar vertical
 .badge {
   font-size: 0.625rem;
   font-weight: 500;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   letter-spacing: .04em;
   line-height: 1.6;
   display: inline-flex;

@@ -3,10 +3,19 @@
 @section('page')
 <!-- Page Title and Stuffs -->
 <div class="page-header">
-  <h3 class="page-title">Daftar User</h3>
-  <div class="page-options d-flex">
-    <a href="/admin/user/create" class="btn btn-square btn-secondary ml-auto"><i class="fa fa-plus-square"></i> Tambah Baru</a>
-  </div>
+
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <h3 class="h1 my-0">Daftar User</h3>
+        </div>   
+        <div class="col-auto ml-auto">
+            <a href="{{ route('user.create') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> 
+                <span class="ml-2">Tambah Baru</span>
+            </a>
+        </div> 
+    </div>
+
 </div>
 <!-- END Page Title and Stuffs -->
 <!-- Data table -->
@@ -19,7 +28,7 @@
             <th>Username</th>
             <th>Peran</th>
             <th>Jenis Kelamin</th>
-            <th width="20%"></th>
+            <th width="30%"></th>
         </tr>
         </thead>
         <tbody>
@@ -29,13 +38,20 @@
                 <td>{{ $user->id }}</td>
                 <td>{{ $user->nama }}</td>
                 <td>{{ $user->username }}</td>
-                <td>{{ $user->role }}</td>
+                <td>
+                    @foreach ($user->roles as $role)
+                    <span class="badge bg-blue">{{ $role->tipe }}</span>
+                    @endforeach
+                </td>
                 <td>{{ $user->gender }}</td>
-                <td class="text-right"">
-                    <a href="/admin/ujian/{{ $user->id }}" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Edit"><i class="fe fe-package"></i></a>
-                    <a href="#" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Edit"><i class="fe fe-edit"></i></a>
-                    <!-- Button modal trigger-->
-                    <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-id="" data-target="#hapusData"><i class="fe fe-trash-2" data-toggle="tooltip" title="Hapus"></i></button>
+                <td class="text-right">
+                    <div class="btn-list">
+                        <a href="#" class="btn bg-light" data-toggle="tooltip" title="Lihat">Lihat</a>
+                        <a href="#" class="btn bg-light" data-toggle="tooltip" title="Edit">Edit</a>
+                        <!-- Button modal trigger-->
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-id="" data-target="#hapusData">Hapus</button>
+                    </div>
+                    
                 </td>
             </tr>
         @empty
