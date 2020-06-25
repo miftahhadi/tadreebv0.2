@@ -35,7 +35,7 @@
 <div id="app">
     <div class="card">
         <div class="table-responsive">
-            <table class="table table-vcenter card-table text-nowrap">
+            <table class="table table-vcenter card-table">
                 <thead>
                     <tr>
                         <th class="w-1">No</th>
