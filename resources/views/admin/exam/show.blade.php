@@ -32,44 +32,69 @@
     </div>
 </div>
 
-<div class="card">
-    <div class="table-responsive">
-        <table class="table table-vcenter card-table text-nowrap">
-            <thead>
-                <tr>
-                    <th class="w-1">No</th>
-                    <th>Soal</th>
-                    <th>Tipe</th>
-                    <th class="w-2"></th>
-                </tr>
-            </thead>
-            <tbody>
+<div id="app">
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-vcenter card-table text-nowrap">
+                <thead>
+                    <tr>
+                        <th class="w-1">No</th>
+                        <th>Soal</th>
+                        <th>Tipe</th>
+                        <th class="w-2"></th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                @forelse ($exam->questions as $key => $question)
-                <tr>
-                    <td>{{ ++$key }}</td>
-                    <td>{!! $question->konten !!}</td>
-                    <td>{{ $question->tipe }}</td>
-                    <td class="text-right">
-                        <div class="btn-list flex-nowrap">
-                            <a href="#" class="btn btn-light" data-toggle="modal" data-target="#showSoal">Lihat</a>
-                            <a href="{{ route('exam.question.show', ['exam' => $exam->id , 'soal' => $question->id]) }}" class="btn btn-light">Edit</a>
-                            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#unlinkSoal">Buang</a>
-                        </div>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="3">Belum ada soal</td>
-                </tr>
-                @endforelse
+                    @forelse ($exam->questions as $key => $question)
+                    <tr>
+                        <td>{{ ++$key }}</td>
+                        <td>{!! $question->konten !!}</td>
+                        <td>{{ $question->tipe }}</td>
+                        <td class="text-right">
+                            <div class="btn-list flex-nowrap">
+                                <show-question-button soal-id="{{ $question->id }}" exam-id="{{ $exam->id }}"></show-question-button>
+                                <a href="{{ route('exam.question.show', ['exam' => $exam->id , 'soal' => $question->id]) }}" class="btn btn-light">Edit</a>
+                                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#unlinkSoal">Buang</a>
+                            </div>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="3">Belum ada soal</td>
+                    </tr>
+                    @endforelse
 
-            </tbody>
-        </table>
-    
+                </tbody>
+            </table>
+        
+        </div>
     </div>
+
+<!-- Lihat soal -->
+<!-- Modal -->
+<div class="modal fade" id="showSoal" tabindex="-1" role="dialog" aria-labelledby="showSoalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="judulSoal">Soal ke </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
 </div>
 
+<!-- END Lihat soal -->
+
+
+</div>
 <!-- Tambah Soal -->
 <div class="modal fade" id="tambahSoal" tabindex="-1" role="dialog" aria-labelledby="tambahSoalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -126,38 +151,6 @@ function showChoices(that) {
 </script>
 <!-- END Tambah Soal -->
 
-<!-- Lihat soal -->
-<!-- Modal -->
-<div class="modal fade" id="showSoal" tabindex="-1" role="dialog" aria-labelledby="showSoalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="judulSoal">Soal ke </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-$('#showSoal').on('show.bs.modal', function (event) {
-  const button = $(event.relatedTarget) // Button that triggered the modal
-  const recipient = button.data('whatever') // Extract info from data-* attributes
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-  const modal = $(this)
-  modal.find('.modal-title').text('New message to ' + recipient)
-  modal.find('.modal-body input').val(recipient)
-})
-</script>
-<!-- END Lihat soal -->
 <!-- Unlink Soal -->
 <div class="modal fade" id="unlinkSoal" tabindex="-1" role="dialog" aria-labelledby="unlinkSoalLabel" aria-hidden="true">
     
@@ -176,4 +169,6 @@ $('#showSoal').on('show.bs.modal', function (event) {
 
 </div>
 <!-- END Unlink Soal -->
+
+<script type="text/javascript" src="/js/app.js"></script>
 @endsection

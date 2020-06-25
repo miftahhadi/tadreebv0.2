@@ -105,6 +105,12 @@ class QuestionController extends Controller
         ]);
     }
 
+    public function showInPage(Question $soal)
+    {
+
+        return response($soal->jsonSerialize());
+    }
+
     public function update(Request $request, Exam $exam)
     {
         // Simpan soal

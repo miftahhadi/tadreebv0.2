@@ -20,6 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('assign-user-button', require('./components/AssignUserButton.vue').default);
+Vue.component('show-question-button', require('./components/ShowQuestionButton.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
