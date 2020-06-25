@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a href="javascript:void" class="btn btn-light mr-2" @click="showSoal">Lihat</a>
+        <button class="btn btn-light mr-2" @click="showSoal">Lihat</button>
     </div>
 </template>
 
@@ -22,7 +22,8 @@
             showSoal() {
                 axios.get('/admin/exam/' + this.examId + '/soal/lihat' + this.soalId)
                     .then(response => {
-                        this.soal = response.data
+                        this.soal = response;
+                        console.log(this.soal);
                     });
             }
         },

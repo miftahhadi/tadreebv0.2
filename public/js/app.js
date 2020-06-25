@@ -1977,7 +1977,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('/admin/exam/' + this.examId + '/soal/lihat' + this.soalId).then(function (response) {
-        _this.soal = response.data;
+        _this.soal = response;
+        console.log(_this.soal);
       });
     }
   }
@@ -37663,12 +37664,8 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c(
-      "a",
-      {
-        staticClass: "btn btn-light mr-2",
-        attrs: { href: "javascript:void" },
-        on: { click: _vm.showSoal }
-      },
+      "button",
+      { staticClass: "btn btn-light mr-2", on: { click: _vm.showSoal } },
       [_vm._v("Lihat")]
     )
   ])

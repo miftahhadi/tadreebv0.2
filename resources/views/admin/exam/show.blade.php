@@ -39,7 +39,7 @@
                 <thead>
                     <tr>
                         <th class="w-1">No</th>
-                        <th>Soal</th>
+                        <th class="w-50">Soal</th>
                         <th>Tipe</th>
                         <th class="w-2"></th>
                     </tr>

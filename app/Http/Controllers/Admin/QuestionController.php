@@ -105,10 +105,11 @@ class QuestionController extends Controller
         ]);
     }
 
-    public function showInPage(Question $soal)
+    public function preview(Exam $exam, Question $soal)
     {
 
-        return response($soal->jsonSerialize());
+        return $soal;
+    
     }
 
     public function update(Request $request, Exam $exam)
