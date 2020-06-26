@@ -22,7 +22,10 @@ Auth::routes(['register' => false]);
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Front area
-Route::group(['namespace' => 'Front'], function () {
+Route::group([
+    'namespace' => 'Front',
+    'middleware' => 'auth'
+    ], function () {
 
     // Kelas
     Route::get('/kelas/{kelas}/anggota', 'ClassroomController@anggota')->name('kelas.anggota');
@@ -31,8 +34,12 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/kelas/{kelas}/tambah-pelajaran', 'ClassroomController@tambahPelajaran')->name('kelas.pelajaran.tambah');
     Route::get('/kelas/{kelas}/ujian', 'ClassroomController@ujian')->name('kelas.ujian');
     Route::get('/kelas/{kelas}/tambah-ujian', 'ClassroomController@tambahUjian')->name('kelas.ujian.tambah');
+    Route::post('/kelas/{kelas}/assign-ujian', 'ClassroomController@tambahUjianBulk')->name('kelas.ujian.assign');
     Route::get('/kelas/{kelas}/beranda', 'ClassroomController@index')->name('kelas.beranda');
     Route::redirect('/kelas/{kelas}', '/kelas/{kelas}/beranda', 302);
+
+    // Kerjain ujian
+    Route::get('/k/{kelas}/u/{ujian}', 'ExamController@info')->name('ujian.info');
 });
 
 

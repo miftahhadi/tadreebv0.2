@@ -23,24 +23,23 @@
         <tr>
             <th width="5%">ID</th>
             <th>Nama</th>
-            <th>Kategori</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
-
+            @foreach ($exams as $key => $exam)
             <tr>
-                <td>1</td>
-                <td>Nahwu Dasar</td>
-                <td>Dasar</td>
-                <td class="text-right"">
+                <td>{{ ++$key }}</td>
+                <td>{{ $exam->judul }}</td>
+                <td class="text-right">
                     
-                    <a href="#" class="btn btn-icon bg-blue-lightest" data-toggle="tooltip" title="Lihat Profil"><i class="fe fe-external-link"></i></a>
+                    <a href="#" class="btn btn-icon bg-blue-lightest" data-toggle="tooltip" title="Pengaturan">Pengaturan</a>
                     
                     <!-- Button modal trigger-->
-                    <button type="button" class="btn btn-icon btn-danger" data-toggle="modal" data-id="" data-target="#hapusData"><i class="fe fe-user-x" data-toggle="tooltip" title="Keluarkan"></i></button>
+                    <button type="button" class="btn btn-icon btn-danger" data-toggle="modal" data-id="" data-target="#hapusData">Buang</button>
                 </td>
             </tr>     
+            @endforeach
 
         </tbody>
     </table>

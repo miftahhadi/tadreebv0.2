@@ -71,7 +71,7 @@ class ClassroomController extends Controller
 
     public function tambahUjian(Classroom $kelas)
     {
-        $exams = Exam::has('classroom');
+        $exams = Exam::doesntHave('classrooms')->get();
 
         return view('front.classroom.tambah-ujian',[
             'title' => 'Tambah Ujian | ' . $kelas->nama,
@@ -80,11 +80,22 @@ class ClassroomController extends Controller
         ]);
     }
 
+    public function tambahUjianBulk(Classroom $kelas, Request $request)
+    {
+        foreach ($request->ujianId as $ujianId) {
+            $kelas->exams()->attach($ujianId);
+        }
+
+        return redirect(route('kelas.ujian', ['kelas' => $kelas]));
+    }
+
     public function ujian(Classroom $kelas)
     {
+
         return view('front.classroom.ujian', [
             'title' => 'Ujian | ' . $kelas->nama,
-            'kelas' => $kelas
+            'kelas' => $kelas,
+            'exams' => $kelas->exams
         ]);
     }
 
