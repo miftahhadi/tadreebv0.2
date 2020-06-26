@@ -117,7 +117,7 @@ class QuestionController extends Controller
         // Simpan soal
         $soal = Question::findOrFail($request->soal['id']);
 
-        $soal->konten= $request->soal['konten'];
+        $soal->konten = $request->soal['konten'];
 
         $soal->save();
 

@@ -36,9 +36,11 @@
                 <td>{{ $exam->id }}</td>
                 <td>{{ $exam->judul }}</td>
                 <td>{{ $exam->user->nama }}</td>
-                <td class="text-right"">
-                    <a href="/admin/ujian/{{ $exam->id }}" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Susun Ujian"><i class="fe fe-package"></i>Susun</a>
-                    <a href="#" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Edit"><i class="fe fe-edit"></i>Edit</a>
+                <td class="text-right">
+                    <a href="{{ route('exam.show', ['exam' => $exam->id]) }}" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Susun Ujian">Susun</a>
+                    
+                    <a href="{{ route('exam.edit', ['exam' => $exam->id]) }}" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Edit">Edit</a>
+
                     <!-- Button modal trigger-->
                     <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-id="" data-target="#hapusData"><i class="fe fe-trash-2" data-toggle="tooltip" title="Hapus"></i>Hapus</button>
                 </td>

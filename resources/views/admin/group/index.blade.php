@@ -25,7 +25,7 @@
         <tr>
             <th width="5%">ID</th>
             <th>Nama Grup</th>
-            <th width="20%"></th>
+            <th width="30%"></th>
         </tr>
         </thead>
         <tbody>
@@ -34,11 +34,14 @@
             <tr>
                 <td>{{ $group->id }}</td>
                 <td>{{ $group->nama }}</td>
-                <td class="text-right"">
-                    <a href="/admin/grup/{{ $group->id }}" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Edit"><i class="fe fe-package"></i></a>
-                    <a href="#" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Edit"><i class="fe fe-edit"></i></a>
-                    <!-- Button modal trigger-->
-                    <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-id="" data-target="#hapusData"><i class="fe fe-trash-2" data-toggle="tooltip" title="Hapus"></i></button>
+                <td class="text-right">
+                    <div class="text-right">
+                        <a href="{{ route('group.show', ['grup' => $group->id]) }}" class="btn bg-light" data-toggle="tooltip" title="Buka">Buka</a>
+                        <a href="#" class="btn bg-light" data-toggle="tooltip" title="Edit">Edit</a>
+                        <!-- Button modal trigger-->
+                        <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-id="" data-target="#hapusData">Hapus</button>
+                    </div>
+                    
                 </td>
             </tr>
         @empty

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Exam;
 use App\Http\Requests\StoreExamRequest;
+use App\Http\Requests\UpdateExamRequest;
 use Illuminate\Support\Facades\Route;
 
 class ExamController extends Controller
@@ -87,6 +87,27 @@ class ExamController extends Controller
             'questionTypes' => $this->questionTypes,
             'answerIcons' => $this->answerIcons
         ]);
+    }
+
+    public function edit(Exam $exam)
+    {
+        return view('admin.exam.edit', [
+            'title' => 'Edit ' . $exam->judul . ' | Area Admin',
+            'exam' => $exam
+        ]);
+    }
+
+    public function update(UpdateExamRequest $request, Exam $exam)
+    {
+        $data = $request->validated($exam);
+
+        $exam->judul = $data['judul'];
+        $exam->slug = $data['slug'];
+        $exam->deskripsi = $data['deskripsi'];
+
+        $exam->save();
+
+        return redirect(route('exam.index'));
     }
 
     

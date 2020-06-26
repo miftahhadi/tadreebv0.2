@@ -64,10 +64,13 @@ Route::group([
         Route::put('/ujian/{exam}/soal', 'QuestionController@update')->name('exam.question.update');
 
         // Exams
+        Route::put('/ujian/{exam}', 'ExamController@update')->name('exam.update'); 
         Route::get('/ujian', 'ExamController@index')->name('exam.index');
         Route::get('/ujian/create', 'ExamController@create')->name('exam.create');
         Route::get('/ujian/{exam}', 'ExamController@show')->name('exam.show');
+        Route::get('/ujian/{exam}/edit', 'ExamController@edit')->name('exam.edit');
         Route::post('/ujian', 'ExamController@store')->name('exam.store');
+        
 
         // Users
         Route::get('/user/create', 'UserController@create')->name('user.create');
