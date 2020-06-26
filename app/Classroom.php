@@ -39,4 +39,8 @@ class Classroom extends Model
             ]
         ];
     }
+
+    public function exams() {
+        return $this->belongsToMany(Exam::class);
+    }
 }

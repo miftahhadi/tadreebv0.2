@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Classroom;
 use App\Group;
+use App\User;
+use App\Exam;
 
 class ClassroomController extends Controller
 {
     public function index(Classroom $kelas)
     {
+
         return view('front.classroom.index', [
             'title' => 'Beranda | ' . $kelas->nama, 
             'kelas' => $kelas
@@ -30,7 +33,7 @@ class ClassroomController extends Controller
 
     public function tambahAnggota(Classroom $kelas)
     {
-        $users = \App\User::all();
+        $users = User::all();
 
         $assigned = [];
 
@@ -63,6 +66,17 @@ class ClassroomController extends Controller
             'title' => 'Tambah Pelajaran | ' . $kelas->nama,
             'kelas' => $kelas,
             'lessons' => $lessons
+        ]);
+    }
+
+    public function tambahUjian(Classroom $kelas)
+    {
+        $exams = Exam::has('classroom');
+
+        return view('front.classroom.tambah-ujian',[
+            'title' => 'Tambah Ujian | ' . $kelas->nama,
+            'kelas' => $kelas,
+            'exams' => $exams
         ]);
     }
 

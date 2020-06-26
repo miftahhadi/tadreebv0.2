@@ -30,6 +30,7 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/kelas/{kelas}/pelajaran', 'ClassroomController@pelajaran')->name('kelas.pelajaran');
     Route::get('/kelas/{kelas}/tambah-pelajaran', 'ClassroomController@tambahPelajaran')->name('kelas.pelajaran.tambah');
     Route::get('/kelas/{kelas}/ujian', 'ClassroomController@ujian')->name('kelas.ujian');
+    Route::get('/kelas/{kelas}/tambah-ujian', 'ClassroomController@tambahUjian')->name('kelas.ujian.tambah');
     Route::get('/kelas/{kelas}/beranda', 'ClassroomController@index')->name('kelas.beranda');
     Route::redirect('/kelas/{kelas}', '/kelas/{kelas}/beranda', 302);
 });

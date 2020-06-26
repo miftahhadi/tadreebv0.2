@@ -3,11 +3,17 @@
 @section('classContent')
 <div class="row mb-2">
     <div class="col-md-8 align-middle">
-        <h4>Ujian Terdaftar</h4>
+        <h3 class="page-title">Ujian Terdaftar</h3>
     </div>
+
+    @if (auth()->user()->isAdmin() || auth()->user()->isTeacher())
     <div class="col-md-4 text-right">
-        <a href="{{ route('kelas.pelajaran.tambah', ['kelas' => $kelas->id]) }}" class="btn btn-square btn-secondary ml-auto"><i class="fa fa-plus-square"></i> Tambah Pelajaran</a>
+        <a href="{{ route('kelas.ujian.tambah', ['kelas' => $kelas->id]) }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i>
+            <span class="ml-2">Tambah Ujian</span>
+        </a>
     </div>
+    @endif
 </div>
 
 

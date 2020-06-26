@@ -56,4 +56,43 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Classroom::class);
     }
+
+    public function isAdmin()
+    {
+        foreach ($this->roles->all() as $role) {
+            $admin = $role->tipe == 'Admin';
+
+            if ($admin === true) {
+                return $admin;
+            }
+        }
+
+        return $admin;
+    }
+
+    public function isTeacher()
+    {
+        foreach ($this->roles->all() as $role) {
+            $teacher = $role->tipe == 'Teacher';
+
+            if ($teacher === true) {
+                return $teacher;
+            }
+        }
+
+        return $teacher;
+    }
+
+    public function isPeserta()
+    {
+        foreach ($this->roles->all() as $role) {
+            $peserta = $role->tipe == 'Peserta';
+
+            if ($peserta === true) {
+                return $peserta;
+            }
+        }
+
+        return $peserta;
+    }
 }

@@ -7,9 +7,12 @@
         <div class="col-auto">
             <h3 class="page-title">Guru Pengampu</h3>
         </div>
+
+        @if (auth()->user()->isAdmin())
         <div class="col-auto ml-auto">
-            <a href="#" class="btn btn-white">Tambah Pengampu</a>
+            <a href="#" class="btn btn-primary">Tambah Pengampu</a>
         </div>
+        @endif
     </div>
         
     <div class="card">
@@ -36,9 +39,14 @@
         <div class="col-auto">
             <h3 class="page-title">Anggota Kelas</h3>
         </div>
+
+        @if (auth()->user()->isAdmin() || auth()->user()->isTeacher())
         <div class="col-auto ml-auto">
-            <a href="{{ route('kelas.anggota.tambah', ['kelas' => $kelas->id]) }}" class="btn btn-square btn-white"><i class="fa fa-plus-square"></i> Tambah Anggota</a>
+            <a href="{{ route('kelas.anggota.tambah', ['kelas' => $kelas->id]) }}" class="btn btn-primary">
+                Tambah Anggota
+            </a>
         </div>
+        @endif
     </div>
 
     <div class="card">

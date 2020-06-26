@@ -18,4 +18,9 @@ class Exam extends Model
     {
         return $this->belongsToMany(Question::class)->withPivot(['urutan']);
     }
+
+    public function classrooms()
+    {
+        return $this->belongsToMany(Classroom::class);
+    }
 }
