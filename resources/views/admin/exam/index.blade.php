@@ -26,6 +26,7 @@
             <th width="5%">ID</th>
             <th>Mata Ujian</th>
             <th>Dibuat oleh</th>
+            <th>Slug</th>
             <th></th>
         </tr>
         </thead>
@@ -36,6 +37,7 @@
                 <td>{{ $exam->id }}</td>
                 <td>{{ $exam->judul }}</td>
                 <td>{{ $exam->user->nama }}</td>
+                <td>{{ $exam->slug }}</td>
                 <td class="text-right">
                     <a href="{{ route('exam.show', ['exam' => $exam->id]) }}" class="btn bg-blue-lightest btn-xs" data-toggle="tooltip" title="Susun Ujian">Susun</a>
                     

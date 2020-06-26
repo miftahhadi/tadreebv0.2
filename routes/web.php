@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('main.index');
 
 Auth::routes(['register' => false]);
 
@@ -39,7 +39,8 @@ Route::group([
     Route::redirect('/kelas/{kelas}', '/kelas/{kelas}/beranda', 302);
 
     // Kerjain ujian
-    Route::get('/k/{kelas}/u/{ujian}', 'ExamController@info')->name('ujian.info');
+    Route::get('/k/{kelas}/u/{slug}', 'ExamController@info')->name('ujian.info');
+    Route::get('k/{kelas}/u/{slug}/soal/{soal}', 'ExamController@kerjain')->name('ujian.kerjain');
 });
 
 
