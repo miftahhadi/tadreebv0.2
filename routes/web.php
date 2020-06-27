@@ -13,13 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('main.index');
-
 Auth::routes(['register' => false]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/logout', 'Auth\LogoutController@logout')->name('logout');
 
 // Front area
 Route::group([
@@ -27,18 +23,21 @@ Route::group([
     'middleware' => 'auth'
     ], function () {
 
+    // Beranda    
+    Route::get('/', 'FrontController@index')->name('main.index');
+
     // Kelas
     Route::get('/kelas/{kelas}/anggota', 'ClassroomController@anggota')->name('kelas.anggota');
-    Route::get('/kelas/{kelas}/tambah-anggota', 'ClassroomController@tambahAnggota')->name('kelas.anggota.tambah');
+    Route::get('/kelas/{kelas}/tambah-anggota', 'ClassroomController@tambahAnggota')->name('kelas.anggota.tambah')->middleware('admin');
 
     Route::get('/kelas/{kelas}/pelajaran', 'ClassroomController@pelajaran')->name('kelas.pelajaran');
-    Route::get('/kelas/{kelas}/tambah-pelajaran', 'ClassroomController@tambahPelajaran')->name('kelas.pelajaran.tambah');
+    Route::get('/kelas/{kelas}/tambah-pelajaran', 'ClassroomController@tambahPelajaran')->name('kelas.pelajaran.tambah')->middleware('admin');
     
     Route::get('/kelas/{kelas}/ujian', 'ClassroomController@ujian')->name('kelas.ujian');
-    Route::get('/kelas/{kelas}/tambah-ujian', 'ClassroomController@tambahUjian')->name('kelas.ujian.tambah');
-    Route::get('/kelas/{kelas}/ujian/{ujian}/setting', 'ClassroomController@settingUjian')->name('kelas.ujian.setting');
-    Route::post('/kelas/{kelas}/ujian/{ujian}/save-setting', 'ClassroomController@saveSettingUjian')->name('kelas.ujian.saveSetting');
-    Route::post('/kelas/{kelas}/assign-ujian', 'ClassroomController@tambahUjianBulk')->name('kelas.ujian.assign');
+    Route::get('/kelas/{kelas}/tambah-ujian', 'ClassroomController@tambahUjian')->name('kelas.ujian.tambah')->middleware('admin');
+    Route::get('/kelas/{kelas}/ujian/{ujian}/setting', 'ClassroomController@settingUjian')->name('kelas.ujian.setting')->middleware('admin');
+    Route::post('/kelas/{kelas}/ujian/{ujian}/save-setting', 'ClassroomController@saveSettingUjian')->name('kelas.ujian.saveSetting')->middleware('admin');
+    Route::post('/kelas/{kelas}/assign-ujian', 'ClassroomController@tambahUjianBulk')->name('kelas.ujian.assign')->middleware('admin');
     
     Route::get('/kelas/{kelas}/beranda', 'ClassroomController@index')->name('kelas.beranda');
     Route::redirect('/kelas/{kelas}', '/kelas/{kelas}/beranda', 302);
@@ -53,7 +52,7 @@ Route::group([
 Route::group([
     'prefix' => 'admin',
     'namespace' => 'Admin',
-    'middleware' => 'auth'
+    'middleware' => ['admin', 'auth']
     ], function () {
         Route::get('/', 'AdminController@index')->name('admin.index');
 

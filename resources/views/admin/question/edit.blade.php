@@ -90,7 +90,7 @@
             <div class="card">
                 <div class="card-body">
                     <label class="form-check">
-                        <input type="radio" class="form-check-input" name="jawaban[{{ $answer->id }}][benar]" value="1">
+                        <input type="radio" class="form-check-input" name="jawaban[{{ $answer->id }}][benar]" value="1" @if ($answer->benar == 1) checked @endif>
                         <input type="hidden" name="jawaban[{{ $answer->id }}][redaksi]" value="{{ $answer->redaksi }}">
                         <div class="form-check-label">{{ $answer->redaksi }}</div>
                     </label>
@@ -100,7 +100,7 @@
 
                     <div class="form-group">
                         <label class="form-label">Nilai</label>
-                        <input type="number" class="form-control" placeholder="Nilai" value="0" name="jawaban[{{ $answer->id }}][nilai]">
+                        <input type="number" class="form-control" placeholder="Nilai" value="{{ $answer->nilai ?? 0 }}" name="jawaban[{{ $answer->id }}][nilai]">
                     </div>
     
                 </div>
