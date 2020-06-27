@@ -7,7 +7,8 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a href="." class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pr-0 pr-md-3">
-               <img src="/assets/img/logo.svg" alt="Tabler" class="navbar-brand-image">
+                <img src="/assets/img/logo.png" alt="Portal MUBK" class="navbar-brand-image mr-2">
+                <h2>Portal Ma'had Umar bin Khattab</h3>
             </a>
             <div class="navbar-nav flex-row order-md-last">
             
@@ -50,7 +51,7 @@
                     </span>
                   </a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                   <a class="nav-link" href="{{ route('lesson.index') }}">
                     <span class="nav-link-icon d-md-none d-lg-inline-block"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5 12 3" /><line x1="12" y1="12" x2="20" y2="7.5" /><line x1="12" y1="12" x2="12" y2="21" /><line x1="12" y1="12" x2="4" y2="7.5" /><line x1="16" y1="5.25" x2="8" y2="9.75" /></svg>
                     </span>
@@ -70,24 +71,24 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#" data-toggle="dropdown" role="button" aria-expanded="false" >
+                  <a class="nav-link" href="{{ route('group.index') }}">
                     <span class="nav-link-icon d-md-none d-lg-inline-block"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z" /></svg>
                     </span>
                     <span class="nav-link-title">
-                      User dan Kelas
+                      Grup dan Kelas
                     </span>
                   </a>
                   
                 </li>
-                <!-- <li class="nav-item">
-                  <a class="nav-link" href="#navbar-layout" data-toggle="dropdown" role="button" aria-expanded="false" >
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('user.index') }}">
                     <span class="nav-link-icon d-md-none d-lg-inline-block"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="4" y="4" width="6" height="5" rx="2" /><rect x="4" y="13" width="6" height="7" rx="2" /><rect x="14" y="4" width="6" height="7" rx="2" /><rect x="14" y="15" width="6" height="5" rx="2" /></svg>
                     </span>
                     <span class="nav-link-title">
-                      Layout
+                      User
                     </span>
                   </a>
-                </li> -->
+                </li>
                 <!-- <li class="nav-item">
                   <a class="nav-link" href="#navbar-docs" data-toggle="dropdown" role="button" aria-expanded="false" >
                     <span class="nav-link-icon d-md-none d-lg-inline-block"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="14 3 14 8 19 8" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><line x1="9" y1="9" x2="10" y2="9" /><line x1="9" y1="13" x2="15" y2="13" /><line x1="9" y1="17" x2="15" y2="17" /></svg>

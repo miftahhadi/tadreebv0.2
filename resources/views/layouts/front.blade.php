@@ -8,7 +8,8 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a href="{{ route('main.index') }}" class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pr-0 pr-md-3">
-            <img src="/assets/img/logo.svg" alt="Tabler" class="navbar-brand-image">
+                <img src="/assets/img/logo.png" alt="Portal MUBK" class="navbar-brand-image mr-2">
+                <h2>Portal Ma'had Umar bin Khattab</h3>
             </a>
             <div class="navbar-nav flex-row order-md-last">
             

@@ -15,6 +15,11 @@ class CreateClassroomexamUserPivotTable extends Migration
     {
         Schema::create('classroomexam_user', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('classroom_exam_id')->constrained('classroom_exam');
+            $table->foreignId('user_id')->constrained();
+            $table->integer('attempt')->nullable();
+            $table->datetime('waktu_mulai');
+            $table->datetime('waktu_selesai')->nullable();
             $table->timestamps();
         });
     }

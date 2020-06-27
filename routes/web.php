@@ -44,7 +44,11 @@ Route::group([
 
     // Kerjain ujian
     Route::get('/k/{kelas}/u/{slug}', 'ExamController@info')->name('ujian.info');
+    Route::get('/k/{kelas}/u/{slug}/init', 'ExamController@init')->name('ujian.init');
     Route::get('k/{kelas}/u/{slug}/soal/{soal}', 'ExamController@kerjain')->name('ujian.kerjain');
+    Route::get('/submitted', 'ExamController@submitted')->name('ujian.submitted');
+
+    Route::get('/denied', 'TolakController@index')->name('denied');
 });
 
 

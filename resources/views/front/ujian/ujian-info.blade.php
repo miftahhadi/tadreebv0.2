@@ -16,12 +16,23 @@
                             <td colspan="2" class="font-weight-bold">Informasi Ujian</td>
                         </tr>
                         <tr>
+                            <td width="50%">Jumlah Soal</td>
+                            <td>{{ $totalSoal }}</td>
+                        </tr>
+                        <tr>
                             <td width="50%">Durasi</td>
                             <td>{{ $exam->pivot->durasi ?? 'Tidak dibatasi' }}</td>
                         </tr>
                         <tr>
                             <td width="50%">Batas Akses</td>
                             <td>{{ $exam->pivot->batas_buka ?? 'Tidak dibatasi' }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="alert @if ($status == 'info') alert-info @elseif ($status == 'done') alert-success @endif">
+                                    {{ $pesan }}
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -35,7 +46,7 @@
         </div>
         <div class="text-center">
             <a href="{{ route('main.index') }}" class="btn btn-white">Kembali</a>
-            <a href="{{ route('ujian.kerjain', ['kelas' => $kelas->id, 'slug' => $exam->slug, 'soal' => $soalPertama]) }}" class="btn btn-success">Mulai Kerjakan</a>
+            <a href="{{ route('ujian.init', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }}" class="btn btn-success">Mulai Kerjakan</a>
         </div>
     </div>
 </div>

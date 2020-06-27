@@ -29,7 +29,7 @@
     <div class="flex-fill d-flex flex-column justify-content-center">
       <div class="container-tight py-6">
         <div class="text-center mb-4">
-          <img src="/assets/img/logo.svg" height="70" alt="">
+          <img src="/assets/img/logo.png" alt="">
         </div>
 
         @if($errors->any())
