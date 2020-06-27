@@ -16,9 +16,8 @@
     @endif
 </div>
 
-
 <div class="card">
-    <table class="table card-table table-hover table-vcenter">
+    <table class="table card-table table-vcenter">
         <thead>
         <tr>
             <th width="5%">ID</th>
@@ -32,11 +31,16 @@
                 <td>{{ ++$key }}</td>
                 <td>{{ $exam->judul }}</td>
                 <td class="text-right">
-                    
-                    <a href="#" class="btn btn-icon bg-blue-lightest" data-toggle="tooltip" title="Pengaturan">Pengaturan</a>
+    
+                    <a href="{{ route('ujian.info', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }}" class="btn btn-icon bg-light" data-toggle="tooltip" title="Buka">Buka</a>
+
+                    @if (auth()->user()->isAdmin() || auth()->user()->isTeacher())
+                    <a href="{{ route('kelas.ujian.setting', ['kelas' => $kelas->id, 'ujian' => $exam->id]) }}" class="btn btn-icon bg-light" data-toggle="tooltip" title="Pengaturan">Pengaturan</a>
                     
                     <!-- Button modal trigger-->
                     <button type="button" class="btn btn-icon btn-danger" data-toggle="modal" data-id="" data-target="#hapusData">Buang</button>
+                    @endif
+
                 </td>
             </tr>     
             @endforeach

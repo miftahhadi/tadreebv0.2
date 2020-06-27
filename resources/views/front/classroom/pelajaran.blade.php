@@ -3,11 +3,17 @@
 @section('classContent')
 <div class="row mb-2">
     <div class="col-md-8 align-middle">
-        <h4>Pelajaran Terdaftar</h4>
+        <h3 class="page-title">Pelajaran Terdaftar</h3>
     </div>
+
+    @if (auth()->user()->isAdmin() || auth()->user()->isTeacher())
     <div class="col-md-4 text-right">
-        <a href="{{ route('kelas.pelajaran.tambah', ['kelas' => $kelas->id]) }}" class="btn btn-square btn-secondary ml-auto"><i class="fa fa-plus-square"></i> Tambah Pelajaran</a>
+        <a href="{{ route('kelas.pelajaran.tambah', ['kelas' => $kelas->id]) }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i>
+            <span class="ml-2">Tambah Pelajaran</span>
+        </a>
     </div>
+    @endif
 </div>
 
 
@@ -24,16 +30,6 @@
         <tbody>
 
             <tr>
-                <td>1</td>
-                <td>Nahwu Dasar</td>
-                <td>Dasar</td>
-                <td class="text-right"">
-                    
-                    <a href="#" class="btn btn-icon bg-blue-lightest" data-toggle="tooltip" title="Lihat Profil"><i class="fe fe-external-link"></i></a>
-                    
-                    <!-- Button modal trigger-->
-                    <button type="button" class="btn btn-icon btn-danger" data-toggle="modal" data-id="" data-target="#hapusData"><i class="fe fe-user-x" data-toggle="tooltip" title="Keluarkan"></i></button>
-                </td>
             </tr>     
 
         </tbody>

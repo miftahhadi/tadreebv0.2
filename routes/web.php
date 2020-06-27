@@ -30,11 +30,16 @@ Route::group([
     // Kelas
     Route::get('/kelas/{kelas}/anggota', 'ClassroomController@anggota')->name('kelas.anggota');
     Route::get('/kelas/{kelas}/tambah-anggota', 'ClassroomController@tambahAnggota')->name('kelas.anggota.tambah');
+
     Route::get('/kelas/{kelas}/pelajaran', 'ClassroomController@pelajaran')->name('kelas.pelajaran');
     Route::get('/kelas/{kelas}/tambah-pelajaran', 'ClassroomController@tambahPelajaran')->name('kelas.pelajaran.tambah');
+    
     Route::get('/kelas/{kelas}/ujian', 'ClassroomController@ujian')->name('kelas.ujian');
     Route::get('/kelas/{kelas}/tambah-ujian', 'ClassroomController@tambahUjian')->name('kelas.ujian.tambah');
+    Route::get('/kelas/{kelas}/ujian/{ujian}/setting', 'ClassroomController@settingUjian')->name('kelas.ujian.setting');
+    Route::post('/kelas/{kelas}/ujian/{ujian}/save-setting', 'ClassroomController@saveSettingUjian')->name('kelas.ujian.saveSetting');
     Route::post('/kelas/{kelas}/assign-ujian', 'ClassroomController@tambahUjianBulk')->name('kelas.ujian.assign');
+    
     Route::get('/kelas/{kelas}/beranda', 'ClassroomController@index')->name('kelas.beranda');
     Route::redirect('/kelas/{kelas}', '/kelas/{kelas}/beranda', 302);
 

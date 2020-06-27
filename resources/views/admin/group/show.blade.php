@@ -40,11 +40,11 @@
                 <td>
                     <div class="text-right">
 
-                        <a href="" class="btn btn-icon bg-light">Anggota</i></a>
+                        <a href="{{ route('kelas.anggota', ['kelas' => $classroom->id]) }}" class="btn btn-icon bg-light">Anggota</i></a>
 
-                        <a href="" class="btn btn-icon bg-light">Pelajaran</a>
+                        <a href="{{ route('kelas.pelajaran', ['kelas' => $classroom->id]) }}" class="btn btn-icon bg-light">Pelajaran</a>
 
-                        <a href="" class="btn btn-icon bg-light">Ujian</a>
+                        <a href="{{ route('kelas.ujian', ['kelas' => $classroom->id]) }}" class="btn btn-icon bg-light">Ujian</a>
 
                         <a href="#" class="btn btn-icon bg-light">Edit</a>
                         
