@@ -57,6 +57,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Classroom::class);
     }
 
+    public function ClassroomExams()
+    {
+        return $this->belongsToMany(ClassroomExam::class);
+    }
+
     public function isAdmin()
     {
         foreach ($this->roles->all() as $role) {

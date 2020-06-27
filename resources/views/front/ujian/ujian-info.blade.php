@@ -1,13 +1,13 @@
 @extends('layouts.front')
 
 @section('page')
-<div class="row d-flex justify-content-center">
+<div class="row d-flex justify-content-center pt-5">
     <div class="col-md-7">
         <div class="card">
             <div class="card-body">
                 <div class="row align-items-center gutters-sm">
                     <div class="col text-center">
-                        <div class="display-4 font-weight-bold">{{ $exam->judul }}</div>
+                        <div class="display-6 font-weight-bold">{{ $exam->judul }}</div>
                     </div>
                 </div>
                 <table class="card-table table table-center table-md mt-4">

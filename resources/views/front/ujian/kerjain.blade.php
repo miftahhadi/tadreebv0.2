@@ -8,9 +8,16 @@
 
     </div>
     <div class="col-md-7">
-        <div class="card">
+        <div class="card" id="app">
             <div class="card-header">
                 Soal ke-{{ $nomorSoal }} dari {{ $totalSoal }}
+
+                <div class="card-action ml-auto">
+                    <timer 
+                        starttime="{{ $start }}"
+                        endtime="{{ $end }}"
+                        ></timer>
+                </div>
             </div>
             <div class="card-body">
                 {!! $soal->konten !!}
@@ -85,4 +92,6 @@
 
     </div>
 </div>
+
+<script type="text/javascript" src="/js/app.js"></script>
 @endsection

@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="col">
-                            <h3 class="m-0">{{ $exam->judul }}</h3>
+                            <a href="{{ route('ujian.info', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }}" class="stretched-link"><h3 class="m-0">{{ $exam->judul }}</h3></a>
 
                             @if ($exam->pivot->buka == 1)
                             <span class="badge bg-success">Terbuka</span>
