@@ -13,6 +13,10 @@
                 <i class="fas fa-plus"></i> 
                 <span class="ml-2">Tambah Baru</span>
             </a>
+            <a href="{{ route('user.getCsv') }}" class="btn btn-success">
+                <i class="fas fa-file-csv"></i>
+                <span class="ml-2">Impor dari file CSV</span>
+            </a>
         </div> 
     </div>
 

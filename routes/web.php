@@ -83,6 +83,9 @@ Route::group([
         // Users
         Route::get('/user/create', 'UserController@create')->name('user.create');
         Route::get('/user', 'UserController@index')->name('user.index');
+        Route::get('/user/import-csv', 'UserController@getCsv')->name('user.getCsv');
+        Route::post('/user/parse-csv', 'UserController@parseCsv')->name('user.parseCsv');
+        Route::post('/user/proses-import', 'UserController@processImport')->name('user.processImport');
         Route::post('/user', 'UserController@store')->name('user.store');
 
         // Classrooms
