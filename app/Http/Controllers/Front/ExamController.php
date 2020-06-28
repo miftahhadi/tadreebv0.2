@@ -108,9 +108,11 @@ class ExamController extends Controller
 
     }
 
-    public function kerjain(Classroom $kelas, $slug, Question $soal)
+    public function kerjain(Classroom $kelas, $slug, $soal)
     {
         $exam = $kelas->exams()->where('slug', $slug)->first();
+
+        $soal = $exam->questions()->findOrFail($soal);
 
         $classexam = ClassroomExam::where([
             ['classroom_id', $kelas->id],
@@ -174,6 +176,12 @@ class ExamController extends Controller
 
         $nomorSoal = $exam->questions()->where('question_id', '<=', $soal->id)->count();
 
+        // User sudah ngerjain soal yang ini?
+        $jawabanUser = auth()->user()->answers()->where(
+            ['soal_id' => $soal->id],
+            ['classroom_exam_id' => $classexam->id]
+        )->get()->toArray();
+
         return view('front.ujian.kerjain',[
             'title' => 'Kerjakan Ujian | ' .  $exam->judul,
             'kelas' => $kelas,
@@ -186,8 +194,46 @@ class ExamController extends Controller
             'prevSoal' => $prevSoal,
             'choice' => $choice,
             'start' => $start,
-            'end' => $end
+            'end' => $end,
+            'jawabanUser' => $jawabanUser ?? ''
         ]);
+    }
+
+    public function storeJawaban(Classroom $kelas, $slug, $soal, Request $request)
+    {
+        // Cek ujian
+        $exam = $kelas->exams()->where('slug', $slug)->first();
+
+        $soal = $exam->questions()->find($soal);
+
+        $classexam = ClassroomExam::where([
+            ['classroom_id', $kelas->id],
+            ['exam_id', $exam->id]
+            ])->first();
+
+        // Sudah pernah mengerjakan?
+        $rekamPengerjaan = $classexam->users()->where('user_id',auth()->user()->id)->get();
+
+        $dataTerakhir = $rekamPengerjaan->last() ?? null;
+
+        $attempt = $dataTerakhir->pivot->attempt;
+
+        $nextSoal = $exam->questions()->where('question_id', '>', $soal->id)->min('question_id'); 
+
+        // Simpan jawaban
+        $answers = [];
+        foreach ($request->jawaban as $jawaban) {
+            $answers[$jawaban] = ['soal_id' => $soal->id, 'classroom_exam_id' => $classexam->id, 'attempt' => $attempt];
+        }
+
+        $jawaban = auth()->user()->answers()->attach($answers);
+
+        if(is_null($nextSoal)) {
+            $nextSoal = $soal->id;
+        }
+
+        return redirect(route('ujian.kerjain', ['kelas' => $kelas->id, 'slug' => $exam->slug, 'soal' => $nextSoal]));
+
     }
 
     public function submitted()

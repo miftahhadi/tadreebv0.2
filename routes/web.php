@@ -47,6 +47,7 @@ Route::group([
     Route::get('/k/{kelas}/u/{slug}/init', 'ExamController@init')->name('ujian.init');
     Route::get('k/{kelas}/u/{slug}/soal/{soal}', 'ExamController@kerjain')->name('ujian.kerjain');
     Route::get('/submitted', 'ExamController@submitted')->name('ujian.submitted');
+    Route::post('k/{kelas}/u/{slug}/soal/{soal}', 'ExamController@storeJawaban')->name('ujian.storeJawaban');
 
     Route::get('/denied', 'TolakController@index')->name('denied');
 });

@@ -62,6 +62,11 @@ class User extends Authenticatable
         return $this->belongsToMany(ClassroomExam::class, 'classroomexam_user', 'user_id', 'classroom_exam_id')->withPivot('attempt', 'waktu_mulai', 'waktu_selesai');
     }
 
+    public function answers()
+    {
+        return $this->belongsToMany(Answer::class)->withPivot('soal_id', 'classroom_exam_id');
+    }
+
     public function isAdmin()
     {
         foreach ($this->roles->all() as $role) {

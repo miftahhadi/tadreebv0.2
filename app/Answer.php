@@ -12,4 +12,9 @@ class Answer extends Model
     {
         return $this->belongsTo(Question::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withPivot('soal_id', 'classroom_exam_id');
+    }
 }
