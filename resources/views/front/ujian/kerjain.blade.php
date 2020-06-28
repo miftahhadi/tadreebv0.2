@@ -16,8 +16,8 @@
 
                     <div class="card-action ml-auto">
                         <timer 
-                            starttime="{{ json_encode($start) }}"
-                            endtime="{{ json_encode($end) }}"
+                            starttime={{ json_encode($start) }}
+                            endtime={{ json_encode($end) }}
                             ></timer>
                     </div>
                 </div>
