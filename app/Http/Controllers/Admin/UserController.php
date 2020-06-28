@@ -56,6 +56,35 @@ class UserController extends Controller
         ]);
     }
 
+    public function edit(User $user)    
+    {   
+        return view('admin.user.edit', [
+            'title' => 'Edit User | Area Admin',
+            'user' => $user
+        ]);
+    }
+
+    public function update(Request $request, User $user)
+    {
+        // Perbarui data
+        $user->nama = $request->nama;
+        $user->email = $request->email;
+        $user->username = $request->username;
+
+        if (!is_null($request->password)) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->roles()->sync($request->role);
+
+        $user->gender = $request->gender;
+        $user->tanggal_lahir = $request->tanggal_lahir;
+        
+        $user->save();
+
+        return redirect(route('user.index'));
+    }
+
     public function getCsv()
     {
         return view('admin.user.import-csv',[

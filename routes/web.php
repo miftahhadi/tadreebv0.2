@@ -91,6 +91,8 @@ Route::group([
 
         // Users
         Route::get('/user/create', 'UserController@create')->name('user.create');
+        Route::get('/user/{user}/edit', 'UserController@edit')->name('user.edit');
+        Route::put('/user/{user}', 'UserController@update')->name('user.update');
         Route::get('/user', 'UserController@index')->name('user.index');
         Route::get('/user/import-csv', 'UserController@getCsv')->name('user.getCsv');
         Route::post('/user/parse-csv', 'UserController@parseCsv')->name('user.parseCsv');
