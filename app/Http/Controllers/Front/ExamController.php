@@ -220,13 +220,35 @@ class ExamController extends Controller
 
         $nextSoal = $exam->questions()->where('question_id', '>', $soal->id)->min('question_id'); 
 
+        // User sudah ngerjain soal yang ini?
+        $jawabanUser = auth()->user()->answers()->where(
+            ['soal_id' => $soal->id],
+            ['classroom_exam_id' => $classexam->id]
+        )->get()->toArray();
+        
+        if (!empty($jawabanUser)) {
+            foreach ($jawabanUser as $jwbUser) {
+                auth()->user()->answers()->detach($jwbUser['id'], ['soal_id' => $soal->id, 'classroom_exam_id' => $classexam->id, 'attempt' => $attempt]);
+            }    
+        }
+
         // Simpan jawaban
         $answers = [];
         foreach ($request->jawaban as $jawaban) {
-            $answers[$jawaban] = ['soal_id' => $soal->id, 'classroom_exam_id' => $classexam->id, 'attempt' => $attempt];
+            // $answers[$jawaban] = ['soal_id' => $soal->id, 'classroom_exam_id' => $classexam->id, 'attempt' => $attempt];
+            $answer = auth()->user()->answers()->attach($jawaban,['soal_id' => $soal->id, 'classroom_exam_id' => $classexam->id, 'attempt' => $attempt]);
         }
 
-        $jawaban = auth()->user()->answers()->attach($answers);
+        // if (empty($jawabanUser)) {
+            // $jawaban = auth()->user()->answers()->attach($answers);
+        // } else {
+        //     foreach ($request->jawaban as $answer) {
+
+        //         $jawaban = auth()->user()->answers()->updateExistingPivot($answer, ['soal_id' => $soal->id, 'classroom_exam_id' => $classexam->id, 'attempt' => $attempt]);
+
+        //         dd($jawaban);
+        //     }
+        // }
 
         if(is_null($nextSoal)) {
             $nextSoal = $soal->id;
