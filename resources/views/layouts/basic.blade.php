@@ -20,6 +20,8 @@
     <link href="/assets/css/tabler.css" rel="stylesheet"/>
     <!-- jQuery -->
     <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- MomentJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js" integrity="sha256-ZsWP0vT+akWmvEMkNYgZrPHKU9Ke8nYBPC3dqONp1mY=" crossorigin="anonymous"></script>
     <!-- CKEditor -->
     <script src="/assets/ckeditor/ckeditor.js"></script>
     <!-- Font Awesome -->
