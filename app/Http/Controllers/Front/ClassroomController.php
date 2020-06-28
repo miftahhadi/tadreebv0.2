@@ -74,7 +74,7 @@ class ClassroomController extends Controller
 
     public function tambahUjian(Classroom $kelas)
     {
-        $exams = Exam::all('classrooms')->get();
+        $exams = Exam::all('classrooms');
 
         return view('front.classroom.tambah-ujian',[
             'title' => 'Tambah Ujian | ' . $kelas->nama,
