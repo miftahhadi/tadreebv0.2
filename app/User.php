@@ -57,7 +57,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Classroom::class);
     }
 
-    public function ClassroomExams()
+    public function classroomexams()
     {
         return $this->belongsToMany(ClassroomExam::class, 'classroomexam_user', 'user_id', 'classroom_exam_id')->withPivot('attempt', 'waktu_mulai', 'waktu_selesai');
     }

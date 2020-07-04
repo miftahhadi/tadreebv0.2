@@ -41,7 +41,7 @@ class Classroom extends Model
     }
 
     public function exams() {
-        return $this->belongsToMany(Exam::class)->using(ClassroomExam::class)->withPivot([
+        return $this->belongsToMany(Exam::class)->using(ClassroomExam::class)->withPivot(['id',
             'tampil', 'buka', 'buka_hasil', 'tampil_otomatis', 'buka_otomatis', 'batas_buka', 'durasi', 'attempt'
         ]);
     }

@@ -3,49 +3,43 @@
 @section('classContent')
 <div class="row mb-2">
     <div class="col-md-8 align-middle">
-        <h3 class="page-title">Ujian Terdaftar</h3>
+        Hasil Ujian
+        <h3 class="page-title">{{ $exam->judul }}</h3>
     </div>
 
-    @if (auth()->user()->isAdmin() || auth()->user()->isTeacher())
-    <div class="col-md-4 text-right">
-        <a href="{{ route('kelas.ujian.tambah', ['kelas' => $kelas->id]) }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i>
-            <span class="ml-2">Tambah Ujian</span>
-        </a>
+</div>
+
+<div class="row pb-2">
+    <div class="col btn-list">
+        <a href="{{ route('ujian.hasil.showAll', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }}" class="btn btn-primary btn-sm">Semua peserta</a>
+        <a href="{{ route('ujian.hasil.showDone', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }}" class="btn btn-primary btn-sm">Sudah mengerjakan</a>
+        <a href="#" class="btn btn-primary btn-sm">Belum mengerjakan</a>
     </div>
-    @endif
 </div>
 
 <div class="card">
     <table class="table card-table table-vcenter">
         <thead>
         <tr>
-            <th width="5%">ID</th>
+            <th width="5%">No</th>
+            <th>Username</th>
             <th>Nama</th>
+            <th>Nilai</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
-            @foreach ($exams as $key => $exam)
+        @foreach ($nilaiAll as $key => $nilai)
             <tr>
                 <td>{{ ++$key }}</td>
-                <td>{{ $exam->judul }}</td>
-                <td class="text-right">
-    
-                    <a href="{{ route('ujian.info', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }}" class="btn btn-icon bg-light" data-toggle="tooltip" title="Buka">Buka</a>
-
-                    @if (auth()->user()->isAdmin() || auth()->user()->isTeacher())
-                    <a href="{{ route('kelas.ujian.setting', ['kelas' => $kelas->id, 'ujian' => $exam->id]) }}" class="btn btn-icon bg-light" data-toggle="tooltip" title="Pengaturan">Pengaturan</a>
-
-                    <a href="{{ route('ujian.hasil.showAll', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }}" class="btn btn-icon bg-light" data-toggle="tooltip" title="Pengaturan">Hasil</a>
-                    
-                    <!-- Button modal trigger-->
-                    <button type="button" class="btn btn-icon btn-danger" data-toggle="modal" data-id="" data-target="#hapusData">Buang</button>
-                    @endif
-
+                <td>{{ $nilai['username'] }}</td>
+                <td>{{ $nilai['nama'] }}</td>
+                <td>{{ $nilai['nilai'] }}</td>
+                <td>
+                    <a href="#" class="btn btn-light">Detail</a>
                 </td>
-            </tr>     
-            @endforeach
+            </tr>
+        @endforeach
 
         </tbody>
     </table>

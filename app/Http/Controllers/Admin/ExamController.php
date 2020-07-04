@@ -78,7 +78,7 @@ class ExamController extends Controller
 
     public function show(Exam $exam)
     {
-        // Lazy load the questions and answers to avoid N+1 problem
+        // Lazy eager load the questions and answers to avoid N+1 problem
         $exam->load('questions.answers');
 
         return view('admin.exam.show', [
@@ -110,5 +110,6 @@ class ExamController extends Controller
         return redirect(route('exam.index'));
     }
 
+    
     
 }
