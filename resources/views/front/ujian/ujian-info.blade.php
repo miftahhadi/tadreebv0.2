@@ -46,7 +46,18 @@
         </div>
         <div class="text-center">
             <a href="{{ route('main.index') }}" class="btn btn-white">Kembali</a>
-            <a href="{{ route('ujian.init', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }}" class="btn btn-success">Mulai Kerjakan</a>
+
+            @if ($rekamPengerjaan)
+            <a href="{{ route('ujian.hasil.detail', ['kelas' => $kelas->id, 'slug' => $exam->slug, 'user' => auth()->user()->id]) }}" 
+                class="btn btn-primary">
+                Lihat Hasil
+            </a>
+            @endif
+
+            <a href="@if ($allowed === 1) {{ route('ujian.init', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }} @else # @endif" 
+                class="btn btn-success @if ($allowed !== 1) disabled @endif">
+                Mulai Kerjakan
+            </a>
         </div>
     </div>
 </div>

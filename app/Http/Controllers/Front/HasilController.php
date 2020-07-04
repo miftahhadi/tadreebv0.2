@@ -8,6 +8,7 @@ use App\Classroom;
 use App\Exam;
 use App\ClassroomExam;
 use App\ClassExamUser;
+use App\User;
 use App\Services\Front\HasilUjianService;
 
 class HasilController extends Controller
@@ -47,5 +48,58 @@ class HasilController extends Controller
             'nilaiAll' => $nilaiAll
         ]);
 
+    }
+
+    public function detail(Classroom $kelas, $slug, User $user)
+    {
+        // User boleh buka halaman ini?
+        if (auth()->user()->id != $user->id) {
+            if (!auth()->user()->isAdmin() && !auth()->user()->isTeacher()) {
+                return redirect(route('ujian.hasil.detail', ['kelas' => $kelas->id, 'slug' => $slug, 'user' => auth()->user()->id]));
+            } 
+        }
+
+        // Ambil object exam
+        $exam = $kelas->exams()->where('slug', $slug)->first();
+
+        // Setting kunci dibuka atau tidak
+        if (auth()->user()->isAdmin() || auth()->user()->isTeacher()) {
+            $bukaKunci = 1;
+        } else {
+            $bukaKunci = $exam->pivot->buka_hasil;
+        }
+
+        // Data user
+        $dataSubmit = $user->classroomexams()->where('classroom_exam_id', $exam->pivot->id)->get()->last();
+
+        // Load soal dan jawaban
+        $exam->load('questions.answers');
+
+        // Jumlah soal
+        $jumlahSoal = $exam->questions->count();
+
+        $hasil = new HasilUjianService($exam->pivot->id);
+
+        // Jawaban User
+        $jawabanUser = $hasil->jawabanUserArray($user, $exam);
+
+        $nilaiUser = $hasil->nilaiTotal($user);
+
+        $nilaiUjian = $hasil->nilaiUjian($exam);
+
+        $choice = $hasil->inputTypeMass($exam);
+
+        return view('front.classroom.hasil-detail', [
+            'title' => 'Lembar Jawaban Peserta | ' . $exam->judul,
+            'exam' => $exam,
+            'user' => $user,
+            'bukaKunci' => $bukaKunci,
+            'jumlahSoal' => $jumlahSoal,
+            'choice' => $choice,
+            'dataSubmit' => $dataSubmit,
+            'jawabanUser' => $jawabanUser,
+            'nilaiUser' => $nilaiUser,
+            'nilaiUjian' => $nilaiUjian
+        ]);
     }
 }

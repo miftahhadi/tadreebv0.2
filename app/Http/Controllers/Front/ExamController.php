@@ -25,7 +25,13 @@ class ExamController extends Controller
             ])->first();
 
         // Sudah pernah mengerjakan?
-        $rekamPengerjaan = $classexam->users()->find(auth()->user()->id);
+        $rekamPengerjaan = $classexam->users()->where('user_id', auth()->user()->id)->get()->last();
+
+        $userAtttempt = $rekamPengerjaan->pivot->attempt;
+
+        $ujianAttempt = $classexam->attempt;
+
+        $allowed = ($userAtttempt < $ujianAttempt) ? 1 : 0;
 
         if (!is_null($rekamPengerjaan)) {
             $waktuMulai = new Carbon($rekamPengerjaan->pivot->waktu_mulai);
@@ -50,7 +56,9 @@ class ExamController extends Controller
             'kelas' => $kelas,
             'totalSoal' => $totalSoal,
             'pesan' => $pesan,
-            'status' => $status
+            'status' => $status,
+            'rekamPengerjaan' => $rekamPengerjaan,
+            'allowed' => $allowed
         ]);
 
     }

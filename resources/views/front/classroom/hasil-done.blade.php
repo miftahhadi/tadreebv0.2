@@ -36,7 +36,7 @@
                 <td>{{ $nilai['nama'] }}</td>
                 <td>{{ $nilai['nilai'] }}</td>
                 <td>
-                    <a href="#" class="btn btn-light">Detail</a>
+                    <a href="{{ route('ujian.hasil.detail', ['kelas' => $kelas->id, 'slug' => $exam->slug, 'user' => $nilai['userId']]) }}" class="btn btn-light">Detail</a>
                 </td>
             </tr>
         @endforeach

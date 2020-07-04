@@ -53,6 +53,9 @@ Route::group([
     Route::get('/k/{kelas}/u/{slug}/hasil/', 'HasilController@showAll')->name('ujian.hasil.showAll');
     Route::get('/k/{kelas}/u/{slug}/hasil/selesai', 'HasilController@showDone')->name('ujian.hasil.showDone');
 
+    // Detail nilai ujian
+    Route::get('/k/{kelas}/u/{slug}/detail/{user}', 'HasilController@detail')->name('ujian.hasil.detail');
+
     Route::get('/denied', 'TolakController@index')->name('denied');
 });
 
