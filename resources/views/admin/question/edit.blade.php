@@ -90,7 +90,7 @@
             <div class="card">
                 <div class="card-body">
                     <label class="form-check">
-                        <input type="radio" class="form-check-input" name="jawaban[benar]" value="1" @if ($answer->benar == 1) checked @endif>
+                        <input type="radio" class="form-check-input" name="benar[]" value="{{ $answer->id }}" @if ($answer->benar == 1) checked @endif>
                         <input type="hidden" name="jawaban[{{ $answer->id }}][redaksi]" value="{{ $answer->redaksi }}">
                         <div class="form-check-label">{{ $answer->redaksi }}</div>
                     </label>
