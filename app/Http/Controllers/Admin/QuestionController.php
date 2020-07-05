@@ -114,6 +114,7 @@ class QuestionController extends Controller
 
     public function update(Request $request, Exam $exam)
     {
+
         // Simpan soal
         $soal = Question::findOrFail($request->soal['id']);
 
@@ -129,7 +130,7 @@ class QuestionController extends Controller
 
             $answer->redaksi = $jawaban['redaksi'];
 
-            $answer->benar = $jawaban['benar'] ?? 0;
+            $answer->benar = (in_array($answer->id, $request->benar)) ? 1 : 0;
 
             $answer->nilai = $jawaban['nilai'];
             
