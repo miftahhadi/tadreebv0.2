@@ -2,27 +2,32 @@
 
 namespace App\Services\Front;
 
+use App\ClassroomExam;
 use App\ClassExamUser;
 use App\Exam;
 use App\Question;
 use App\User;
 use App\Answer;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class HasilUjianService
 {
     private $classExamId;
+    private $classExam;
 
     public function __construct($classExamId)
     {
         $this->classExamId = $classExamId;
+        $this->classExam = ClassroomExam::find($classExamId);
     }
 
     public function whoDidExam()
     {
-        return ClassExamUser::where('classroom_exam_id',$this->classExamId)->pluck('user_id')->toArray();
+        return $this->classExam->users;
     } 
 
-    public function nilaiUser($examId)
+    public function nilaiUserAll($examId)
     {
         // Hasil yang diharapkan dari fungsi ini adalah suatu array
         // yang isinya ID user dan nilainya
@@ -36,18 +41,12 @@ class HasilUjianService
         // ]
         
         // Daftar peserta yang udah ujian
-        $userDidExam = [];
-
-        foreach ($this->whoDidExam() as $userId) {
-            $user = User::find($userId);
-
-            $userDidExam[] = $user;
-        }
+        $userDidExam = $this->whoDidExam()->load('answers');
 
         $result = [];
 
         foreach ($userDidExam as $user) {
-            $answers = $this->jawabanUser($user);
+            $answers = $user->answers;
 
             $nilai = $this->nilaiTotal($answers);
 
@@ -62,12 +61,21 @@ class HasilUjianService
         return $result;
     }
 
-    public function jawabanUser(User $user)
+    public function nilaiUser($user)
     {
-        return $user->answers()->where([
-            ['classroom_exam_id', $this->classExamId],
-            ['attempt', 1], // TODO: getting the last attempt
-            ])->get();
+        $answers = $this->jawabanUser($user);
+
+        $nilai = $this->nilaiTotal($answers);
+
+        return $nilai;
+    }
+
+    public function jawabanUser($user)
+    {
+        // Fetch data user
+        return $user->answers()->wherePivot('classroom_exam_id', '=', $this->classExamId)
+                            ->wherePivot('attempt', '=', 1)
+                            ->get();
     }
 
     public function jawabanUserArray(User $user, Exam $exam) 
@@ -92,10 +100,8 @@ class HasilUjianService
         return $result;
     }
 
-    public function nilaiTotal($user)
+    public function nilaiTotal($answers)
     {
-
-        $answers = $this->jawabanUser($user);
 
         $nilai = [];
 

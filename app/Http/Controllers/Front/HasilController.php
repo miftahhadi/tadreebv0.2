@@ -10,6 +10,7 @@ use App\ClassroomExam;
 use App\ClassExamUser;
 use App\User;
 use App\Services\Front\HasilUjianService;
+use Illuminate\Database\Eloquent\Builder;
 
 class HasilController extends Controller
 {
@@ -21,7 +22,7 @@ class HasilController extends Controller
         $students = $kelas->users()->with('classroomexams')->get();
 
         // Ambil data dari classroomexam_user
-        $userDidExam = (new HasilUjianService($exam->pivot->id))->whoDidExam();
+        $userDidExam = (new HasilUjianService($exam->pivot->id))->whoDidExam()->pluck('id')->toArray();
 
         return view('front.classroom.hasil', [
             'title' => 'Hasil Ujian | ' . $exam->judul,
@@ -39,7 +40,7 @@ class HasilController extends Controller
 
         $hasil = new HasilUjianService($exam->pivot->id);
 
-        $nilaiAll = $hasil->nilaiUser($exam->id);
+        $nilaiAll = $hasil->nilaiUserAll($exam->id);
 
         return view('front.classroom.hasil-done',[
             'title' => 'Sudah Mengerjakan | Hasil Ujian | ' . $exam->judul,
@@ -83,7 +84,7 @@ class HasilController extends Controller
         // Jawaban User
         $jawabanUser = $hasil->jawabanUserArray($user, $exam);
 
-        $nilaiUser = $hasil->nilaiTotal($user);
+        $nilaiUser = $hasil->nilaiUser($user);
 
         $nilaiUjian = $hasil->nilaiUjian($exam);
 

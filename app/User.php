@@ -64,7 +64,7 @@ class User extends Authenticatable
 
     public function answers()
     {
-        return $this->belongsToMany(Answer::class)->withPivot('soal_id', 'classroom_exam_id');
+        return $this->belongsToMany(Answer::class)->withPivot('soal_id', 'classroom_exam_id', 'attempt');
     }
 
     public function isAdmin()

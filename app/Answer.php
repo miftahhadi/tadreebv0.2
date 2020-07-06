@@ -15,6 +15,6 @@ class Answer extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class)->withPivot('soal_id', 'classroom_exam_id');
+        return $this->belongsToMany(User::class)->withPivot('soal_id', 'classroom_exam_id', 'attempt');
     }
 }
