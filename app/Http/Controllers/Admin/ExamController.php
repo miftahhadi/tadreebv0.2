@@ -48,7 +48,11 @@ class ExamController extends Controller
 
         return view('admin.exam.index', [
             'title' => 'Daftar Mata Ujian | Area Admin',
-            'exams' => $exams
+            'exams' => $exams,
+            'judul' => 'Judul Ujian',
+            'slug' => 'Kode Ujian',
+            'url' => $_SERVER['SERVER_NAME'] . '/k/{kode-kelas}/u',
+            'action' => '/admin/ujian'
         ]);
     }
 

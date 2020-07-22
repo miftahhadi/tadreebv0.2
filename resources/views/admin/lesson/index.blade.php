@@ -108,35 +108,24 @@
 
 <!-- Modal Add New -->
 <div class="modal fade" id="tambahBaru" tabindex="-1" role="dialog" aria-labelledby="tambahBaruLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title">Pelajaran Baru</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <!-- SVG icon code -->
-      </button>
-    </div>
-    <div class="modal-body" id="app">
-        <form action="" method="post">
-        @csrf
-            <item-baru-form></item-baru-form>
-        </form>
-    </div>
-
-    <div class="modal-footer">
-    
-      <a href="#" class="btn btn-secondary" data-dismiss="modal">
-        Batal
-      </a>
-      <input type="submit" name="submit" value="Simpan" class="btn btn-success">
-
-      </a>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pelajaran Baru</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <!-- SVG icon code -->
+        </button>
+      </div>
+      <div class="modal-body" id="app">
+          
+        <item-baru-form judul="{{ $judul }}" action="{{ $action }}" url="{{ $url }}" slug="{{ $slug }}">
+          @csrf
+        </item-baru-form>
+          
+      </div>
     </div>
   </div>
 </div>
-</div>
-
-
 <!-- END Modal Add New -->
 
 <script type="text/javascript" src="/js/app.js"></script>

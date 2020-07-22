@@ -14,7 +14,11 @@ class LessonController extends Controller
 
         return view('admin.lesson.index', [
             'title' => 'Mata Pelajaran',
-            'lessons' => $lessons
+            'lessons' => $lessons,
+            'judul' => 'Judul Pelajaran',
+            'slug' => 'Slug Pelajaran',
+            'url' => $_SERVER['SERVER_NAME'] . '/k/{kode-kelas}/p',
+            'action' => '/admin/pelajaran'
         ]);
     }
 
