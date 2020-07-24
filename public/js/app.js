@@ -1914,6 +1914,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['userId', 'kelasId', 'assigned'],
   mounted: function mounted() {
@@ -2075,8 +2082,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_suglify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-suglify */ "./node_modules/vue-suglify/dist/vue-suglify.js");
-/* harmony import */ var vue_suglify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_suglify__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2135,13 +2140,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'item-baru-form',
-  components: {
-    VueSuglify: vue_suglify__WEBPACK_IMPORTED_MODULE_0___default.a
-  },
-  props: ['judul', 'action', 'url', 'slug'],
+  props: ['judul', 'item', 'action', 'url', 'slug'],
   data: function data() {
     return {
       form: {
@@ -2151,22 +2168,15 @@ __webpack_require__.r(__webpack_exports__);
         url: this.url,
         loading: false
       },
-      item: {
+      input: {
         judul: '',
-        slug: ''
-      },
-      error: {
-        judul: {},
-        slug: {}
+        slug: 'judul-' + this.item + '-anda'
       }
     };
   },
   methods: {
     slugify: function slugify() {
-      this.item.slug = this.item.judul.trim().replace(/\s/g, '-');
-    },
-    validate: function validate() {
-      return 1;
+      this.input.slug = this.input.judul.toLowerCase().trim().replace(/\s/g, '-');
     }
   }
 });
@@ -37967,10 +37977,7 @@ var render = function() {
   return _c("div", [
     _c(
       "form",
-      {
-        attrs: { action: _vm.form.action, method: "post" },
-        on: { submit: _vm.validate }
-      },
+      { attrs: { action: _vm.form.action, method: "post" } },
       [
         _vm._t("default"),
         _vm._v(" "),
@@ -37986,25 +37993,24 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.item.judul,
-                    expression: "item.judul"
+                    value: _vm.input.judul,
+                    expression: "input.judul"
                   }
                 ],
-                staticClass: "form-control ",
+                staticClass: "form-control",
                 attrs: {
                   type: "text",
                   name: "judul",
-                  placeholder: "Tuliskan judul",
-                  value: ""
+                  placeholder: "Tuliskan judul"
                 },
-                domProps: { value: _vm.item.judul },
+                domProps: { value: _vm.input.judul },
                 on: {
                   input: [
                     function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.item, "judul", $event.target.value)
+                      _vm.$set(_vm.input, "judul", $event.target.value)
                     },
                     _vm.slugify
                   ]
@@ -38029,9 +38035,25 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("input", {
-                  staticClass: "form-control ",
-                  attrs: { type: "text", name: "slug", placeholder: "" },
-                  domProps: { value: _vm.item.slug }
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.input.slug,
+                      expression: "input.slug"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", name: "slug" },
+                  domProps: { value: _vm.input.slug },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.input, "slug", $event.target.value)
+                    }
+                  }
                 })
               ]),
               _vm._v(" "),
@@ -38075,17 +38097,17 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "btn-list" }, [
       _c(
-        "a",
+        "button",
         {
           staticClass: "btn btn-secondary",
-          attrs: { href: "#", "data-dismiss": "modal" }
+          attrs: { "data-dismiss": "modal", "aria-label": "Close" }
         },
         [_vm._v("\n                    Batal\n                ")]
       ),
       _vm._v(" "),
       _c("input", {
         staticClass: "btn btn-success",
-        attrs: { type: "submit", name: "submit", value: "Simpan" }
+        attrs: { type: "submit", value: "Simpan" }
       })
     ])
   }
@@ -38200,17 +38222,6 @@ function normalizeComponent (
   }
 }
 
-
-/***/ }),
-
-/***/ "./node_modules/vue-suglify/dist/vue-suglify.js":
-/*!******************************************************!*\
-  !*** ./node_modules/vue-suglify/dist/vue-suglify.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-!function(e,t){ true?module.exports=t():undefined}(this,function(){return function(e){function t(r){if(n[r])return n[r].exports;var i=n[r]={exports:{},id:r,loaded:!1};return e[r].call(i.exports,i,i.exports,t),i.loaded=!0,i.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){var r=n(1)(n(2),null,null,null);e.exports=r.exports},function(e,t){e.exports=function(e,t,n,r){var i,a=e=e||{},u=typeof e["default"];"object"!==u&&"function"!==u||(i=e,a=e["default"]);var s="function"==typeof a?a.options:a;if(t&&(s.render=t.render,s.staticRenderFns=t.staticRenderFns),n&&(s._scopeId=n),r){var o=Object.create(s.computed||null);Object.keys(r).forEach(function(e){var t=r[e];o[e]=function(){return t}}),s.computed=o}return{esModule:i,exports:a,options:s}}},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t["default"]={props:{slugify:{type:String,required:!0},slug:{type:String},sep:{"default":"-"},lowerCase:{"default":!0},extras:{type:Object,"default":function(){return{}}},limit:{type:Number,"default":100}},data:function(){return{chars:{}}},watch:{slugify:{immediate:!0,handler:function(e){this.$emit("update:slug",this.sanitize(e))}}},mounted:function(){},methods:{sanitize:function(e){Object.assign(this.chars,this._map_latin(),this._map_greek(),this._map_turkish(),this._map_russian(),this._map_ukranian(),this._map_czech(),this._map_polish(),this._map_latvian(),this._map_currency(),this._map_symbols(),this._map_extras());var e=e.toString();e=this.lowerCase?e.toLowerCase():e.charAt(0).toUpperCase()+e.slice(1);for(var t="",n=this.sep,r=0,i=e.length;r<i&&(t+="undefined"!=typeof this.chars[e.charAt(r)]?this.chars[e.charAt(r)]:e.charAt(r),!(t.length>this.limit));r++);return e=t.replace(/^\s+|\s+$/g,"").replace(/[^-\u0600-۾\w\d\$\*\(\)\'\!\_]/g,n).replace(/\s+/g,n).replace(/\-\-+/g,n)},_map_latin:function(){return{"À":"A","Á":"A","Â":"A","Ã":"A","Ä":"A","Å":"A","Æ":"AE","Ç":"C","È":"E","É":"E","Ê":"E","Ë":"E","Ì":"I","Í":"I","Î":"I","Ï":"I","Ð":"D","Ñ":"N","Ò":"O","Ó":"O","Ô":"O","Õ":"O","Ö":"O","Ő":"O","Ø":"O","Ù":"U","Ú":"U","Û":"U","Ü":"U","Ű":"U","Ý":"Y","Þ":"TH","ß":"ss","à":"a","á":"a","â":"a","ã":"a","ä":"a","å":"a","æ":"ae","ç":"c","è":"e","é":"e","ê":"e","ë":"e","ì":"i","í":"i","î":"i","ï":"i","ð":"d","ñ":"n","ò":"o","ó":"o","ô":"o","õ":"o","ö":"o","ő":"o","ø":"o","ù":"u","ú":"u","û":"u","ü":"u","ű":"u","ý":"y","þ":"th","ÿ":"y"}},_map_greek:function(){return{"α":"a","β":"b","γ":"g","δ":"d","ε":"e","ζ":"z","η":"h","θ":"8","ι":"i","κ":"k","λ":"l","μ":"m","ν":"n","ξ":"3","ο":"o","π":"p","ρ":"r","σ":"s","τ":"t","υ":"y","φ":"f","χ":"x","ψ":"ps","ω":"w","ά":"a","έ":"e","ί":"i","ό":"o","ύ":"y","ή":"h","ώ":"w","ς":"s","ϊ":"i","ΰ":"y","ϋ":"y","ΐ":"i","Α":"A","Β":"B","Γ":"G","Δ":"D","Ε":"E","Ζ":"Z","Η":"H","Θ":"8","Ι":"I","Κ":"K","Λ":"L","Μ":"M","Ν":"N","Ξ":"3","Ο":"O","Π":"P","Ρ":"R","Σ":"S","Τ":"T","Υ":"Y","Φ":"F","Χ":"X","Ψ":"PS","Ω":"W","Ά":"A","Έ":"E","Ί":"I","Ό":"O","Ύ":"Y","Ή":"H","Ώ":"W","Ϊ":"I","Ϋ":"Y"}},_map_turkish:function(){return{"ş":"s","Ş":"S","ı":"i","İ":"I","ç":"c","Ç":"C","ü":"u","Ü":"U","ö":"o","Ö":"O","ğ":"g","Ğ":"G"}},_map_russian:function(){return{"а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"yo","ж":"zh","з":"z","и":"i","й":"j","к":"k","л":"l","м":"m","н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u","ф":"f","х":"h","ц":"c","ч":"ch","ш":"sh","щ":"sh","ъ":"","ы":"y","ь":"","э":"e","ю":"yu","я":"ya","А":"A","Б":"B","В":"V","Г":"G","Д":"D","Е":"E","Ё":"Yo","Ж":"Zh","З":"Z","И":"I","Й":"J","К":"K","Л":"L","М":"M","Н":"N","О":"O","П":"P","Р":"R","С":"S","Т":"T","У":"U","Ф":"F","Х":"H","Ц":"C","Ч":"Ch","Ш":"Sh","Щ":"Sh","Ъ":"","Ы":"Y","Ь":"","Э":"E","Ю":"Yu","Я":"Ya"}},_map_ukranian:function(){return{"Є":"Ye","І":"I","Ї":"Yi","Ґ":"G","є":"ye","і":"i","ї":"yi","ґ":"g"}},_map_czech:function(){return{"č":"c","ď":"d","ě":"e","ň":"n","ř":"r","š":"s","ť":"t","ů":"u","ž":"z","Č":"C","Ď":"D","Ě":"E","Ň":"N","Ř":"R","Š":"S","Ť":"T","Ů":"U","Ž":"Z"}},_map_polish:function(){return{"ą":"a","ć":"c","ę":"e","ł":"l","ń":"n","ó":"o","ś":"s","ź":"z","ż":"z","Ą":"A","Ć":"C","Ę":"e","Ł":"L","Ń":"N","Ó":"o","Ś":"S","Ź":"Z","Ż":"Z"}},_map_latvian:function(){return{"ā":"a","č":"c","ē":"e","ģ":"g","ī":"i","ķ":"k","ļ":"l","ņ":"n","š":"s","ū":"u","ž":"z","Ā":"A","Č":"C","Ē":"E","Ģ":"G","Ī":"i","Ķ":"k","Ļ":"L","Ņ":"N","Š":"S","Ū":"u","Ž":"Z"}},_map_currency:function(){return{"€":"euro",$:"dollar","₢":"cruzeiro","₣":"french franc","£":"pound","₤":"lira","₥":"mill","₦":"naira","₧":"peseta","₨":"rupee","₩":"won","₪":"new shequel","₫":"dong","₭":"kip","₮":"tugrik","₯":"drachma","₰":"penny","₱":"peso","₲":"guarani","₳":"austral","₴":"hryvnia","₵":"cedi","¢":"cent","¥":"yen","元":"yuan","円":"yen","﷼":"rial","₠":"ecu","¤":"currency","฿":"baht"}},_map_symbols:function(){return{"©":"(c)","œ":"oe","Œ":"OE","∑":"sum","®":"(r)","†":"+","“":"","”":"","‘":"","’":"","'":"","∂":"d","ƒ":"f","™":"tm","℠":"sm","…":"...","˚":"o","º":"o","ª":"a","•":"*","∆":"delta","∞":"infinity","♥":"love","&":"and"}},_map_extras:function(){return this.extras}},render:function(){return this.$scopedSlots["default"]({inputBidding:{value:this.slug}})}}}])});
 
 /***/ }),
 
@@ -50644,8 +50655,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\Dev\laragon\tadreeb\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\Dev\laragon\tadreeb\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/turobi/Dev/dev/tadreeb/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/turobi/Dev/dev/tadreeb/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

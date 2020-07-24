@@ -1,6 +1,13 @@
 <template>
     <div>
-        <a href="javascript:void" role="button" class="btn text-right" :class="[buttonColor, buttonLoading]" @click="assignUser" v-text="buttonText"></a>
+        <a href="javascript:void" 
+            role="button" 
+            class="btn text-right" 
+            :class="[buttonColor, buttonLoading]" 
+            @click="assignUser" 
+            v-text="buttonText"
+        >
+        </a>
     </div>
 </template>
 

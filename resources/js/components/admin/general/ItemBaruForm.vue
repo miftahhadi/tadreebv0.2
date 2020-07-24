@@ -1,6 +1,9 @@
 <template>
     <div>
-        <form :action="form.action" method="post" @submit="validate">
+        <form 
+            :action="form.action" 
+            method="post" 
+        >
             <slot>
             </slot>
             <div class="row">
@@ -8,9 +11,17 @@
 
                     <div class="form-group mb-3">
                         <label class="form-label required">{{ form.judul }}</label>
-                        <input type="text" class="form-control " name="judul" placeholder="Tuliskan judul" value="" v-model="item.judul" @input="slugify">
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            name="judul" 
+                            placeholder="Tuliskan judul" 
+                            v-model="input.judul" 
+                            @input="slugify"
 
-                        <!-- <div class="invalid-feedback">{{ $message }}</div> -->
+                        >
+
+                        <!-- <div v-if="judulInvalid" class="invalid-feedback">Error</div> -->
                        
                     </div>
 
@@ -22,11 +33,16 @@
                             <span class="input-group-prepend">
                                 <span class="input-group-text">{{ form.url }}/</span>
                             </span>
-                            <input type="text" name="slug" class="form-control " placeholder="" v-bind:value="item.slug">
+                            <input 
+                                type="text" 
+                                name="slug" 
+                                class="form-control" 
+                                v-model="input.slug"
+                            >
                         </div>
                         <small class="form-hint">Gunakan (-) sebagai pemisah antar kata, bukan spasi.</small>
 
-                        <!-- <small class="text-danger">{{ $message }}</small> -->
+                        <!-- <small v-if="errors.slug.status" class="text-danger">{{ errors.slug.message }}</small> -->
                             
                     </div>
 
@@ -44,11 +60,11 @@
                 </div>
                 
                 <div class="btn-list">
-                    <a href="#" class="btn btn-secondary" data-dismiss="modal">
+                    <button class="btn btn-secondary" data-dismiss="modal" aria-label="Close">
                         Batal
-                    </a>
+                    </button>
 
-                    <input type="submit" name="submit" value="Simpan" class="btn btn-success">                    
+                    <input type="submit" value="Simpan" class="btn btn-success">                    
                 </div>
 
             </div>
@@ -57,15 +73,11 @@
 </template>
 
 <script>
-import VueSuglify from "vue-suglify";
-
 export default {
     name: 'item-baru-form', 
-    components: {
-        VueSuglify
-    },
     props: [
         'judul',
+        'item',
         'action',
         'url',
         'slug'
@@ -79,29 +91,17 @@ export default {
                 url: this.url,
                 loading: false,
             },
-            item: {
+            input: {
                 judul: '',
-                slug: ''
-            },
-            error: {
-                judul: {
-
-                },
-                slug: {
-
-                }
-            },
+                slug: 'judul-' + this.item + '-anda'
+            }
         }
     },
     methods: {
         slugify() {
-            this.item.slug = this.item.judul.trim().replace(/\s/g, '-');
+            this.input.slug = this.input.judul.toLowerCase().trim().replace(/\s/g, '-');
         },
 
-        validate() {
-            return 1;
-        }
-    },
-
+    }
 }
 </script>

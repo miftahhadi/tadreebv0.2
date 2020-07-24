@@ -108,7 +108,7 @@
       </div>
       <div class="modal-body" id="app">
           
-        <item-baru-form judul="{{ $judul }}" action="{{ $action }}" url="{{ $url }}" slug="{{ $slug }}">
+        <item-baru-form judul="{{ $judul }}" item="{{ $item }}" action="{{ $action }}" url="{{ $url }}" slug="{{ $slug }}">
           @csrf
         </item-baru-form>
           
