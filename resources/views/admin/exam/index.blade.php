@@ -9,10 +9,15 @@
             <h3 class="h1 my-0">Daftar Mata Ujian</h3>
         </div>   
         <div class="col-auto ml-auto">
-            <a href="{{ route('exam.create') }}" class="btn btn-primary">
+            <!-- <a href="{{ route('exam.create') }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i> 
                 <span class="ml-2">Tambah Baru</span>
-            </a>
+            </a> -->
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahBaru">
+                <i class="fas fa-plus"></i> 
+                <span class="ml-2">Tambah Baru</span>
+            </button>
         </div> 
     </div>
 
@@ -58,7 +63,7 @@
 </div>
 <!-- END Data table -->
 
-<!-- Modal -->
+<!-- Modal Delete Data -->
 <div class="modal fade" id="hapusData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -89,5 +94,29 @@
   modal.find('.modal-footer #dataID').val(id)
   })
 </script>
+<!-- END Modal Delete Data -->
 
+<!-- Modal Add New -->
+<div class="modal fade" id="tambahBaru" tabindex="-1" role="dialog" aria-labelledby="tambahBaruLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ujian Baru</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <!-- SVG icon code -->
+        </button>
+      </div>
+      <div class="modal-body" id="app">
+          
+        <item-baru-form judul="{{ $judul }}" item="{{ $item }}" action="{{ $action }}" url="{{ $url }}" slug="{{ $slug }}">
+          @csrf
+        </item-baru-form>
+          
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END Modal Add New -->
+
+<script type="text/javascript" src="/js/app.js"></script>
 @endsection
