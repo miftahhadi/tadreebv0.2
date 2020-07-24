@@ -2156,6 +2156,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+// TODO:    - input area belum bisa dikasih class is-invalid kalau error
+//          - kalau modal ditutup, input belum kereset
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'item-baru-form',
   props: ['judul', 'item', 'action', 'url', 'slug'],
@@ -2165,18 +2170,48 @@ __webpack_require__.r(__webpack_exports__);
         action: this.action,
         judul: this.judul,
         slug: this.slug,
-        url: this.url,
-        loading: false
+        url: this.url
       },
       input: {
         judul: '',
-        slug: 'judul-' + this.item + '-anda'
-      }
+        slug: 'judul-' + this.item + '-anda',
+        deskripsi: ''
+      },
+      errors: {}
     };
   },
   methods: {
     slugify: function slugify() {
       this.input.slug = this.input.judul.toLowerCase().trim().replace(/\s/g, '-');
+    },
+    cekJudul: function cekJudul() {
+      if (this.input.judul == 0) {
+        console.log('Judul error');
+        this.errors.judul = 'Judul tidak boleh kosong';
+      } else {
+        this.errors.judul = null;
+      }
+    },
+    cekSlug: function cekSlug() {
+      if (this.input.slug == 0) {
+        console.log('Slug error');
+        this.errors.slug = 'Slug URL tidak boleh kosong';
+      } else {
+        this.errors.slug = null;
+      }
+    }
+  },
+  computed: {
+    judulInvalid: function judulInvalid() {
+      if (this.errors.hasOwnProperty('judul')) {
+        return 'is-invalid';
+      }
+    },
+    slugInvalid: function slugInvalid() {
+      return this.errors.hasOwnProperty('slug') ? 'is-invalid' : '';
+    },
+    disableSubmit: function disableSubmit() {
+      return this.input.judul.length == 0 || this.input.slug.length == 0 ? 'disabled' : '';
     }
   }
 });
@@ -37977,7 +38012,15 @@ var render = function() {
   return _c("div", [
     _c(
       "form",
-      { attrs: { action: _vm.form.action, method: "post" } },
+      {
+        attrs: { action: _vm.form.action, method: "post" },
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.checkForm($event)
+          }
+        }
+      },
       [
         _vm._t("default"),
         _vm._v(" "),
@@ -37998,6 +38041,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
+                class: _vm.judulInvalid,
                 attrs: {
                   type: "text",
                   name: "judul",
@@ -38012,10 +38056,18 @@ var render = function() {
                       }
                       _vm.$set(_vm.input, "judul", $event.target.value)
                     },
-                    _vm.slugify
+                    function($event) {
+                      ;[_vm.slugify(), _vm.cekJudul(), _vm.cekSlug()]
+                    }
                   ]
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errors.hasOwnProperty("judul")
+                ? _c("div", { staticClass: "invalid-feedback" }, [
+                    _vm._v(_vm._s(_vm.errors.judul))
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group mb-3" }, [
@@ -38044,28 +38096,53 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
+                  class: _vm.slugInvalid,
                   attrs: { type: "text", name: "slug" },
                   domProps: { value: _vm.input.slug },
                   on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.input, "slug", $event.target.value)
-                    }
+                    input: [
+                      function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.input, "slug", $event.target.value)
+                      },
+                      _vm.cekSlug
+                    ]
                   }
                 })
               ]),
               _vm._v(" "),
               _c("small", { staticClass: "form-hint" }, [
                 _vm._v("Gunakan (-) sebagai pemisah antar kata, bukan spasi.")
-              ])
+              ]),
+              _vm._v(" "),
+              _vm.errors.hasOwnProperty("slug")
+                ? _c("small", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errors.slug))
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _vm._m(0)
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _c("div", { staticClass: "btn-list" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                attrs: { "data-dismiss": "modal", "aria-label": "Close" }
+              },
+              [_vm._v("\n                    Batal\n                ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "btn btn-success",
+              class: _vm.disableSubmit,
+              attrs: { type: "submit", value: "Simpan" }
+            })
+          ])
         ])
       ],
       2
@@ -38079,35 +38156,12 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group mb-3" }, [
       _c("label", { staticClass: "form-label" }, [
-        _vm._v("\n                        Deskripsi\n                        "),
-        _c("span", { staticClass: "form-label-description" }, [
-          _vm._v("Maks: 600 karakter")
-        ])
+        _vm._v("\n                        Deskripsi\n                        ")
       ]),
       _vm._v(" "),
       _c("textarea", {
         staticClass: "form-control",
         attrs: { name: "deskripsi", rows: "6", placeholder: "Deskripsi..." }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "btn-list" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { "data-dismiss": "modal", "aria-label": "Close" }
-        },
-        [_vm._v("\n                    Batal\n                ")]
-      ),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "btn btn-success",
-        attrs: { type: "submit", value: "Simpan" }
       })
     ])
   }
@@ -50655,8 +50709,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/turobi/Dev/dev/tadreeb/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/turobi/Dev/dev/tadreeb/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\Dev\laragon\tadreeb\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\Dev\laragon\tadreeb\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
