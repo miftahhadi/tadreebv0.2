@@ -17,7 +17,7 @@
                         </tr>
                         <tr>
                             <td width="50%">Jumlah Soal</td>
-                            <td>{{ $totalSoal }}</td>
+                            <td>{{ $info->totalSoal }}</td>
                         </tr>
                         <tr>
                             <td width="50%">Durasi</td>
@@ -29,8 +29,8 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <div class="alert @if ($status == 'info') alert-info @elseif ($status == 'done') alert-success @endif">
-                                    {{ $pesan }}
+                                <div class="alert @if ($info->isDone() == 'sedang' || $info->isDone() == 'belum') alert-info @elseif ($info->isDone() == 'sudah') alert-success @endif">
+                                    {{ $info->pesan }}
                                 </div>
                             </td>
                         </tr>
@@ -47,15 +47,15 @@
         <div class="text-center">
             <a href="{{ route('main.index') }}" class="btn btn-white">Kembali</a>
 
-            @if ($rekamPengerjaan)
+            @if ($info->isDone() == 'sudah')
             <a href="{{ route('ujian.hasil.detail', ['kelas' => $kelas->id, 'slug' => $exam->slug, 'user' => auth()->user()->id]) }}" 
                 class="btn btn-primary">
                 Lihat Hasil
             </a>
             @endif
 
-            <a href="@if ($allowed === 1) {{ route('ujian.init', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }} @else # @endif" 
-                class="btn btn-success @if ($allowed !== 1) disabled @endif">
+            <a href="@if ($info->allowed === true) {{ route('ujian.init', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }} @else # @endif" 
+                class="btn btn-success @if ($info->allowed !== true) disabled @endif">
                 Mulai Kerjakan
             </a>
         </div>

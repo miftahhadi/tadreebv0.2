@@ -10,6 +10,7 @@ use App\Exam;
 use App\Question;
 use App\ClassroomExam;
 use Carbon\Carbon;
+use App\Services\Front\InfoUjianService;
 
 class ExamController extends Controller
 {
@@ -17,48 +18,15 @@ class ExamController extends Controller
     {
         $exam = $kelas->exams()->where('slug', $slug)->first();
 
-        $totalSoal = $exam->questions()->count();
+        $info = new InfoUjianService($kelas, $slug);
 
-        $classexam = ClassroomExam::where([
-            ['classroom_id', $kelas->id],
-            ['exam_id', $exam->id]
-            ])->first();
-
-        // Sudah pernah mengerjakan?
-        $rekamPengerjaan = $classexam->users()->where('user_id', auth()->user()->id)->get()->last();
-
-        $userAtttempt = $rekamPengerjaan->pivot->attempt;
-
-        $ujianAttempt = $classexam->attempt;
-
-        $allowed = ($userAtttempt < $ujianAttempt) ? 1 : 0;
-
-        if (!is_null($rekamPengerjaan)) {
-            $waktuMulai = new Carbon($rekamPengerjaan->pivot->waktu_mulai);
-
-            $waktuHabis = $waktuMulai->addMinutes($classexam->durasi);
-
-            if ($waktuHabis < Carbon::now()) {
-                $pesan = 'Anda sudah mengerjakan ujian ini';
-                $status = 'done';
-            } else {
-                $pesan = 'Anda sedang mengerjakan ujian ini';
-                $status = 'info';
-            }
-        } else {
-            $pesan = 'Anda belum mengerjakan ujian ini';
-            $status = 'info';
-        }
+        $info->infoPage();
 
         return view('front.ujian.ujian-info', [
             'title' => $exam->judul,
             'exam' => $exam,
             'kelas' => $kelas,
-            'totalSoal' => $totalSoal,
-            'pesan' => $pesan,
-            'status' => $status,
-            'rekamPengerjaan' => $rekamPengerjaan,
-            'allowed' => $allowed
+            'info' => $info
         ]);
 
     }
