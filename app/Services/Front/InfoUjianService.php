@@ -35,6 +35,22 @@ class InfoUjianService
 
     }
 
+    public function waktuMulai()
+    {
+        return new Carbon($this->riwayat->pivot->waktu_mulai);
+    }
+
+    public function waktuHabis()
+    {
+        if (!$this->riwayat->pivot->waktu_mulai) {
+            return null;
+        } else {
+            $waktuMulai = $this->waktuMulai();
+            return $waktuMulai->addMinutes($this->classexam->durasi);
+        }
+
+    }
+
     public function isAttemptAllowed() 
     {
         // Berapa kali percobaan yang diizinkan oleh ujian ini?
@@ -47,7 +63,7 @@ class InfoUjianService
 
         // Riwayat User
         if ($this->riwayat) {
-            $userAttempt = $riwayat->pivot->attempt;
+            $userAttempt = $this->riwayat->pivot->attempt;
         } else {
             $userAttempt = 0;
         }
@@ -67,12 +83,11 @@ class InfoUjianService
         }
 
         // Kalau sudah mengerjakan, periksa apakah sudah melebihi batas waktu atau belum
-        $waktuMulai = new Carbon($riwayat->pivot->waktu_mulai);
-        $waktuHabis = 0;
+        $waktuMulai = $this->waktuMulai();
         
-        $waktuHabis = $waktuMulai->addMinutes($this->classexam->durasi);
+        $waktuHabis = $this->waktuHabis();
 
-        if ($waktuHabis == 0 || $waktuHabis > Carbon::now()) {
+        if ($waktuHabis > Carbon::now()) {
             return 'sedang';
         } elseif ($waktuHabis < Carbon::now()) {
             return 'sudah';
@@ -114,5 +129,51 @@ class InfoUjianService
                 break;
         }
     }
+
+    public function init()
+    {
+        if ($this->isAllowed() === false) {
+            return redirect(route('denied'));
+        }
+
+        $thisAttempt = $this->currentAttempt();
+
+        // Kalau sedang ngerjain, arahkan langsung ke halaman soal pertama
+        if ($this->isDone() == 'sedang') {
+            return redirect(route('ujian.kerjain', [
+                'kelas' => $this->kelas, 
+                'slug' => $this->slug, 
+                'soal' => $this->soalPertama()
+            ]));
+        }
+
+        // Simpan data
+        $this->classexam->users()->attach(auth()->user()->id, [
+            'attempt' => 1, 
+            'waktu_mulai' => Carbon::now()->toDateTimeString()
+        ]);
+
+        // Arahkan ke soal pertama
+        return redirect(route('ujian.kerjain', [
+            'kelas' => $this->kelas, 
+            'slug' => $this->ujian->slug, 
+            'soal' => $this->soalPertama()
+        ]));
+    }
+
+    public function soalPertama()
+    {
+        return $this->ujian->questions()->first();
+    }
+
+    public function currentAttempt()
+    {
+        if (!$this->riwayat) {
+            return 1;
+        } elseif ($this->isAllowed()) {
+            return $this->riwayat->pivot->attempt++;
+        } 
+    }
+
 
 }

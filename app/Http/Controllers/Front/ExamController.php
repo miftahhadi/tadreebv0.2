@@ -33,67 +33,19 @@ class ExamController extends Controller
 
     public function init(Classroom $kelas, $slug, Request $request)
     {
-        // Ambil data ujian
-        $exam = $kelas->exams()->where('slug', $slug)->first();
-        $soalPertama = $exam->questions()->first();
 
-        $classexam = ClassroomExam::where([
-            ['classroom_id', $kelas->id],
-            ['exam_id', $exam->id]
-            ])->first();
+        $info = new InfoUjianService($kelas, $slug);
 
-        // Sudah pernah mengerjakan?
-        $rekamPengerjaan = $classexam->users()->where('user_id',auth()->user()->id)->get();
-
-        $dataTerakhir = $rekamPengerjaan->last() ?? null;
-
-        if (!is_null($dataTerakhir)) {
-            $waktuMulai = new Carbon($dataTerakhir->pivot->waktu_mulai);
-
-            $waktuHabis = $waktuMulai->addMinutes($classexam->durasi);
-
-            if (($waktuHabis < Carbon::now()) && ($classexam->attempt >= 1) && $dataTerakhir->pivot->attempt >= $classexam->attempt ) {
-
-                return redirect(route('denied'));
-            
-            } elseif (($waktuHabis < Carbon::now()) && ($classexam->attempt >= 1) && $dataTerakhir->pivot->attempt < $classexam->attempt ) {
-
-                $attempt = $dataTerakhir->pivot->attempt++;
-                
-            } elseif ($waktuHabis < Carbon::now() && ($classexam->attempt >= 0)) {
-
-                $attempt = $dataTerakhir->pivot->attempt++;
-
-            } elseif ($waktuHabis > Carbon::now()) {
-                
-                return redirect(route('ujian.kerjain', ['kelas' => $kelas, 'slug' => $slug, 'soal' => $soalPertama]));
-            
-            }
-
-        } else {
-            
-            $attempt = 1;
-        
-        }
-
-        // Simpan data
-        $classexam->users()->attach(auth()->user()->id, ['attempt' => 1, 'waktu_mulai' => Carbon::now()->toDateTimeString()]);
-
-        return redirect(route('ujian.kerjain', ['kelas' => $kelas, 'slug' => $slug, 'soal' => $soalPertama]));
-
-
+        // Initialize exam data
+        return $info->init();
     }
 
     public function kerjain(Classroom $kelas, $slug, $soal)
     {
-        $exam = $kelas->exams()->where('slug', $slug)->first();
 
         $soal = $exam->questions()->findOrFail($soal);
 
-        $classexam = ClassroomExam::where([
-            ['classroom_id', $kelas->id],
-            ['exam_id', $exam->id]
-            ])->first();
+        $info = new InfoUjianService($kelas, $slug);
 
         // Sudah pernah mengerjakan?
         $rekamPengerjaan = $classexam->users()->where('user_id',auth()->user()->id)->get();
