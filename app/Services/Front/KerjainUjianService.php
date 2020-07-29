@@ -2,6 +2,7 @@
 
 namespace App\Services\Front;
 
+use Illuminate\Http\Request;
 use App\Classroom;
 use App\Question;
 use Carbon\Carbon;
@@ -90,7 +91,9 @@ class KerjainUjianService extends InfoUjianService
 
     public function nextSoal()
     {
-        return $this->ujian->questions()->where('question_id', '>', $this->soal->id)->min('question_id');
+        $next = $this->ujian->questions()->where('question_id', '>', $this->soal->id)->min('question_id');
+
+        return (is_null($next)) ? $this->soal->id : $next; 
     }
 
     public function prevSoal()
@@ -105,9 +108,57 @@ class KerjainUjianService extends InfoUjianService
 
     public function jawabanUser()
     {
-        return auth()->user()->answers->where(
+        return auth()->user()->answers()->where(
             ['soal_id' => $this->soal->id],
             ['classroom_id' => $this->classexam->id]
-        )->toArray();
+        )->get()->toArray();
     }
+
+    public function storeJawaban(Request $request)
+    {
+        // Cek peserta sudah pernah jawab atau belum
+        $jawabanUser = $this->jawabanUser();
+
+        // Kalau user pernah menjawab, hilangkan dulu jawaban sebelumnya
+        if (!empty($jawabanUser)) {
+            $hapusJawaban = $this->deletePreviousAnswer($jawabanUser);
+        }
+
+        // Simpan jawaban
+        $simpan = $this->simpanJawaban($request);
+
+    }
+
+    public function deletePreviousAnswer(Array $jawabanUser)
+    {
+        foreach ($jawabanUser as $jawaban) {
+            auth()->user()
+                    ->answers()
+                    ->detach($jawaban['id'], [
+                        'soal_id' => $this->soal->id, 
+                        'classroom_exam_id' => $this->classexam->id, 
+                        'attempt' => $this->riwayat->pivot->attempt
+                    ]);
+        }
+    }
+
+    public function simpanJawaban(Request $request)
+    {
+        $answers = [];
+
+        foreach ($request->jawaban as $jawaban) {
+            $simpan = auth()->user()
+                    ->answers()
+                    ->attach($jawaban,[
+                        'soal_id' => $this->soal->id,
+                        'classroom_exam_id' => $this->classexam->id,
+                        'attempt' => $this->riwayat->pivot->attempt
+                ]);
+            
+            ($simpan) ? array_push($answers, $jawaban->id) : 0;
+        }
+
+        return $answers;
+    }
+
 }

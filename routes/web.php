@@ -48,6 +48,7 @@ Route::group([
     Route::get('k/{kelas}/u/{slug}/soal/{soal}', 'ExamController@kerjain')->name('ujian.kerjain');
     Route::get('/submitted', 'ExamController@submitted')->name('ujian.submitted');
     Route::post('k/{kelas}/u/{slug}/soal/{soal}', 'ExamController@storeJawaban')->name('ujian.storeJawaban');
+    Route::post('/submitted', 'ExamController@submit')->name('ujian.submit');
 
     // Hasil ujian
     Route::get('/k/{kelas}/u/{slug}/hasil/', 'HasilController@showAll')->name('ujian.hasil.showAll');

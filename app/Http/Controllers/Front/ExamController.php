@@ -48,8 +48,6 @@ class ExamController extends Controller
 
         $info->kerjainUjian();
 
-        dd($info->jawabanUser());
-
         return view('front.ujian.kerjain',[
             'title' => 'Kerjakan Ujian | ' .  $info->ujian->judul,
             'kelas' => $info->kelas,
@@ -63,7 +61,7 @@ class ExamController extends Controller
             'choice' => $info->choice(),
             'start' => $info->start,
             'end' => $info->end,
-            'jawabanUser' => $info->jawabanUser()
+            'jawabanUser' => $info->jawabanUser(),
         ]);
     }
 
@@ -71,41 +69,23 @@ class ExamController extends Controller
     {
         $info = new KerjainUjianService($kelas, $slug, $soalId);
 
-        $attempt = $info->riwayat->pivot->attempt;
+        $info->storeJawaban($request);
 
-        // User sudah ngerjain soal yang ini?
-        $jawabanUser = $info->jawabanUser();
-        
-        if (!empty($jawabanUser)) {
-            foreach ($jawabanUser as $jwbUser) {
-                auth()->user()->answers()->detach($jwbUser['id'], ['soal_id' => $soal->id, 'classroom_exam_id' => $classexam->id, 'attempt' => $attempt]);
-            }    
-        }
+        return redirect(route('ujian.kerjain', [
+            'kelas' => $info->kelas->id, 
+            'slug' => $info->ujian->slug, 
+            'soal' => $info->nextSoal()
+        ]));
 
-        // Simpan jawaban
-        $answers = [];
-        foreach ($request->jawaban as $jawaban) {
-            // $answers[$jawaban] = ['soal_id' => $soal->id, 'classroom_exam_id' => $classexam->id, 'attempt' => $attempt];
-            $answer = auth()->user()->answers()->attach($jawaban,['soal_id' => $soal->id, 'classroom_exam_id' => $classexam->id, 'attempt' => $attempt]);
-        }
+    }
 
-        // if (empty($jawabanUser)) {
-            // $jawaban = auth()->user()->answers()->attach($answers);
-        // } else {
-        //     foreach ($request->jawaban as $answer) {
+    public function submit(Request $request)
+    {
+        $kelas = Classroom::findOrFail($request->kelas);
 
-        //         $jawaban = auth()->user()->answers()->updateExistingPivot($answer, ['soal_id' => $soal->id, 'classroom_exam_id' => $classexam->id, 'attempt' => $attempt]);
+        $info = new InfoUjianService($kelas, $request->slug);
 
-        //         dd($jawaban);
-        //     }
-        // }
-
-        if(is_null($nextSoal)) {
-            $nextSoal = $soal->id;
-        }
-
-        return redirect(route('ujian.kerjain', ['kelas' => $kelas->id, 'slug' => $exam->slug, 'soal' => $nextSoal]));
-
+        auth()->user()
     }
 
     public function submitted()

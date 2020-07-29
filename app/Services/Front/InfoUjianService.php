@@ -173,5 +173,9 @@ class InfoUjianService
         } 
     }
 
+    public function submit()
+    {
+        
+    }
 
 }

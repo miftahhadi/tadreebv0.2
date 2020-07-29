@@ -62,15 +62,10 @@
 
                         <input type="submit" class="btn btn-success" value="Jawab">
                         
-                        @if ($nextSoal)
+                        @if ($nextSoal != request('soal'))
                         <a href="{{ route('ujian.kerjain', ['kelas' => $kelas->id, 'slug' => $exam->slug, 'soal' => $nextSoal]) }}" class="btn btn-info">
                             <span class="mr-1">Selanjutnya</span> 
                             <i class="fas fa-chevron-circle-right"></i>
-                        </a>
-                        @else
-                        <a href="{{ route('ujian.submitted') }}" class="btn btn-primary">
-                            <span class="mr-1">Selesai</span> 
-                            <i class="fas fa-check-circle"></i>
                         </a>
                         @endif 
 
@@ -104,6 +99,15 @@
 
             </div>
         </div>
+        @if($nextSoal == request('soal'))
+        <div class="col d-flex justify-content-center">
+            <form action="{{ route('ujian.submitted') }}" method="post">
+                <input type="hidden" name="kelas" value="{{ request('kelas') }}">
+                <input type="hidden" name="slug" value="{{ request('slug') }}">
+                <input type="submit" value="Selesai Ujian" class="btn btn-success btn-lg"> 
+            </form>
+        </div>
+        @endif
 
     </div>
 </div>
