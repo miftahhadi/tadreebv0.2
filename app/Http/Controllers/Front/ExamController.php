@@ -11,6 +11,7 @@ use App\Question;
 use App\ClassroomExam;
 use Carbon\Carbon;
 use App\Services\Front\InfoUjianService;
+use App\Services\Front\KerjainUjianService;
 
 class ExamController extends Controller
 {
@@ -40,119 +41,40 @@ class ExamController extends Controller
         return $info->init();
     }
 
-    public function kerjain(Classroom $kelas, $slug, $soal)
+    public function kerjain(Classroom $kelas, $slug, $soalId)
     {
 
-        $soal = $exam->questions()->findOrFail($soal);
+        $info = new KerjainUjianService($kelas, $slug, $soalId);
 
-        $info = new InfoUjianService($kelas, $slug);
+        $info->kerjainUjian();
 
-        // Sudah pernah mengerjakan?
-        $rekamPengerjaan = $classexam->users()->where('user_id',auth()->user()->id)->get();
-
-        $dataTerakhir = $rekamPengerjaan->last() ?? null;
-
-        // Kalau belum pernah ngerjain, alihkan ke halaman info
-        if (is_null($dataTerakhir)) {
-            return redirect(route('ujian.info', ['kelas' => $kelas, 'slug' => $slug]));
-        }
-
-        // Data untuk timer
-        $now = Carbon::now();
-
-        // Cek waktu mulai dari cookies, kalau gak ada ambil dari database dan simpan cookie
-        if (Cookie::get('waktu_mulai')) {
-            $start = Cookie::get('waktu_mulai');
-        } else {
-            $start = $dataTerakhir->pivot->waktu_mulai;
-            Cookie::make('waktu_mulai', $start, '300');
-        }
-
-        $waktuMulai = new Carbon($start);
-        // Cek waktu berakhir
-        $end = (new Carbon($start))->addMinutes($classexam->durasi)->toDateTimeString();
-        $waktuHabis = new Carbon($end);
-        // END Data timer
-
-        // Kalau waktu habis, ke halaman berhasil
-        if ($now > $waktuHabis) {
-            return redirect(route('ujian.submitted'));
-        }
-
-        // Navigasi
-        $nextSoal = $exam->questions()->where('question_id', '>', $soal->id)->min('question_id'); 
-        $prevSoal = $exam->questions()->where('question_id', '<', $soal->id)->max('question_id');
-        // END Navigasi
-
-        $totalSoal = $exam->questions()->count();
-        
-        $answers = $soal->answers->all();
-
-        $jawabanBenar = [];
-
-        foreach ($answers as $answer) {
-            if ($answer->benar == 1) {
-                $jawabanBenar[] = 1;
-            }
-        }
-
-        if (count($jawabanBenar) > 1) {
-            $choice = 'checkbox';
-        } else {
-            $choice = 'radio';
-        }
-
-        $nomorSoal = $exam->questions()->where('question_id', '<=', $soal->id)->count();
-
-        // User sudah ngerjain soal yang ini?
-        $jawabanUser = auth()->user()->answers()->where(
-            ['soal_id' => $soal->id],
-            ['classroom_exam_id' => $classexam->id]
-        )->get()->toArray();
+        dd($info->jawabanUser());
 
         return view('front.ujian.kerjain',[
-            'title' => 'Kerjakan Ujian | ' .  $exam->judul,
-            'kelas' => $kelas,
-            'exam' => $exam,
-            'answers' => $answers,
-            'soal' => $soal,
-            'totalSoal' => $totalSoal,
-            'nomorSoal' => $nomorSoal,
-            'nextSoal' => $nextSoal,
-            'prevSoal' => $prevSoal,
-            'choice' => $choice,
-            'start' => $start,
-            'end' => $end,
-            'jawabanUser' => $jawabanUser ?? ''
+            'title' => 'Kerjakan Ujian | ' .  $info->ujian->judul,
+            'kelas' => $info->kelas,
+            'exam' => $info->ujian,
+            'answers' => $info->getAnswers(),
+            'soal' => $info->soal,
+            'totalSoal' => $info->totalSoal(),
+            'nomorSoal' => $info->nomorSoal(),
+            'nextSoal' => $info->nextSoal(),
+            'prevSoal' => $info->prevSoal(),
+            'choice' => $info->choice(),
+            'start' => $info->start,
+            'end' => $info->end,
+            'jawabanUser' => $info->jawabanUser()
         ]);
     }
 
-    public function storeJawaban(Classroom $kelas, $slug, $soal, Request $request)
+    public function storeJawaban(Classroom $kelas, $slug, $soalId, Request $request)
     {
-        // Cek ujian
-        $exam = $kelas->exams()->where('slug', $slug)->first();
+        $info = new KerjainUjianService($kelas, $slug, $soalId);
 
-        $soal = $exam->questions()->find($soal);
-
-        $classexam = ClassroomExam::where([
-            ['classroom_id', $kelas->id],
-            ['exam_id', $exam->id]
-            ])->first();
-
-        // Sudah pernah mengerjakan?
-        $rekamPengerjaan = $classexam->users()->where('user_id',auth()->user()->id)->get();
-
-        $dataTerakhir = $rekamPengerjaan->last() ?? null;
-
-        $attempt = $dataTerakhir->pivot->attempt;
-
-        $nextSoal = $exam->questions()->where('question_id', '>', $soal->id)->min('question_id'); 
+        $attempt = $info->riwayat->pivot->attempt;
 
         // User sudah ngerjain soal yang ini?
-        $jawabanUser = auth()->user()->answers()->where(
-            ['soal_id' => $soal->id],
-            ['classroom_exam_id' => $classexam->id]
-        )->get()->toArray();
+        $jawabanUser = $info->jawabanUser();
         
         if (!empty($jawabanUser)) {
             foreach ($jawabanUser as $jwbUser) {

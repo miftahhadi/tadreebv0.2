@@ -3,8 +3,6 @@
 namespace App\Services\Front;
 
 use App\Classroom;
-use App\Exam;
-use App\Question;
 use App\ClassroomExam;
 use Carbon\Carbon;
 
@@ -12,10 +10,10 @@ class InfoUjianService
 {
     // Berikan info seputar ujian
     // Berikan info terkait peserta
-    private $kelas;
-    private $ujian;
-    private $classexam;
-    private $riwayat;
+    public $kelas;
+    public $classexam;
+    public $riwayat;
+    public $ujian;
     public $totalSoal;
     public $pesan;
     public $allowed;
