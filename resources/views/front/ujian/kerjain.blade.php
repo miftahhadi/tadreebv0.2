@@ -101,16 +101,36 @@
         </div>
         @if($nextSoal == request('soal'))
         <div class="col d-flex justify-content-center">
-            <form action="{{ route('ujian.submitted') }}" method="post">
-                <input type="hidden" name="kelas" value="{{ request('kelas') }}">
-                <input type="hidden" name="slug" value="{{ request('slug') }}">
-                <input type="submit" value="Selesai Ujian" class="btn btn-success btn-lg"> 
-            </form>
+            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#selesaiUjian">
+                <i class="fas fa-check-circle"></i>
+                <span class="ml-1">Selesai</span>
+            </button>
         </div>
         @endif
 
     </div>
 </div>
 
+<!-- Selesai Ujian -->
+<div class="modal fade" id="selesaiUjian" tabindex="-1" role="dialog" aria-labelledby="selesaiUjianLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+        Apakah Anda yakin?
+      </div>
+      <div class="modal-footer">
+        <form action="{{ route('ujian.submit') }}" method="post">
+        @csrf
+            <input type="hidden" name="kelas" value="{{ $kelas->id }}">
+            <input type="hidden" name="slug" value="{{ $exam->slug }}">
+            <input type="submit" value="Ya, saya sudah selesai" class="btn btn-success"> 
+        </form>
+        <button type="button" class="btn btn-white" data-dismiss="modal">Belum, kembali ke ujian</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END Selesai Ujian -->
 <script type="text/javascript" src="/js/app.js"></script>
 @endsection

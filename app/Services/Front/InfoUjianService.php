@@ -17,6 +17,7 @@ class InfoUjianService
     public $totalSoal;
     public $pesan;
     public $allowed;
+    public $durasi;
 
     public function __construct(Classroom $kelas, $slug)
     {
@@ -49,6 +50,15 @@ class InfoUjianService
 
     }
 
+    public function cekDurasi()
+    {
+        if (is_null($this->classexam->durasi) || $this->classexam->durasi == 0 ) {
+            return 0;
+        } else {
+            return $this->classexam->durasi;
+        }
+    }
+
     public function isAttemptAllowed() 
     {
         // Berapa kali percobaan yang diizinkan oleh ujian ini?
@@ -69,6 +79,11 @@ class InfoUjianService
         return ($userAttempt < $attemptAllowed) ? true : false;
     }
 
+    public function isStarted()
+    {
+        return ($this->riwayat);
+    }
+
     public function isDone() 
     {
         // Belum mengerjakan
@@ -76,21 +91,25 @@ class InfoUjianService
             return 'belum';
         }
 
-        if (is_null($this->classexam->durasi) || $this->classexam->durasi == 0) {
-            return null;
+        // Kalau sudah mengerjakan, periksa: 
+        // Apakah sudah submit
+        if (!is_null($this->riwayat->pivot->waktu_selesai)) {
+            return 'sudah';
         }
 
-        // Kalau sudah mengerjakan, periksa apakah sudah melebihi batas waktu atau belum
-        $waktuMulai = $this->waktuMulai();
-        
+        // Kalau durasi ujian tidak ada dan belum submit waktu selesai, status: sedang mengerjakan
+        if ($this->cekDurasi() == 0 && is_null($this->riwayat->pivot->waktu_selesai)) {
+            return 'sedang';
+        }
+
+        // Apakah sudah melebihi batas waktu atau belum        
         $waktuHabis = $this->waktuHabis();
 
         if ($waktuHabis > Carbon::now()) {
             return 'sedang';
         } elseif ($waktuHabis < Carbon::now()) {
-            return 'sudah';
+            return  'sudah';
         }
-
     }
 
     public function isAllowed()
@@ -113,7 +132,8 @@ class InfoUjianService
             case 'sudah':
                 $this->pesan = 'Anda sudah mengerjakan ujian ini';
                 break;
-        
+            
+            case null:
             case 'sedang':
                 $this->pesan = 'Anda sedang mengerjakan ujian ini';
                 break;
@@ -135,19 +155,20 @@ class InfoUjianService
         }
 
         $thisAttempt = $this->currentAttempt();
+        $durasi = $this->classexam->durasi;
 
         // Kalau sedang ngerjain, arahkan langsung ke halaman soal pertama
         if ($this->isDone() == 'sedang') {
             return redirect(route('ujian.kerjain', [
                 'kelas' => $this->kelas, 
-                'slug' => $this->slug, 
+                'slug' => $this->ujian->slug, 
                 'soal' => $this->soalPertama()
             ]));
         }
 
         // Simpan data
         $this->classexam->users()->attach(auth()->user()->id, [
-            'attempt' => 1, 
+            'attempt' => $thisAttempt, 
             'waktu_mulai' => Carbon::now()->toDateTimeString()
         ]);
 
@@ -175,7 +196,9 @@ class InfoUjianService
 
     public function submit()
     {
-        
+        return $this->classexam->users()->updateExistingPivot(auth()->user()->id,[
+            'waktu_selesai' => Carbon::now()->toDateTimeString()
+        ]);
     }
 
 }

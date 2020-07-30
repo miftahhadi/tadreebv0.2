@@ -29,7 +29,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <div class="alert @if ($info->isDone() == 'sedang' || $info->isDone() == 'belum') alert-info @elseif ($info->isDone() == 'sudah') alert-success @endif">
+                                <div class="alert @if ($info->isDone() != 'sudah') alert-info @else alert-success @endif">
                                     {{ $info->pesan }}
                                 </div>
                             </td>

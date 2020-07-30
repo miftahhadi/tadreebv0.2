@@ -4,12 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
 use App\Classroom;
-use App\Exam;
-use App\Question;
-use App\ClassroomExam;
-use Carbon\Carbon;
 use App\Services\Front\InfoUjianService;
 use App\Services\Front\KerjainUjianService;
 
@@ -85,7 +80,10 @@ class ExamController extends Controller
 
         $info = new InfoUjianService($kelas, $request->slug);
 
-        auth()->user()
+        $submit = $info->submit();
+
+        return redirect(route('ujian.submitted'));
+
     }
 
     public function submitted()
