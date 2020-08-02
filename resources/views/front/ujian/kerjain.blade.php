@@ -120,7 +120,7 @@
         Apakah Anda yakin?
       </div>
       <div class="modal-footer">
-        <form action="{{ route('ujian.submit') }}" method="post">
+        <form action="{{ route('ujian.submit', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }}" method="post" id="submitUjian">
         @csrf
             <input type="hidden" name="kelas" value="{{ $kelas->id }}">
             <input type="hidden" name="slug" value="{{ $exam->slug }}">

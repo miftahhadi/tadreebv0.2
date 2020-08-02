@@ -2047,7 +2047,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (distance < 0 && passTime < 0) {
         clearInterval(this.interval);
-        window.location.reload(true);
+        document.getElementById("submitUjian").submit();
         return;
       } else if (distance < 0 && passTime <= 300000) {
         this.nearEnd = true;

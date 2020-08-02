@@ -81,9 +81,9 @@ class ExamController extends Controller
 
         $info = new InfoUjianService($kelas, $request->slug);
 
-        $submit = $info->submit();
+        $info->submit();
 
-        return redirect(route('ujian.submitted'));
+        return redirect(route('ujian.submitted', ['kelas' => $info->kelas->id, 'slug' => $info->ujian->slug]));
 
     }
 
