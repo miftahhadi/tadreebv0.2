@@ -109,6 +109,10 @@ class KerjainUjianService extends InfoUjianService
 
     public function storeJawaban(Request $request)
     {
+        if (is_null($request->jawaban)){
+            return;
+        }
+
         // Cek peserta sudah pernah jawab atau belum
         $jawabanUser = $this->jawabanUser();
 
