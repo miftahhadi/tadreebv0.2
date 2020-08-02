@@ -18,6 +18,8 @@
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
     <!-- CSS files -->
     <link href="/assets/css/tabler.css" rel="stylesheet"/>
+    <!-- Arabic Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@200;300;400;600;700;900&family=Lateef&family=Markazi+Text:wght@400;500;600;700&family=Scheherazade:wght@400;700&display=swap" rel="stylesheet"> 
     <!-- jQuery -->
     <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- MomentJS -->
