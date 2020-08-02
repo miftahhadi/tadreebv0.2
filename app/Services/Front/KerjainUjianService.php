@@ -31,11 +31,12 @@ class KerjainUjianService extends InfoUjianService
 
             $now = Carbon::now();
 
-            $this->start = $this->cekWaktuMulai(); // string
-            $waktuMulai = new Carbon($this->start); // Carbon object
+            $waktuMulai = new Carbon($this->cekWaktuMulai()); // Carbon object
+            $this->start = $waktuMulai->valueOf();
 
-            $this->end = $waktuMulai->addMinutes($this->classexam->durasi)->toDateTimeString(); // string
-            $waktuHabis = new Carbon($this->end); // Carbon object
+            $endDate = $waktuMulai->addMinutes($this->classexam->durasi)->toDateTimeString(); // string
+            $waktuHabis = new Carbon($endDate); // Carbon object
+            $this->end = $waktuHabis->valueOf();
 
             if ($now > $waktuHabis) {
                 return redirect(route('ujian.submitted'));
@@ -71,15 +72,8 @@ class KerjainUjianService extends InfoUjianService
 
     public function cekWaktuMulai()
     {
-        // Cek dari cookie ada atau gak
-        // kalau gak ada, ambil dari database dan simpan ke cookie
-        if (array_key_exists('waktu_mulai', $_COOKIE)) {
-            return $_COOKIE['waktu_mulai'];
-        } else {
-            $start = $this->riwayat->pivot->waktu_mulai;
-            setcookie('waktu_mulai', $start,time()+60*60*24);
-            return $start;
-        }
+        return $this->riwayat->pivot->waktu_mulai;
+        
     }
 
 

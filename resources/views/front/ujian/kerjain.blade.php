@@ -16,9 +16,9 @@
 
                     <div class="card-action ml-auto">
                         <timer 
-                            starttime="{{ json_encode($start) }}"
-                            endtime="{{ json_encode($end) }}"
-                            ></timer>
+                            v-bind:starttime="{{ $start }}"
+                            v-bind:endtime="{{ $end }}"
+                        ></timer>
                     </div>
                 </div>
                 <div class="card-body">

@@ -2014,41 +2014,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['starttime', 'endtime'],
+  props: {
+    starttime: Number,
+    endtime: Number
+  },
   data: function data() {
     return {
-      timer: "",
-      start: "",
-      end: "",
-      interval: "",
-      minutes: "",
-      hours: "",
-      seconds: "",
+      seconds: 0,
+      minutes: 0,
+      hours: 0,
+      days: 0,
+      interval: 0,
       nearEnd: false
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    this.start = new Date(this.starttime).getTime();
-    this.end = new Date(this.endtime).getTime(); // Update the count down every 1 second
-
-    this.timerCount(this.start, this.end);
+    // Update the count down every 1 second
+    this.timerCount(this.starttime, this.endtime);
     this.interval = setInterval(function () {
-      _this.timerCount(_this.start, _this.end);
+      _this.timerCount(_this.starttime, _this.endtime);
     }, 1000);
   },
   methods: {
     timerCount: function timerCount(start, end) {
       // Get todays date and time
-      var now = new Date().getTime(); // Find the distance between now an the count down date
+      var now = moment__WEBPACK_IMPORTED_MODULE_0___default()().valueOf(); // Find the distance between now an the count down date
 
       var distance = start - now;
       var passTime = end - now;
 
       if (distance < 0 && passTime < 0) {
-        window.location.reload(true);
         clearInterval(this.interval);
+        window.location.reload(true);
         return;
       } else if (distance < 0 && passTime <= 300000) {
         this.nearEnd = true;
@@ -71904,8 +71903,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\Dev\laragon\tadreeb\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\Dev\laragon\tadreeb\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/turobi/Dev/dev/tadreeb/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/turobi/Dev/dev/tadreeb/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

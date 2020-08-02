@@ -10,43 +10,42 @@
     import moment from 'moment';
     
     export default {
-        props: ['starttime','endtime'],
+        props: {
+            starttime: Number,
+            endtime: Number
+        },
 
         data: function() {
                 return {
-                    timer:"",
-                    start: "",
-                    end: "",
-                    interval: "",
-                    minutes:"",
-                    hours:"",
-                    seconds:"",
+                    seconds: 0,
+                    minutes: 0,
+                    hours:0,
+                    days: 0,
+                    interval: 0,
                     nearEnd: false,
                 };
             },
         
         mounted() {
-            this.start = new Date(this.starttime).getTime();
-            this.end = new Date(this.endtime).getTime();
             // Update the count down every 1 second
-            this.timerCount(this.start,this.end);
+            this.timerCount(this.starttime,this.endtime);
             this.interval = setInterval(() => {
-                this.timerCount(this.start,this.end);
+                this.timerCount(this.starttime,this.endtime);
             }, 1000);
         },
 
         methods: {
             timerCount: function(start,end){
                 // Get todays date and time
-                const now = new Date().getTime();
+                const now = moment().valueOf();
 
                 // Find the distance between now an the count down date
                 let distance = start - now;
                 let passTime =  end - now;
 
                 if(distance < 0 && passTime < 0) {
-                    window.location.reload(true);
                     clearInterval(this.interval);
+                    window.location.reload(true);
                     return;
                 } else if (distance < 0 && passTime <= 300000) {
                     this.nearEnd = true;
