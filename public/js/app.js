@@ -2160,12 +2160,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 // TODO:    - input area belum bisa dikasih class is-invalid kalau error
 //          - kalau modal ditutup, input belum kereset
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'item-baru-form',
-  props: ['judul', 'item', 'action', 'url', 'slug'],
+  props: {
+    judul: String,
+    item: String,
+    action: String,
+    url: String,
+    slug: String
+  },
   data: function data() {
     return {
       form: {
@@ -59206,15 +59211,7 @@ var render = function() {
   return _c("div", [
     _c(
       "form",
-      {
-        attrs: { action: _vm.form.action, method: "post" },
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.checkForm($event)
-          }
-        }
-      },
+      { attrs: { action: _vm.form.action, method: "post" } },
       [
         _vm._t("default"),
         _vm._v(" "),

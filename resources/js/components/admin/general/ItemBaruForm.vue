@@ -3,7 +3,6 @@
         <form 
             :action="form.action" 
             method="post" 
-            @submit.prevent="checkForm"
         >
             <slot>
             </slot>
@@ -80,13 +79,13 @@
 //          - kalau modal ditutup, input belum kereset
 export default {
     name: 'item-baru-form', 
-    props: [
-        'judul',
-        'item',
-        'action',
-        'url',
-        'slug'
-    ],
+    props: {
+        judul: String,
+        item: String,
+        action: String,
+        url: String,
+        slug: String
+    },
     data() {
         return {
             form: {
