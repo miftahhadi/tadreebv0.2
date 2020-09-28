@@ -1,6 +1,6 @@
 <template>
     <div class="card-body">
-        Bla bla bla bla
+        <span v-html="question"></span>
 
         <div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
 
@@ -29,6 +29,10 @@
 
 <script>
 export default {
-    name: 'exam-question-container'
+    name: 'exam-question-container',
+
+    props: {
+        question: String
+    }
 }
 </script>

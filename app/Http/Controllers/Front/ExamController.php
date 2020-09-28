@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Classroom;
+use App\Exam;
 use App\Services\Front\InfoUjianService;
 use App\Services\Front\KerjainUjianService;
 use Carbon\Carbon;
+use PhpParser\Builder\Class_;
 
 class ExamController extends Controller
 {
@@ -59,6 +61,13 @@ class ExamController extends Controller
             'end' => $info->end,
             'jawabanUser' => $info->jawabanUser(),
         ]);
+    }
+
+    public function getSoal(Classroom $kelas, $slug, $soalId)
+    {
+        $info = $this->kerjain($kelas, $slug, $soalId);
+
+        return response()->json($info->soal->konten);
     }
 
     public function storeJawaban(Classroom $kelas, $slug, $soalId, Request $request)

@@ -2285,6 +2285,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'exam-doing-page',
   props: {
@@ -2295,8 +2297,21 @@ __webpack_require__.r(__webpack_exports__);
     return {
       lastQuestion: true,
       currentQuestionNumber: 1,
-      totalQuestion: 50
+      totalQuestion: 50,
+      question: ''
     };
+  },
+  mounted: function mounted() {
+    this.getQuestion();
+  },
+  methods: {
+    getQuestion: function getQuestion() {
+      var _this = this;
+
+      axios.get('/k/2/u/ujian-akhir-nahwu-dasar-2/soal/get/240').then(function (response) {
+        _this.question = response.data;
+      });
+    }
   }
 });
 
@@ -2341,7 +2356,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'exam-question-container'
+  name: 'exam-question-container',
+  props: {
+    question: String
+  }
 });
 
 /***/ }),
@@ -59562,7 +59580,9 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("exam-question-container"),
+            _c("exam-question-container", {
+              attrs: { question: _vm.question }
+            }),
             _vm._v(" "),
             _vm._m(0)
           ],
@@ -59600,7 +59620,7 @@ var staticRenderFns = [
         }),
         _vm._v(" "),
         _c("a", { staticClass: "btn btn-info", attrs: { href: "#" } }, [
-          _c("span", { staticClass: "mr-1" }, [_vm._v("Selanjutnya")]),
+          _c("span", { staticClass: "mr-1" }, [_vm._v("Lewati")]),
           _vm._v(" "),
           _c("i", { staticClass: "fas fa-chevron-circle-right" })
         ])
@@ -59650,48 +59670,49 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "card-body" }, [
+    _c("span", { domProps: { innerHTML: _vm._s(_vm.question) } }),
+    _vm._v(" "),
+    _vm._m(0)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _vm._v("\n    Bla bla bla bla\n\n    "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "form-selectgroup form-selectgroup-boxes d-flex flex-column"
-        },
-        [
-          _c("label", { staticClass: "form-selectgroup-item flex-fill" }, [
-            _c("input", {
-              staticClass: "form-selectgroup-input",
-              attrs: { type: "radio", name: "jawaban[]", value: "" }
-            }),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "form-selectgroup-label d-flex align-items-center p-3"
-              },
-              [
-                _c("div", { staticClass: "mr-3" }, [
-                  _c("span", { staticClass: "form-selectgroup-check" })
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _vm._v("\n                    Meong meong\n                ")
-                ])
-              ]
-            )
-          ])
-        ]
-      )
-    ])
+    return _c(
+      "div",
+      {
+        staticClass:
+          "form-selectgroup form-selectgroup-boxes d-flex flex-column"
+      },
+      [
+        _c("label", { staticClass: "form-selectgroup-item flex-fill" }, [
+          _c("input", {
+            staticClass: "form-selectgroup-input",
+            attrs: { type: "radio", name: "jawaban[]", value: "" }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "form-selectgroup-label d-flex align-items-center p-3"
+            },
+            [
+              _c("div", { staticClass: "mr-3" }, [
+                _c("span", { staticClass: "form-selectgroup-check" })
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _vm._v("\n                    Meong meong\n                ")
+              ])
+            ]
+          )
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true

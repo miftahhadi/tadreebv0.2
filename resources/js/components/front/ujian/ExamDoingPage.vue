@@ -14,7 +14,9 @@
                         </div>
                     </div>
                     
-                    <exam-question-container></exam-question-container>
+                    <exam-question-container
+                        :question="question"
+                    ></exam-question-container>
 
                     <div class="card-footer">
                         <div class="btn-list">
@@ -22,7 +24,7 @@
                             <input type="submit" class="btn btn-success" value="Jawab">
                             
                             <a href="#" class="btn btn-info">
-                                <span class="mr-1">Selanjutnya</span> 
+                                <span class="mr-1">Lewati</span> 
                                 <i class="fas fa-chevron-circle-right"></i>
                             </a>
 
@@ -62,7 +64,21 @@ export default {
         return {
             lastQuestion: true,
             currentQuestionNumber: 1,
-            totalQuestion: 50
+            totalQuestion: 50,
+            question: '',
+        }
+    },
+
+    mounted() {
+        this.getQuestion();
+    },
+
+    methods: {
+        getQuestion() {
+            axios.get('/k/2/u/ujian-akhir-nahwu-dasar-2/soal/get/240')
+                    .then(response => {
+                        this.question = response.data;
+                    });
         }
     }
 }
