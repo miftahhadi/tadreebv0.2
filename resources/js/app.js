@@ -24,6 +24,10 @@ Vue.component('show-question-button', require('./components/ShowQuestionButton.v
 Vue.component('timer', require('./components/Timer.vue').default);
 Vue.component('item-baru-form', require('./components/admin/general/ItemBaruForm.vue').default);
 
+Vue.component('exam-doing-page', require('./components/front/ujian/ExamDoingPage.vue').default);
+Vue.component('exam-question-container', require('./components/front/ujian/ExamQuestionContainer.vue').default);
+Vue.component('exam-question-directory', require('./components/front/ujian/ExamQuestionDirectory.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -39,7 +39,7 @@ class KerjainUjianService extends InfoUjianService
             $this->end = $waktuHabis->valueOf();
 
             if ($now > $waktuHabis) {
-                return redirect(route('ujian.submitted'));
+                return redirect(route('ujian.submitted', ['kelas' => $this->kelas, 'slug' => $this->ujian->slug]));
             }
 
         }

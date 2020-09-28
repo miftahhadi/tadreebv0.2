@@ -43,7 +43,7 @@ class ExamController extends Controller
         $info = new KerjainUjianService($kelas, $slug, $soalId);
 
         $info->kerjainUjian();
-
+        
         return view('front.ujian.kerjain',[
             'title' => 'Kerjakan Ujian | ' .  $info->ujian->judul,
             'kelas' => $info->kelas,
