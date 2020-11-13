@@ -12,6 +12,7 @@ use App\Classroom;
 use App\Role;
 use App\CsvUserData;
 use Carbon\Carbon;
+use Throwable;
 
 class UserController extends Controller
 {
@@ -123,7 +124,7 @@ class UserController extends Controller
         $data = CsvUserData::find($request->csv_data_file_id);
         $csvData = json_decode($data->csv_data, true);
 
-        foreach ($csvData as $row) {
+        /* foreach ($csvData as $row) {
             $user = User::create([
                 'nama' => $row[0],
                 'email' => $row[1],
@@ -144,6 +145,60 @@ class UserController extends Controller
                 $user->classrooms()->attach($row[7]);
             }
 
+        } */
+
+        $errors = [];
+
+        $imported = 0;
+
+        $updated = 0;
+
+        foreach ($csvData as $key => $row) {
+            $user = User::where('username', $row[2])->first();
+
+            if ($user !== null) {
+
+                try {
+                    $user->classrooms()->attach($row[7]);
+                    $updated++; 
+                } catch (Throwable $e) {
+                    $error = 'Error untuk baris ' . $key . ': ' . report($e);
+
+                    array_push($errors, $error);
+                }
+            
+            } else {
+
+                try {
+                    $user = User::create([
+                        'nama' => $row[0],
+                        'email' => $row[1],
+                        'username' => $row[2],
+                        'password' => Hash::make($row[3]),
+                        'gender' => $row[5],
+                        'tanggal_lahir' => ($row[6] != '') ? Carbon::parse($row[6])->format('Y-m-d')
+                                                            : null
+                    ]);
+    
+                    if ($row[4]) {
+                        $user->assignRole($row[4]);
+                    } else {
+                        $user->assignRole(4);
+                    }
+    
+                    if (Classroom::find($row[7])) {
+                        $user->classrooms()->attach($row[7]);
+                    }
+
+                    $imported++;
+                    
+                } catch (Throwable $e) {
+                    $error = 'Error untuk baris ' . $key . ': ' . report($e);
+
+                    array_push($errors, $error);
+                }
+
+            }
         }
 
         return redirect(route('user.index'));
