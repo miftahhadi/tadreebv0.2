@@ -11,7 +11,7 @@ class SaveSettingUjianService
         if ($tanggal != null) {
             $result = $tanggal . ' ' . $waktu;
 
-            $result = new Carbon($tanggal);
+            $result = new Carbon($tanggal, 'UTC');
         } else {
             $result = null;
         }

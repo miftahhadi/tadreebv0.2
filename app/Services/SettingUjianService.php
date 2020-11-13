@@ -11,7 +11,7 @@ class SettingUjianService
 
         if (!is_null($waktu)) {
 
-            $waktu = new Carbon($waktu);
+            $waktu = new Carbon($waktu, '+07:00');
             $result['tanggal'] = $waktu->toDateString();
             $result['waktu'] = $waktu->format('h:i');
     
