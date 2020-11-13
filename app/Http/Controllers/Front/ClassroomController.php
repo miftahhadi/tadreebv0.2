@@ -134,8 +134,6 @@ class ClassroomController extends Controller
 
         $batas_buka = $setting->setWaktu($request->batas_buka['tanggal'], $request->batas_buka['waktu']);
 
-        $now = Carbon::now();
-
         $kelas->exams()->updateExistingPivot($ujian->id, [
             'tampil' => $request->tampil,
             'buka' => $request->buka,

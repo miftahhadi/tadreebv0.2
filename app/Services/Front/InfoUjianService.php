@@ -4,6 +4,7 @@ namespace App\Services\Front;
 
 use App\Classroom;
 use App\ClassroomExam;
+use App\Exam;
 use Carbon\Carbon;
 
 class InfoUjianService
@@ -19,11 +20,11 @@ class InfoUjianService
     public $allowed;
     public $durasi;
 
-    public function __construct(Classroom $kelas, $slug)
+    public function __construct(Classroom $kelas, Exam $ujian)
     {
         $this->kelas = $kelas;
 
-        $this->ujian = $kelas->exams()->where('slug', $slug)->first();
+        $this->ujian = $ujian;
 
         $this->classexam = ClassroomExam::where([
                                                     ['classroom_id', $kelas->id],

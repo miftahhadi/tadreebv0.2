@@ -5,17 +5,16 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Classroom;
+use App\Exam;
 use App\Services\Front\InfoUjianService;
 use App\Services\Front\KerjainUjianService;
 use Carbon\Carbon;
 
 class ExamController extends Controller
 {
-    public function info(Classroom $kelas, $slug)
+    public function info(Classroom $kelas,Exam $exam)
     {
-        $exam = $kelas->exams()->where('slug', $slug)->first();
-
-        $info = new InfoUjianService($kelas, $slug);
+        $info = new InfoUjianService($kelas, $exam);
 
         $info->infoPage();
 

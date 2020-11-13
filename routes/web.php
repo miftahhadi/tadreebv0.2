@@ -43,19 +43,19 @@ Route::group([
     Route::redirect('/kelas/{kelas}', '/kelas/{kelas}/beranda', 302);
 
     // Kerjain ujian
-    Route::get('/k/{kelas}/u/{slug}', 'ExamController@info')->name('ujian.info');
-    Route::get('/k/{kelas}/u/{slug}/init', 'ExamController@init')->name('ujian.init');
-    Route::get('k/{kelas}/u/{slug}/soal/{soal}', 'ExamController@kerjain')->name('ujian.kerjain');
-    Route::get('k/{kelas}/u/{slug}/submitted', 'ExamController@submitted')->name('ujian.submitted');
-    Route::post('k/{kelas}/u/{slug}/soal/{soal}', 'ExamController@storeJawaban')->name('ujian.storeJawaban');
-    Route::post('k/{kelas}/u/{slug}/submitted', 'ExamController@submit')->name('ujian.submit');
+    Route::get('/k/{kelas}/u/{exam:slug}', 'ExamController@info')->name('ujian.info');
+    Route::get('/k/{kelas}/u/{exam:slug}/init', 'ExamController@init')->name('ujian.init');
+    Route::get('k/{kelas}/u/{exam:slug}/soal/{soal}', 'ExamController@kerjain')->name('ujian.kerjain');
+    Route::get('k/{kelas}/u/{exam:slug}/submitted', 'ExamController@submitted')->name('ujian.submitted');
+    Route::post('k/{kelas}/u/{exam:slug}/soal/{soal}', 'ExamController@storeJawaban')->name('ujian.storeJawaban');
+    Route::post('k/{kelas}/u/{exam:slug}/submitted', 'ExamController@submit')->name('ujian.submit');
 
     // Hasil ujian
-    Route::get('/k/{kelas}/u/{slug}/hasil/', 'HasilController@showAll')->name('ujian.hasil.showAll');
-    Route::get('/k/{kelas}/u/{slug}/hasil/selesai', 'HasilController@showDone')->name('ujian.hasil.showDone');
+    Route::get('/k/{kelas}/u/{exam:slug}/hasil/', 'HasilController@showAll')->name('ujian.hasil.showAll');
+    Route::get('/k/{kelas}/u/{exam:slug}/hasil/selesai', 'HasilController@showDone')->name('ujian.hasil.showDone');
 
     // Detail nilai ujian
-    Route::get('/k/{kelas}/u/{slug}/detail/{user}', 'HasilController@detail')->name('ujian.hasil.detail');
+    Route::get('/k/{kelas}/u/{exam:slug}/detail/{user}', 'HasilController@detail')->name('ujian.hasil.detail');
 
     Route::get('/denied', 'TolakController@index')->name('denied');
 });
