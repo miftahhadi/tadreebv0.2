@@ -32,12 +32,12 @@
                 <td>{{ $exam->judul }}</td>
                 <td class="text-right">
     
-                    <a href="{{ route('ujian.info', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }}" class="btn btn-icon bg-light" data-toggle="tooltip" title="Buka">Buka</a>
+                    <a href="{{ route('ujian.info', ['kelas' => $kelas->id, 'exam' => $exam->slug]) }}" class="btn btn-icon bg-light" data-toggle="tooltip" title="Buka">Buka</a>
 
                     @if (auth()->user()->isAdmin() || auth()->user()->isTeacher())
                     <a href="{{ route('kelas.ujian.setting', ['kelas' => $kelas->id, 'ujian' => $exam->id]) }}" class="btn btn-icon bg-light" data-toggle="tooltip" title="Pengaturan">Pengaturan</a>
 
-                    <a href="{{ route('ujian.hasil.showAll', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }}" class="btn btn-icon bg-light" data-toggle="tooltip" title="Pengaturan">Hasil</a>
+                    <a href="{{ route('ujian.hasil.showAll', ['kelas' => $kelas->id, 'exam' => $exam->slug]) }}" class="btn btn-icon bg-light" data-toggle="tooltip" title="Pengaturan">Hasil</a>
                     
                     <!-- Button modal trigger-->
                     <button type="button" class="btn btn-icon btn-danger" data-toggle="modal" data-id="" data-target="#hapusData">Buang</button>

@@ -4,6 +4,7 @@ namespace App\Services\Front;
 
 use Illuminate\Http\Request;
 use App\Classroom;
+use App\Exam;
 use Carbon\Carbon;
 
 class KerjainUjianService extends InfoUjianService
@@ -12,9 +13,9 @@ class KerjainUjianService extends InfoUjianService
     public $start;
     public $end;
 
-    public function __construct(Classroom $kelas, $slug, $soalId)
+    public function __construct(Classroom $kelas, Exam $exam, $soalId)
     {
-        parent::__construct($kelas, $slug);
+        parent::__construct($kelas, $exam);
         $this->soal = $this->getSoal($soalId);
     }
 
@@ -22,7 +23,7 @@ class KerjainUjianService extends InfoUjianService
     {
         // Kalau belum pernah ngerjain, arahkan ke halaman info
         if (!$this->riwayat) {
-            return redirect(route('ujian.info', ['kelas' => $this->kelas, 'slug' => $this->ujian->slug]));
+            return redirect(route('ujian.info', ['kelas' => $this->kelas, 'exam' => $this->ujian->slug]));
         }
 
 

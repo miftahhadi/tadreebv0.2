@@ -82,7 +82,7 @@ class ExamController extends Controller
 
         $info->submit();
 
-        return redirect(route('ujian.submitted', ['kelas' => $info->kelas->id, 'slug' => $info->ujian->slug]));
+        return redirect(route('ujian.submitted', ['kelas' => $info->kelas->id, 'exam' => $info->ujian->slug]));
 
     }
 

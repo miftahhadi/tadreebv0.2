@@ -30,7 +30,7 @@
                             </div>
 
                             <div class="col">
-                                <a href="{{ route('ujian.info', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }}" class="stretched-link"><h3 class="m-0">{{ $exam->judul }}</h3></a>
+                                <a href="{{ route('ujian.info', ['kelas' => $kelas->id, 'exam' => $exam->slug]) }}" class="stretched-link"><h3 class="m-0">{{ $exam->judul }}</h3></a>
 
                                 @if ($exam->pivot->buka == 1)
                                 <span class="badge bg-success">Terbuka</span>

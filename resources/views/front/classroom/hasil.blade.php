@@ -11,8 +11,8 @@
 
 <div class="row pb-2">
     <div class="col btn-list">
-        <a href="{{ route('ujian.hasil.showAll', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }}" class="btn btn-primary btn-sm">Semua peserta</a>
-        <a href="{{ route('ujian.hasil.showDone', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }}" class="btn btn-primary btn-sm">Sudah mengerjakan</a>
+        <a href="{{ route('ujian.hasil.showAll', ['kelas' => $kelas->id, 'exam' => $exam->slug]) }}" class="btn btn-primary btn-sm">Semua peserta</a>
+        <a href="{{ route('ujian.hasil.showDone', ['kelas' => $kelas->id, 'exam' => $exam->slug]) }}" class="btn btn-primary btn-sm">Sudah mengerjakan</a>
         <a href="#" class="btn btn-primary btn-sm">Belum mengerjakan</a>
     </div>
 </div>

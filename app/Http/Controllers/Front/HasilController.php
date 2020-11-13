@@ -51,17 +51,14 @@ class HasilController extends Controller
 
     }
 
-    public function detail(Classroom $kelas, $slug, User $user)
+    public function detail(Classroom $kelas, Exam $exam, User $user)
     {
         // User boleh buka halaman ini?
         if (auth()->user()->id != $user->id) {
             if (!auth()->user()->isAdmin() && !auth()->user()->isTeacher()) {
-                return redirect(route('ujian.hasil.detail', ['kelas' => $kelas->id, 'slug' => $slug, 'user' => auth()->user()->id]));
+                return redirect(route('ujian.hasil.detail', ['kelas' => $kelas->id, 'exam' => $exam->slug, 'user' => auth()->user()->id]));
             } 
         }
-
-        // Ambil object exam
-        $exam = $kelas->exams()->where('slug', $slug)->first();
 
         // Setting kunci dibuka atau tidak
         if (auth()->user()->isAdmin() || auth()->user()->isTeacher()) {

@@ -8,7 +8,7 @@
 
     </div>
     <div class="col-md-7">
-        <form action="{{ route('ujian.storeJawaban', ['kelas' => $kelas->id, 'slug' => $exam->slug, 'soal' => $soal->id]) }}" method="post">
+        <form action="{{ route('ujian.storeJawaban', ['kelas' => $kelas->id, 'exam' => $exam->slug, 'soal' => $soal->id]) }}" method="post">
         @csrf
             <div class="card" id="app">
                 <div class="card-header">
@@ -54,7 +54,7 @@
                     <div class="btn-list">
                     
                         @if ($prevSoal)
-                        <a href="{{ route('ujian.kerjain', ['kelas' => $kelas->id, 'slug' => $exam->slug, 'soal' => $prevSoal]) }}" class="btn btn-info">
+                        <a href="{{ route('ujian.kerjain', ['kelas' => $kelas->id, 'exam' => $exam->slug, 'soal' => $prevSoal]) }}" class="btn btn-info">
                             <i class="fas fa-chevron-circle-left"></i>
                             <span class="ml-1">Sebelumnya</span>
                         </a>
@@ -63,7 +63,7 @@
                         <input type="submit" class="btn btn-success" value="Jawab">
                         
                         @if ($nextSoal != request('soal'))
-                        <a href="{{ route('ujian.kerjain', ['kelas' => $kelas->id, 'slug' => $exam->slug, 'soal' => $nextSoal]) }}" class="btn btn-info">
+                        <a href="{{ route('ujian.kerjain', ['kelas' => $kelas->id, 'exam' => $exam->slug, 'soal' => $nextSoal]) }}" class="btn btn-info">
                             <span class="mr-1">Selanjutnya</span> 
                             <i class="fas fa-chevron-circle-right"></i>
                         </a>
@@ -87,7 +87,7 @@
 
                     <a href="{{ route('ujian.kerjain', [
                             'kelas' => $kelas->id,
-                            'slug' => $exam->slug,
+                            'exam' => $exam->slug,
                             'soal' => $question->id
                             ]) }}" 
                         class="btn btn-light btn-sm @if (request('soal') == $question->id) active @endif ">
@@ -120,7 +120,7 @@
         Apakah Anda yakin?
       </div>
       <div class="modal-footer">
-        <form action="{{ route('ujian.submit', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }}" method="post" id="submitUjian">
+        <form action="{{ route('ujian.submit', ['kelas' => $kelas->id, 'exam' => $exam->slug]) }}" method="post" id="submitUjian">
         @csrf
             <input type="hidden" name="kelas" value="{{ $kelas->id }}">
             <input type="hidden" name="slug" value="{{ $exam->slug }}">

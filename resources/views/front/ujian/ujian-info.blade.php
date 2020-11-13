@@ -48,13 +48,13 @@
             <a href="{{ route('main.index') }}" class="btn btn-white">Kembali</a>
 
             @if ($info->isDone() == 'sudah')
-            <a href="{{ route('ujian.hasil.detail', ['kelas' => $kelas->id, 'slug' => $exam->slug, 'user' => auth()->user()->id]) }}" 
+            <a href="{{ route('ujian.hasil.detail', ['kelas' => $kelas->id, 'exam' => $exam->slug, 'user' => auth()->user()->id]) }}" 
                 class="btn btn-primary">
                 Lihat Hasil
             </a>
             @endif
 
-            <a href="@if ($info->allowed === true) {{ route('ujian.init', ['kelas' => $kelas->id, 'slug' => $exam->slug]) }} @else # @endif" 
+            <a href="@if ($info->allowed === true) {{ route('ujian.init', ['kelas' => $kelas->id, 'exam' => $exam->slug]) }} @else # @endif" 
                 class="btn btn-success @if ($info->allowed !== true) disabled @endif">
                 Mulai Kerjakan
             </a>
