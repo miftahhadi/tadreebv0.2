@@ -162,7 +162,7 @@ class InfoUjianService
         if ($this->isDone() == 'sedang') {
             return redirect(route('ujian.kerjain', [
                 'kelas' => $this->kelas, 
-                'slug' => $this->ujian->slug, 
+                'exam' => $this->ujian->slug, 
                 'soal' => $this->soalPertama()
             ]));
         }
@@ -176,7 +176,7 @@ class InfoUjianService
         // Arahkan ke soal pertama
         return redirect(route('ujian.kerjain', [
             'kelas' => $this->kelas, 
-            'slug' => $this->ujian->slug, 
+            'exam' => $this->ujian->slug, 
             'soal' => $this->soalPertama()
         ]));
     }

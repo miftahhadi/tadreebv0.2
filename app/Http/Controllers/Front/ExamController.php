@@ -68,7 +68,7 @@ class ExamController extends Controller
 
         return redirect(route('ujian.kerjain', [
             'kelas' => $info->kelas->id, 
-            'slug' => $info->ujian->slug, 
+            'exam' => $info->ujian->slug, 
             'soal' => $info->nextSoal()
         ]));
 
